@@ -1,0 +1,17 @@
+---
+title: "Proposal"
+output: html_document
+---
+
+1. A one sentence description of your high-level goal.
+
+
+2. A one to two paragraph description of your goals, including your motivation.
+
+
+3. A weekly “plan of attack” outlining your steps to complete your project and including the team member(s) assigned to that task.
+
+
+4. The final organization of your project repository. This means describing the project organization in your proposal as well as implementing that organization in your repo. Create any folders needed and place a README.md in each folder explaining what goes in there.
+
+
