@@ -13,6 +13,62 @@ In class, we learned about scale_color_vidiris and scale_fill_viridis, two funct
  
 **3. A weekly “plan of attack” outlining your steps to complete your project and including the team member(s) assigned to that task.**
 
+DUE DATES:
+Proposal due November 5.
+Revised proposal due November 12.
+Write-up and presentation due December 3.
+
+
+Proposal (Due November 5):
+
+- One sentence description: Kate (done by 11/1)
+- Motivation: Sophie (done by 11/1)
+- Weekly plan of attack: Sophie and Kate (done by 11/1)
+- Goals: Parker and Holly (done by 11/1)
+- Organization: Holly (done by 11/1)
+- Dates: 
+  - Finish rough draft of all of our parts by end of day on 11/1
+  - All members read over entire rough draft and make edits by 11/3
+  - Final draft of proposal complete by end of day 11/3
+
+
+Revised Proposal (Due November 12):
+
+- Review comments individually on 11/9
+- Meet on 11/10 to revise proposal
+- Close all comments by 11/11
+- Submit updated proposal by end of day 11/11
+
+
+Write-Up (Due December 3):
+
+- Introduction (by 11/13):
+  - Sophie and Parker
+- Sliding Color Scale (by 11/17):
+  - As a team: study room reserved for week of 11/15
+  - Find images that are conducive to our goals
+    - Parker
+- Conclusion (by 11/25):
+  - Holly and Kate
+
+
+Website (Due December 3): 
+
+- Our project is a Shiny App and therefore is a website
+- We will add a page to our website by the end of November including our Write-Up
+Sophie
+
+
+Presentation (Due December 3):
+
+- Our presentation will include a demo of our website 
+- Slides including our motivation and significance of the social impact of understanding color blindness
+  - Make slides by end of November: 
+    - Kate and Holly
+- Entire team practice and make final edits to presentation and write-up on 12/2 
+  - Link group study 3 reserved 7-11pm
+
+
 
 **4. The final organization of your project repository.** This means describing the project organization in your proposal as well as implementing that organization in your repo. Create any folders needed and place a README.md in each folder explaining what goes in there.
 
