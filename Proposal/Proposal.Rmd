@@ -1,6 +1,7 @@
 ---
-title: "Proposal"
-output: html_document
+title: "Project Proposal"
+author: "Stats R Us"
+output: github_document
 ---
 
 **1. A one sentence description of your high-level goal.**
