@@ -79,11 +79,13 @@ Presentation (Due December 3):
     write-up on 12/2
     -   Link group study 3 reserved 7-11pm
 
-**4. The final organization of your project repository.** There will be
-two main folders created under the project repository, one containing
-the major RMD file with the Shiny app design and the other including all
-images we will be using to work on the different types of filters. A
-separate presentation folder will also be created using xaringan.
+**4. The final organization of your project repository.**
+
+There will be two main folders created under the project repository, one
+containing the major RMD file with the Shiny app design and the other
+including all images we will be using to work on the different types of
+filters. A separate presentation folder will also be created using
+xaringan.
 
 Folder structure: App (.rmd, .html (website), README describing sections
 of website and user interface) Data (images that will be used on
