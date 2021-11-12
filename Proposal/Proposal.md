@@ -4,6 +4,11 @@ Team: Stats R Us
 
 **Background information:**
 
+Before we start, let’s see some preliminary data visualization regarding
+statistics of colorblindness in the US. (You may find it helpful
+referring to the main page README for information about different types
+of colorblindness.)
+
 ``` r
 library(tidyr)
 library(tidyverse)
@@ -32,11 +37,11 @@ GET("https://query.data.world/s/m334npjqtx64m4ztmznpfjbencph6k", write_disk(tf <
 ```
 
     ## Response [https://download.data.world/file_download/datacrunch/prevalence-of-vision-problems-in-the-u-s/Prevelance%20of%20Eye%20Diseases%20in%20US.xlsx?auth=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9kLXVzZXItY2xpZW50OnNvcGhpZWRhbGxkb3JmIiwiaXNzIjoiYWdlbnQ6c29waGllZGFsbGRvcmY6Ojg2OWFjYzY4LTYxZjYtNGE1Yy1iNzdiLTBlMTIwMzIzNzkyNCIsImlhdCI6MTYzNjY4MDcwMSwicm9sZSI6WyJ1c2VyIiwidXNlcl9hcGlfYWRtaW4iLCJ1c2VyX2FwaV9lbnRlcnByaXNlX2FkbWluIiwidXNlcl9hcGlfcmVhZCIsInVzZXJfYXBpX3dyaXRlIl0sImdlbmVyYWwtcHVycG9zZSI6ZmFsc2UsInVybCI6ImE5MjAxMGY3MzJjNzQyZWE2M2UwNWZmM2VhMjEzNGEwNzU4ZmI2ZDAifQ.YEB-l3lhe4tpjKfz_yr1dvP6LLMuDeICFHZqq0GAUrXwQPmDoiog2pFs7ddX_bO8-BF5PJATuZ7RoxOxar8vzA]
-    ##   Date: 2021-11-12 15:51
+    ##   Date: 2021-11-12 16:17
     ##   Status: 200
     ##   Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
     ##   Size: 2.37 MB
-    ## <ON DISK>  /tmp/Rtmp1OvFTt/file2d943bdf6d83.xlsx
+    ## <ON DISK>  /tmp/RtmpDLWJWE/file2f2379dc323d.xlsx
 
 ``` r
 vision_data <- read_excel(tf)

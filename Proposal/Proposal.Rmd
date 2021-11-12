@@ -6,6 +6,8 @@ output: github_document
 
 **Background information:**
 
+Before we start, let's see some preliminary data visualization regarding statistics of colorblindness in the US. (You may find it helpful referring to the main page README for information about different types of colorblindness.)
+
 ```{r loading-packages-and-data}
 library(tidyr)
 library(tidyverse)
