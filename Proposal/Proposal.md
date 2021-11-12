@@ -32,11 +32,11 @@ GET("https://query.data.world/s/m334npjqtx64m4ztmznpfjbencph6k", write_disk(tf <
 ```
 
     ## Response [https://download.data.world/file_download/datacrunch/prevalence-of-vision-problems-in-the-u-s/Prevelance%20of%20Eye%20Diseases%20in%20US.xlsx?auth=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9kLXVzZXItY2xpZW50OnNvcGhpZWRhbGxkb3JmIiwiaXNzIjoiYWdlbnQ6c29waGllZGFsbGRvcmY6Ojg2OWFjYzY4LTYxZjYtNGE1Yy1iNzdiLTBlMTIwMzIzNzkyNCIsImlhdCI6MTYzNjY4MDcwMSwicm9sZSI6WyJ1c2VyIiwidXNlcl9hcGlfYWRtaW4iLCJ1c2VyX2FwaV9lbnRlcnByaXNlX2FkbWluIiwidXNlcl9hcGlfcmVhZCIsInVzZXJfYXBpX3dyaXRlIl0sImdlbmVyYWwtcHVycG9zZSI6ZmFsc2UsInVybCI6ImE5MjAxMGY3MzJjNzQyZWE2M2UwNWZmM2VhMjEzNGEwNzU4ZmI2ZDAifQ.YEB-l3lhe4tpjKfz_yr1dvP6LLMuDeICFHZqq0GAUrXwQPmDoiog2pFs7ddX_bO8-BF5PJATuZ7RoxOxar8vzA]
-    ##   Date: 2021-11-12 04:11
+    ##   Date: 2021-11-12 04:24
     ##   Status: 200
     ##   Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
     ##   Size: 2.37 MB
-    ## <ON DISK>  /tmp/Rtmp2Nk6d0/file27825ebbc471.xlsx
+    ## <ON DISK>  /tmp/RtmpY4hoL2/file2a9c295c08b8.xlsx
 
 ``` r
 vision_data <- read_excel(tf)
@@ -122,8 +122,6 @@ rates of less commonly known types of color blindness, statistics about
 which will be referenced from <https://iristech.co/statistics/>. We also
 found background information on colorblindness at
 <https://www.colourblindawareness.org/colour-blindness/>.
-
-![“hi”](/home/guest/Project%202/project-2-stats_r_us/Image/Color-blind-grid.jpeg)
 
 **3. Plan of attack**
 

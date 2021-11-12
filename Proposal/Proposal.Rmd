@@ -89,7 +89,6 @@ in order to compare the prevalence of commonly known vision problems to rates
 of less commonly known types of color blindness, statistics about which will 
 be referenced from https://iristech.co/statistics/. We also found background information on colorblindness at https://www.colourblindawareness.org/colour-blindness/. 
 
-!["hi"](/home/guest/Project 2/project-2-stats_r_us/Image/Color-blind-grid.jpeg)
 
 **3. Plan of attack**
 
