@@ -5,7 +5,7 @@ Project 2 - Stats R Us
 
 
 
-<img src="Image/colorful-flowers.jpeg" width="80%" /> 
+<img src="Image/colorful-flowers.jpeg" width="100%" /> 
 
 What do you see from this image? 
 Flowers, crowded, and colorful... 
