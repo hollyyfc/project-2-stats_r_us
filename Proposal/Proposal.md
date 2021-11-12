@@ -26,6 +26,18 @@ of the noncolorblind community to understand accessibility issues in the
 plots and images they make. We can all move towards more accessible and
 equitable visualizations with our project.
 
+One package that we will use in this app will be the `imager` library,
+which contains a large array of functions for working with image data.
+As we allow users to input images and filter them for different types of
+color blindness, as well as creating a colorblind test, the
+functionality of this package will be helpful. A dataset we may choose
+to incorporate when talking about the significance of our project can be
+found at
+<https://data.world/datacrunch/prevalence-of-vision-problems-in-the-u-s>,
+in order to compare the prevalence of commonly known vision problems to
+rates of less commonly known types of color blindness, statistics about
+which will be referenced from <https://iristech.co/statistics/>.
+
 **3. A weekly “plan of attack” outlining your steps to complete your
 project and including the team member(s) assigned to that task.**
 
