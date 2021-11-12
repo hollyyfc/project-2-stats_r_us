@@ -4,15 +4,93 @@ author: "Stats R Us"
 output: github_document
 ---
 
+Background information:
+
+```{r loading-packages-and-data}
+library(tidyr)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library("httr")
+library("readxl")
+GET("https://query.data.world/s/m334npjqtx64m4ztmznpfjbencph6k", write_disk(tf <- tempfile(fileext = ".xlsx")))
+vision_data <- read_excel(tf)
+```
+
+```{r}
+vision_data <- vision_data %>%
+  group_by(vision_problem) %>%
+  summarise(num_cases = sum(number_of_cases))
+```
+
+```{r background-plots}
+ggplot(data = vision_data, aes(x = reorder(vision_problem, -num_cases), y = num_cases, fill = vision_problem)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = num_cases), check_overlap = TRUE, vjust = -.3, size = 3) +
+  theme_minimal() +
+  theme(legend.position = "none",
+        axis.title.x = element_blank(),
+        axis.text.x = element_text(angle = 30, hjust = 1)) +
+  scale_fill_viridis_d() +
+  scale_y_continuous(name = "Total Number of Cases",
+                     breaks = c(0, 100000000, 200000000, 300000000, 400000000, 500000000, 600000000),
+                     labels = c("0", "100M", "200M", "300M", "400M", "500M", "600M")) +
+  labs(title = "Prevelance of Vision Problems in the U.S.", caption = "Data sourced from data.world")
+
+  
+```
+  
+  Vision problems affect 1,430,176,980 Americans. As we can see above, the eight 
+  most prevalent types of vision problems include myopia, cataracts, hyperopia, 
+  diabetic tetinopathy, vision impairment, glaucoma, AMD (Age-Related Macular 
+  Degeneration), and blindness. Myopia affects the most people at 500 million, 
+  and blindness affects the least at just over 20 million. Color blindness is a 
+  type of vision impairment; as we can see in the plot above, vision impairment 
+  affects almost 50 million people, which is over 80 times the population of 
+  Durham! 
+
+  1 in 12 men and 1 in 200 women are color blind, which accounts for 300 million 
+  people in the world! Color blindness is a widespread problem that is usually 
+  caused by genetics, diabetes, multiple sclerosis, or aging. Because color 
+  blindness affects so many people and is not talked about nearly enough, our
+  group wanted to explore how R can be used to give a platform to this 
+  worldwide, common condition. We will use our skills in R to enable users to 
+  understand how color blind individuals view the world differently. 
+  Subsequently, we hope to foster a desire to learn more about the color blind 
+  community and the challenges that come with being visually impaired. 
+
+
 **1. A one sentence description of your high-level goal.**
 
-We want to build a Shiny app to help users understand color blindness by building “filters” for photos representing different types of color deficiency. 
+We want to build a Shiny app to help users understand color blindness by 
+building “filters” for photos representing different types of color deficiency. 
 
 **2. A one to two paragraph description of your goals, including your motivation.**
 
-In class, we learned about scale_color_vidiris and scale_fill_viridis, two functions in ggplot that are designed to make colored graphs more accessible to color-blind viewers. All of us were very interested in further exploring accessibility concerns for the colorblind community, so we would like to implement a sliding color scale to allow noncolorblind viewers to understand these accessibility concerns. This sliding scale would apply different filters for different types of colorblindness, such as deuteranopia, protanopia, and tritanopia. By exploring different types, we will play around with the color use and theme design as well as raise awareness for the variety of colorblindness out there. We think it is extremely important for members of the noncolorblind community to understand accessibility issues in the plots and images they make. We can all move towards more accessible and equitable visualizations with our project.
+In class, we learned about scale_color_vidiris and scale_fill_viridis, two 
+functions in ggplot that are designed to make colored graphs more accessible 
+to color-blind viewers. All of us were very interested in further exploring 
+accessibility concerns for the colorblind community, so we would like to 
+implement a sliding color scale to allow noncolorblind viewers to understand 
+these accessibility concerns. This sliding scale would apply different filters 
+for different types of colorblindness, such as deuteranopia, protanopia, and 
+tritanopia. By exploring different types, we will play around with the color 
+use and theme design as well as raise awareness for the variety of 
+colorblindness out there. We think it is extremely important for members of the 
+noncolorblind community to understand accessibility issues in the plots and 
+images they make. We can all move towards more accessible and equitable 
+visualizations with our project.
 
-One package that we will use in this app will be the `imager` library, which contains a large array of functions for working with image data. As we allow users to input images and filter them for different types of color blindness, as well as creating a colorblind test, the functionality of this package will be helpful. A dataset we may choose to incorporate when talking about the significance of our project can be found at https://data.world/datacrunch/prevalence-of-vision-problems-in-the-u-s, in order to compare the prevalence of commonly known vision problems to rates of less commonly known types of color blindness, statistics about which will be referenced from https://iristech.co/statistics/. 
+One package that we will use in this app will be the `imager` library, which 
+contains a large array of functions for working with image data. As we allow 
+users to input images and filter them for different types of color blindness, 
+as well as creating a colorblind test, the functionality of this package will 
+be helpful. A dataset we may choose to incorporate when talking about the 
+significance of our project can be found at 
+https://data.world/datacrunch/prevalence-of-vision-problems-in-the-u-s, 
+in order to compare the prevalence of commonly known vision problems to rates 
+of less commonly known types of color blindness, statistics about which will 
+be referenced from https://iristech.co/statistics/. We also found background information on colorblindness at https://www.colourblindawareness.org/colour-blindness/. 
 
 **3. A weekly “plan of attack” outlining your steps to complete your project and including the team member(s) assigned to that task.**
 

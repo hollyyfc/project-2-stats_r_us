@@ -2,6 +2,89 @@ Project Proposal
 ================
 Stats R Us
 
+Background information:
+
+``` r
+library(tidyr)
+library(tidyverse)
+```
+
+    ## Warning in system("timedatectl", intern = TRUE): running command 'timedatectl'
+    ## had status 1
+
+    ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
+
+    ## ✓ ggplot2 3.3.5     ✓ dplyr   1.0.7
+    ## ✓ tibble  3.1.5     ✓ stringr 1.4.0
+    ## ✓ readr   2.0.2     ✓ forcats 0.5.1
+    ## ✓ purrr   0.3.4
+
+    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+    ## x dplyr::filter() masks stats::filter()
+    ## x dplyr::lag()    masks stats::lag()
+
+``` r
+library(dplyr)
+library(ggplot2)
+library("httr")
+library("readxl")
+GET("https://query.data.world/s/m334npjqtx64m4ztmznpfjbencph6k", write_disk(tf <- tempfile(fileext = ".xlsx")))
+```
+
+    ## Response [https://download.data.world/file_download/datacrunch/prevalence-of-vision-problems-in-the-u-s/Prevelance%20of%20Eye%20Diseases%20in%20US.xlsx?auth=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9kLXVzZXItY2xpZW50OnNvcGhpZWRhbGxkb3JmIiwiaXNzIjoiYWdlbnQ6c29waGllZGFsbGRvcmY6Ojg2OWFjYzY4LTYxZjYtNGE1Yy1iNzdiLTBlMTIwMzIzNzkyNCIsImlhdCI6MTYzNjY4MDcwMSwicm9sZSI6WyJ1c2VyIiwidXNlcl9hcGlfYWRtaW4iLCJ1c2VyX2FwaV9lbnRlcnByaXNlX2FkbWluIiwidXNlcl9hcGlfcmVhZCIsInVzZXJfYXBpX3dyaXRlIl0sImdlbmVyYWwtcHVycG9zZSI6ZmFsc2UsInVybCI6ImE5MjAxMGY3MzJjNzQyZWE2M2UwNWZmM2VhMjEzNGEwNzU4ZmI2ZDAifQ.YEB-l3lhe4tpjKfz_yr1dvP6LLMuDeICFHZqq0GAUrXwQPmDoiog2pFs7ddX_bO8-BF5PJATuZ7RoxOxar8vzA]
+    ##   Date: 2021-11-12 02:17
+    ##   Status: 200
+    ##   Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    ##   Size: 2.37 MB
+    ## <ON DISK>  /tmp/Rtmp24tC3B/file226061c1f6b2.xlsx
+
+``` r
+vision_data <- read_excel(tf)
+```
+
+``` r
+vision_data <- vision_data %>%
+  group_by(vision_problem) %>%
+  summarise(num_cases = sum(number_of_cases))
+```
+
+``` r
+ggplot(data = vision_data, aes(x = reorder(vision_problem, -num_cases), y = num_cases, fill = vision_problem)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = num_cases), check_overlap = TRUE, vjust = -.3, size = 3) +
+  theme_minimal() +
+  theme(legend.position = "none",
+        axis.title.x = element_blank(),
+        axis.text.x = element_text(angle = 30, hjust = 1)) +
+  scale_fill_viridis_d() +
+  scale_y_continuous(name = "Total Number of Cases",
+                     breaks = c(0, 100000000, 200000000, 300000000, 400000000, 500000000, 600000000),
+                     labels = c("0", "100M", "200M", "300M", "400M", "500M", "600M")) +
+  labs(title = "Prevelance of Vision Problems in the U.S.", caption = "Data sourced from data.world")
+```
+
+![](Proposal_files/figure-gfm/background-plots-1.png)<!-- -->
+
+Vision problems affect 1,430,176,980 Americans. As we can see above, the
+eight most prevalent types of vision problems include myopia, cataracts,
+hyperopia, diabetic tetinopathy, vision impairment, glaucoma, AMD
+(Age-Related Macular Degeneration), and blindness. Myopia affects the
+most people at 500 million, and blindness affects the least at just over
+20 million. Color blindness is a type of vision impairment; as we can
+see in the plot above, vision impairment affects almost 50 million
+people, which is over 80 times the population of Durham!
+
+1 in 12 men and 1 in 200 women are color blind, which accounts for 300
+million people in the world! Color blindness is a widespread problem
+that is usually caused by genetics, diabetes, multiple sclerosis, or
+aging. Because color blindness affects so many people and is not talked
+about nearly enough, our group wanted to explore how R can be used to
+give a platform to this worldwide, common condition. We will use our
+skills in R to enable users to understand how color blind individuals
+view the world differently. Subsequently, we hope to foster a desire to
+learn more about the color blind community and the challenges that come
+with being visually impaired.
+
 **1. A one sentence description of your high-level goal.**
 
 We want to build a Shiny app to help users understand color blindness by
@@ -36,7 +119,9 @@ found at
 <https://data.world/datacrunch/prevalence-of-vision-problems-in-the-u-s>,
 in order to compare the prevalence of commonly known vision problems to
 rates of less commonly known types of color blindness, statistics about
-which will be referenced from <https://iristech.co/statistics/>.
+which will be referenced from <https://iristech.co/statistics/>. We also
+found background information on colorblindness at
+<https://www.colourblindawareness.org/colour-blindness/>.
 
 **3. A weekly “plan of attack” outlining your steps to complete your
 project and including the team member(s) assigned to that task.**
