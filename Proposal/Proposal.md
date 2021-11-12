@@ -32,11 +32,11 @@ GET("https://query.data.world/s/m334npjqtx64m4ztmznpfjbencph6k", write_disk(tf <
 ```
 
     ## Response [https://download.data.world/file_download/datacrunch/prevalence-of-vision-problems-in-the-u-s/Prevelance%20of%20Eye%20Diseases%20in%20US.xlsx?auth=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9kLXVzZXItY2xpZW50OnNvcGhpZWRhbGxkb3JmIiwiaXNzIjoiYWdlbnQ6c29waGllZGFsbGRvcmY6Ojg2OWFjYzY4LTYxZjYtNGE1Yy1iNzdiLTBlMTIwMzIzNzkyNCIsImlhdCI6MTYzNjY4MDcwMSwicm9sZSI6WyJ1c2VyIiwidXNlcl9hcGlfYWRtaW4iLCJ1c2VyX2FwaV9lbnRlcnByaXNlX2FkbWluIiwidXNlcl9hcGlfcmVhZCIsInVzZXJfYXBpX3dyaXRlIl0sImdlbmVyYWwtcHVycG9zZSI6ZmFsc2UsInVybCI6ImE5MjAxMGY3MzJjNzQyZWE2M2UwNWZmM2VhMjEzNGEwNzU4ZmI2ZDAifQ.YEB-l3lhe4tpjKfz_yr1dvP6LLMuDeICFHZqq0GAUrXwQPmDoiog2pFs7ddX_bO8-BF5PJATuZ7RoxOxar8vzA]
-    ##   Date: 2021-11-12 04:24
+    ##   Date: 2021-11-12 15:51
     ##   Status: 200
     ##   Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
     ##   Size: 2.37 MB
-    ## <ON DISK>  /tmp/RtmpY4hoL2/file2a9c295c08b8.xlsx
+    ## <ON DISK>  /tmp/Rtmp1OvFTt/file2d943bdf6d83.xlsx
 
 ``` r
 vision_data <- read_excel(tf)
@@ -107,7 +107,23 @@ color use and theme design as well as raise awareness for the variety of
 colorblindness out there. We think it is extremely important for members
 of the noncolorblind community to understand accessibility issues in the
 plots and images they make. We can all move towards more accessible and
-equitable visualizations with our project.
+equitable visualizations with our project. Although color-blindness
+simulations already exist, we would like to add certain features to our
+app for a **unique** user experience:
+
+-   First off, we would like to implement a feature where a user can
+    upload their own image to test. This would allow them to branch out
+    from the select default images we will provide.
+-   Next, we also will consider including a color-blindness diagnostic
+    test. Although we can not properly diagnose anyone with
+    color-blindness, this could provide a screening.
+-   We are also considering adding a user-defined color blindness
+    filter, where users can use a slider to adjust the levels of color
+    blindness or potentially create their own custom filter based off
+    RGB values.
+-   Finally, we would like an educational tab in our app so readers can
+    get an overview of the importance of accessibility before they use
+    the filters.
 
 One package that we will use in this app will be the `imager` library,
 which contains a large array of functions for working with image data.
