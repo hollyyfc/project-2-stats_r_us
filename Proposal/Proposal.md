@@ -1,8 +1,13 @@
 Project Proposal
 ================
-Stats R Us
+Team: Stats R Us
 
-Background information:
+**Background information:**
+
+Before we start, let’s see some preliminary data visualization regarding
+statistics of colorblindness in the US. (You may find it helpful
+referring to the main page README for information about different types
+of colorblindness.)
 
 ``` r
 library(tidyr)
@@ -32,11 +37,11 @@ GET("https://query.data.world/s/m334npjqtx64m4ztmznpfjbencph6k", write_disk(tf <
 ```
 
     ## Response [https://download.data.world/file_download/datacrunch/prevalence-of-vision-problems-in-the-u-s/Prevelance%20of%20Eye%20Diseases%20in%20US.xlsx?auth=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9kLXVzZXItY2xpZW50OnNvcGhpZWRhbGxkb3JmIiwiaXNzIjoiYWdlbnQ6c29waGllZGFsbGRvcmY6Ojg2OWFjYzY4LTYxZjYtNGE1Yy1iNzdiLTBlMTIwMzIzNzkyNCIsImlhdCI6MTYzNjY4MDcwMSwicm9sZSI6WyJ1c2VyIiwidXNlcl9hcGlfYWRtaW4iLCJ1c2VyX2FwaV9lbnRlcnByaXNlX2FkbWluIiwidXNlcl9hcGlfcmVhZCIsInVzZXJfYXBpX3dyaXRlIl0sImdlbmVyYWwtcHVycG9zZSI6ZmFsc2UsInVybCI6ImE5MjAxMGY3MzJjNzQyZWE2M2UwNWZmM2VhMjEzNGEwNzU4ZmI2ZDAifQ.YEB-l3lhe4tpjKfz_yr1dvP6LLMuDeICFHZqq0GAUrXwQPmDoiog2pFs7ddX_bO8-BF5PJATuZ7RoxOxar8vzA]
-    ##   Date: 2021-11-12 02:17
+    ##   Date: 2021-11-12 16:17
     ##   Status: 200
     ##   Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
     ##   Size: 2.37 MB
-    ## <ON DISK>  /tmp/Rtmp24tC3B/file226061c1f6b2.xlsx
+    ## <ON DISK>  /tmp/RtmpDLWJWE/file2f2379dc323d.xlsx
 
 ``` r
 vision_data <- read_excel(tf)
@@ -107,7 +112,23 @@ color use and theme design as well as raise awareness for the variety of
 colorblindness out there. We think it is extremely important for members
 of the noncolorblind community to understand accessibility issues in the
 plots and images they make. We can all move towards more accessible and
-equitable visualizations with our project.
+equitable visualizations with our project. Although color-blindness
+simulations already exist, we would like to add certain features to our
+app for a **unique** user experience:
+
+-   First off, we would like to implement a feature where a user can
+    upload their own image to test. This would allow them to branch out
+    from the select default images we will provide.
+-   Next, we also will consider including a color-blindness diagnostic
+    test. Although we can not properly diagnose anyone with
+    color-blindness, this could provide a screening.
+-   We are also considering adding a user-defined color blindness
+    filter, where users can use a slider to adjust the levels of color
+    blindness or potentially create their own custom filter based off
+    RGB values.
+-   Finally, we would like an educational tab in our app so readers can
+    get an overview of the importance of accessibility before they use
+    the filters.
 
 One package that we will use in this app will be the `imager` library,
 which contains a large array of functions for working with image data.
@@ -123,10 +144,14 @@ which will be referenced from <https://iristech.co/statistics/>. We also
 found background information on colorblindness at
 <https://www.colourblindawareness.org/colour-blindness/>.
 
-**3. A weekly “plan of attack” outlining your steps to complete your
-project and including the team member(s) assigned to that task.**
+**3. Plan of attack**
 
-DUE DATES: Proposal due November 5. Revised proposal due November 12.
+DUE DATES:
+
+Proposal due November 5.
+
+Revised proposal due November 12.
+
 Write-up and presentation due December 3.
 
 Proposal (Due November 5):
@@ -178,12 +203,22 @@ Presentation (Due December 3):
 
 **4. The final organization of your project repository.**
 
-There will be two main folders created under the project repository, one
-containing the major RMD file with the Shiny app design and the other
-including all images we will be using to work on the different types of
-filters. A separate presentation folder will also be created using
-xaringan.
+There will be five folders created in total. Two main folders are under
+the project repository, one containing the major RMD file with the Shiny
+app design and the other including all images we will be using to work
+on the different types of filters. We will also upload datasets to Data
+folder if we need further analysis. A separate presentation folder will
+also be created using xaringan. Proposal file is under its own folder.
 
-Folder structure: App (.rmd, .html (website), README describing sections
-of website and user interface) Data (images that will be used on
-website) Presentation (using xaringan)
+Folder structure:
+
+-   App (.rmd, .html (website), README describing sections of website
+    and user interface)
+
+-   Image (images that will be used on website and in the app)
+
+-   Data (including potential datasets used for basic plot analysis)
+
+-   Proposal (containing Proposal.rmd and .md)
+
+-   Presentation (using xaringan)
