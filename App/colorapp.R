@@ -1,32 +1,31 @@
 library(shiny)
 
 
-# Define UI for random distribution app ----
-ui <- fluidPage(
+# Define UI for app = create layout ----
 
-  # App title ----
-  titlePanel("Exploring Color Blindness"),
+ui <- navbarPage("Exploring Color Blindness",
 
+                 navbarMenu("What is Color Blindness?",
 
-    # Main panel for displaying outputs ----
-    mainPanel(
+                            tabPanel("Why should you care?"),
 
-      # Output: Tabset w/ plot, summary, and table ----
-      tabsetPanel(type = "tabs",
-                  tabPanel("What is Color Blindness?", plotOutput("colorblindness")),
-                  tabPanel("Are You Color Blind?", verbatimTextOutput("areyou")),
-                  tabPanel("Color Blindness Sliding Scale", tableOutput("scale"))
+                            tabPanel("What does it look like?")),
 
 
-    )
-  )
+                 tabPanel("Are You Color Blind?"),
+
+                 tabPanel("Sliding Scale of Color Blindness")
+
 )
 
-# Define server logic to plot various variables against mpg ----
+# Define server logic ----
+
 server <- function(input, output) {
 
 }
 
+
+# run app -----
+
 shinyApp(ui, server)
 
-runApp("~/shinyapp")
