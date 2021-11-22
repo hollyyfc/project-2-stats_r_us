@@ -6,6 +6,8 @@ output: github_document
 
 **Background information:**
 
+Before we start, let's see some preliminary data visualization regarding statistics of colorblindness in the US. (You may find it helpful referring to the main page README for information about different types of colorblindness.)
+
 ```{r loading-packages-and-data}
 library(tidyr)
 library(tidyverse)
@@ -76,9 +78,12 @@ these accessibility concerns. This sliding scale would apply different filters f
 tritanopia. By exploring different types, we will play around with the color 
 use and theme design as well as raise awareness for the variety of 
 colorblindness out there. We think it is extremely important for members of the noncolorblind community to understand accessibility issues in the plots and images they make. We can all move towards more accessible and equitable 
-visualizations with our project.
+visualizations with our project. Although color-blindness simulations already exist, we would like to add certain features to our app for a **unique** user experience: 
 
-Although color-blindness simulations already exist, we would like to add certain features to our app for a unique user experience. First off, we would like to implement a feature where a user can upload their own image to test. This would allow them to branch out from the select default images we will provide. Next, we also will consider including a color-blindness diagnostic test. Although we can not properly diagnose anyone with color-blindness, this could provide a screening. We are also considering adding a user-defined color blindness filter, where users can use a slider to adjust the levels of color blindness or potentially create their own custom filter based off RGB values. Finally, we would like an educational tab in our app so readers can get an overview of the importance of accessibility before they use the filters.
+  -   First off, we would like to implement a feature where a user can upload their own image to test. This would allow them to branch out from the select default images we will provide. 
+  -   Next, we also will consider including a color-blindness diagnostic test. Although we can not properly diagnose anyone with color-blindness, this could provide a screening. 
+  -   We are also considering adding a user-defined color blindness filter, where users can use a slider to adjust the levels of color blindness or potentially create their own custom filter based off RGB values. 
+  -   Finally, we would like an educational tab in our app so readers can get an overview of the importance of accessibility before they use the filters.
 
 One package that we will use in this app will be the `imager` library, which 
 contains a large array of functions for working with image data. As we allow 
