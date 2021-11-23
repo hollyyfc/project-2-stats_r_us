@@ -7,6 +7,9 @@ output: html_document
 ```{r packages}
 library(tidyverse)
 library(scales)
+library(imager)
+library(magick)
+library(ggplotify)
 ```
 
 ```{r colors original data}
@@ -54,6 +57,16 @@ uuu.uuu = 1.16364789
 #missing values are either O or 1
 p.pp = 1.05118294
 p.ppp = -0.05116099
+
+#matrix values for d, d = deuteranopia
+#missing values are either O or 1
+dd.d = 0.9513092
+dd.ddd = 0.04866992
+
+#matrix values for t, t = tritanopia
+#missing values are either O or 1
+ttt.t = -0.86744736
+ttt.tt = 1.86727089
 ```
 
 ```{r protanopia}
@@ -63,11 +76,11 @@ colorsPro <- colors %>%
   mutate(r1 = r/255,
          g1 = g/255,
          b1 = b/255,
-         
+
          l = r1*c.c   + g1*c.cc   + b1*c.ccc,
          m = r1*cc.c  + g1*cc.cc  + b1*cc.ccc,
          s = r1*ccc.c + g1*ccc.cc + b1*ccc.ccc,
-         
+
          l1 = l*(1-x) + m*p.pp*x  + s*p.ppp*x,
          m1 =           m,
          s1 =                       s,
@@ -76,44 +89,155 @@ colorsPro <- colors %>%
          gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu,
          bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu,
          
-         rNew = round(rNew, 2),
-         gNew = round(gNew, 2),
-         bNew = round(bNew, 2))
+         rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew),
+         gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew),
+         bNew = case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew))
 
 
-pal <- rgb(colorsPro$rNew, colorsPro$gNew, colorsPro$bNew, max = 1)
+pal <- rgb(colorsPro$rNew, colorsPro$gNew, colorsPro$bNew)
 show_col(pal, borders = "black", labels = FALSE, ncol = 12)
 ```
 
-```{r protanopia slider?}
-for (i in 0:10){
+```{r protanopia function}
+protanopia <- function(r, g, b) {
+  r1 = r
+  g1 = g
+  b1 = b
+   
+  l = r1*c.c   + g1*c.cc   + b1*c.ccc
+  m = r1*cc.c  + g1*cc.cc  + b1*cc.ccc
+  s = r1*ccc.c + g1*ccc.cc + b1*ccc.ccc
+   
+  l1 = l*(1-x) + m*p.pp*x  + s*p.ppp*x
+  m1 =           m
+  s1 =                       s
+   
+  rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
+   
+  rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)
+  gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)
+  bNew = case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew)
   
-  x = i/10
+  return(rgb(rNew, gNew, bNew))
+}
+``` 
+
+```{r tritanopia function}
+tritanopia <- function(r, g, b) {
+  r1 = r
+  g1 = g
+  b1 = b
+   
+  l = r1*c.c    + g1*c.cc   + b1*c.ccc
+  m = r1*cc.c   + g1*cc.cc  + b1*cc.ccc
+  s = r1*ccc.c  + g1*ccc.cc + b1*ccc.ccc
+   
+  l1 = l
+  m1 = l*dd.d*x + m*(1-x)   + s*dd.ddd*x
+  s1 =                        s
+   
+  rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
+   
+  rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)
+  gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)
+  bNew = case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew)
   
-  colorsPro <- colors %>%
-  mutate(r1 = r/255,
-         g1 = g/255,
-         b1 = b/255,
-         
-         l = r1*c.c   + g1*c.cc   + b1*c.ccc,
-         m = r1*cc.c  + g1*cc.cc  + b1*cc.ccc,
-         s = r1*ccc.c + g1*ccc.cc + b1*ccc.ccc,
-         
-         l1 = l*(1-x) + m*p.pp*x  + s*p.ppp*x,
-         m1 =           m,
-         s1 =                       s,
-         
-         rNew = l1*u.u   + m1*u.uu   + s1*u.uuu,
-         gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu,
-         bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu,
-         
-         rNew = round(rNew, 2),
-         gNew = round(gNew, 2),
-         bNew = round(bNew, 2))
+  return(rgb(rNew, gNew, bNew))
+}
+``` 
 
+```{r tritanopia function}
+tritanopia <- function(r, g, b) {
+  r1 = r
+  g1 = g
+  b1 = b
+   
+  l = r1*c.c      + g1*c.cc    + b1*c.ccc
+  m = r1*cc.c     + g1*cc.cc   + b1*cc.ccc
+  s = r1*ccc.c    + g1*ccc.cc  + b1*ccc.ccc
+   
+  l1 = l
+  m1 =            + m
+  s1 = l*ttt.t*x  +  m*ttt.tt*x + s*(1-x)
+   
+  rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
+   
+  rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)
+  gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)
+  bNew = case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew)
+  
+  return(rgb(rNew, gNew, bNew))
+}
+``` 
 
-pal <- rgb(colorsPro$rNew, colorsPro$gNew, colorsPro$bNew, max = 1)
-show_col(pal, borders = "black", labels = FALSE, ncol = 12)
+```{r monochromatism function}
+monochromatism <- function(r, g, b) {
+  r1 = r
+  g1 = g
+  b1 = b
+   
+  l = r1*c.c      + g1*c.cc    + b1*c.ccc
+  m = r1*cc.c     + g1*cc.cc   + b1*cc.ccc
+  s = r1*ccc.c    + g1*ccc.cc  + b1*ccc.ccc
+   
+  l1 = l*(1-x)                 + s*x
+  m1 =            + m*(1-x)    + s*x          
+  s1 =                         + s
+   
+  rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
+   
+  rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)
+  gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)
+  bNew = case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew)
+  
+  return(rgb(rNew, gNew, bNew))
+}
+```
+
+```{r fxn outline}
+for (i in 0:4) {
+x = i/4
+p <- as.ggplot(expression(plot(boats, colorscale = protanopia, 
+                               rescale = FALSE, axes = FALSE))) +
+     coord_fixed()
+print(p)
 }
 
+for (i in 0:4) {
+x = i/4
+p <- as.ggplot(expression(plot(boats, colorscale = deuteranopia, 
+                               rescale = FALSE, axes = FALSE))) +
+     coord_fixed()
+print(p)
+}
+
+
+for (i in 0:4) {
+x = i/4
+p <- as.ggplot(expression(plot(boats, colorscale = tritanopia, 
+                               rescale = FALSE, axes = FALSE))) +
+     coord_fixed()
+print(p)
+}
+
+for (i in 0:4) {
+x = i/4
+p <- as.ggplot(expression(plot(boats, colorscale = monochromatism, 
+                               rescale = FALSE, axes = FALSE))) +
+     coord_fixed()
+print(p)
+}
+
+```
+
+```{r fxn plz work}
+#not sure what is best for website
 ```
