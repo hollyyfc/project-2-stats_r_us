@@ -5,24 +5,26 @@ output: html_document
 
 
 ```{r packages}
-install.packages("imager")
-library(imager)
+library(tidyverse)
+library(scales)
+```
 
+```{r data}
+colors <- read_csv("~/R/project-2-stats_r_us/Data/wikipedia_x11_colors.csv")
+colors <- colors %>%
+  mutate(r = `Red (8 bit)`) %>%
+  mutate(b = `Blue (8 bit)`) %>%
+  mutate(g = `Green (8 bit)`) %>%
+  arrange(-b, -g, -r) %>%
+  select(r, b, g)
+
+colors <- colors[1:144,]
 ```
 
 
-```{r play with imager}
-
-library(magick)
-tiger <- image_read_svg('http://jeroen.github.io/images/tiger.svg', width = 350)
-
-cscale <- function(r,g,b){
-  rgb(r,r,b)
-} 
-
-image_convert(tiger, colorspace = "Gray")
-
-colorspace_types()
+```{r play with rgb}
+pal <- rgb(colors$r, colors$g, colors$b, max = 255)
+show_col(pal, borders = "black", labels = FALSE, ncol = 12)
 ```
 
 
