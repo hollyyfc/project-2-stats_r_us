@@ -3,13 +3,26 @@ title: "sliderFunctions"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+```{r packages}
+install.packages("imager")
+library(imager)
+
 ```
 
 
 ```{r play with imager}
 
+library(magick)
+tiger <- image_read_svg('http://jeroen.github.io/images/tiger.svg', width = 350)
+
+cscale <- function(r,g,b){
+  rgb(r,r,b)
+} 
+
+image_convert(tiger, colorspace = "Gray")
+
+colorspace_types()
 ```
 
 
