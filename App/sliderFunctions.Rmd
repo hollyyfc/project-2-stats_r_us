@@ -9,23 +9,81 @@ library(tidyverse)
 library(scales)
 ```
 
-```{r data}
+```{r colors original data}
 colors <- read_csv("~/R/project-2-stats_r_us/Data/wikipedia_x11_colors.csv")
 colors <- colors %>%
-  mutate(r = `Red (8 bit)`) %>%
-  mutate(b = `Blue (8 bit)`) %>%
-  mutate(g = `Green (8 bit)`) %>%
+  rename(r = `Red (8 bit)`,
+         b = `Blue (8 bit)`,
+         g = `Green (8 bit)`) %>%
   arrange(-b, -g, -r) %>%
-  select(r, b, g)
+  select(Name, r, b, g)
 
 colors <- colors[1:144,]
 ```
 
 
-```{r play with rgb}
+```{r colors original grid}
 pal <- rgb(colors$r, colors$g, colors$b, max = 255)
 show_col(pal, borders = "black", labels = FALSE, ncol = 12)
 ```
 
+```{r important constants}
+#matrix values for c, RGB to LMS. c = change
+c.c = 0.31399022
+c.cc = 0.63951294
+c.ccc = 0.04649755
+cc.c = 0.15537241
+cc.cc = 0.75789446
+cc.ccc = 0.08670142
+ccc.c = 0.01775239
+ccc.cc = 0.10944209
+ccc.ccc = 0.87256922
+
+#matrix values for t, LMS to RGB. u = undo (u = inv(c))
+u.u = 5.47221206
+u.uu = -4.6419601
+u.uuu = 0.16963708
+uu.u = -1.1252419
+uu.uu = 2.29317094
+uu.uuu = -0.1678952
+uuu.u = 0.02980165
+uuu.uu = -0.19318073
+uuu.uuu = 1.16364789
+
+#matrix values for p, p = protanopia
+#missing values are either O or 1
+p.pp = 1.05118294
+p.ppp = -0.05116099
+```
+
+```{r protanopia}
+x = 1
+
+colorsPro <- colors %>%
+  mutate(r1 = r/255,
+         g1 = g/255,
+         b1 = b/255,
+         
+         l = r1*c.c   + g1*c.cc   + b1*c.ccc,
+         m = r1*cc.c  + g1*cc.cc  + b1*cc.ccc,
+         s = r1*ccc.c + g1*ccc.cc + b1*ccc.ccc,
+         
+         l1 = (1-x)*l   + m*p.pp*x  + s*p.ppp*x,
+         m1 =           m,
+         s1 =                       s,
+         
+         rNew = l1*u.u   + m1*u.uu   + s1*u.uuu,
+         gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu,
+         bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu,
+         
+         rNew = round(rNew, 2),
+         gNew = round(gNew, 2),
+         bNew = round(bNew, 2))
+
+
+pal <- rgb(colorsPro$rNew, colorsPro$gNew, colorsPro$bNew, max = 1)
+show_col(pal, borders = "black", labels = FALSE, ncol = 12)
+
+```
 
 
