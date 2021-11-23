@@ -68,7 +68,7 @@ colorsPro <- colors %>%
          m = r1*cc.c  + g1*cc.cc  + b1*cc.ccc,
          s = r1*ccc.c + g1*ccc.cc + b1*ccc.ccc,
          
-         l1 = (1-x)*l   + m*p.pp*x  + s*p.ppp*x,
+         l1 = l*(1-x) + m*p.pp*x  + s*p.ppp*x,
          m1 =           m,
          s1 =                       s,
          
@@ -83,7 +83,37 @@ colorsPro <- colors %>%
 
 pal <- rgb(colorsPro$rNew, colorsPro$gNew, colorsPro$bNew, max = 1)
 show_col(pal, borders = "black", labels = FALSE, ncol = 12)
-
 ```
 
+```{r protanopia slider?}
+for (i in 0:10){
+  
+  x = i/10
+  
+  colorsPro <- colors %>%
+  mutate(r1 = r/255,
+         g1 = g/255,
+         b1 = b/255,
+         
+         l = r1*c.c   + g1*c.cc   + b1*c.ccc,
+         m = r1*cc.c  + g1*cc.cc  + b1*cc.ccc,
+         s = r1*ccc.c + g1*ccc.cc + b1*ccc.ccc,
+         
+         l1 = l*(1-x) + m*p.pp*x  + s*p.ppp*x,
+         m1 =           m,
+         s1 =                       s,
+         
+         rNew = l1*u.u   + m1*u.uu   + s1*u.uuu,
+         gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu,
+         bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu,
+         
+         rNew = round(rNew, 2),
+         gNew = round(gNew, 2),
+         bNew = round(bNew, 2))
 
+
+pal <- rgb(colorsPro$rNew, colorsPro$gNew, colorsPro$bNew, max = 1)
+show_col(pal, borders = "black", labels = FALSE, ncol = 12)
+}
+
+```
