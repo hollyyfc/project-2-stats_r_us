@@ -1,6 +1,8 @@
 ---
 title: "sliderFunctions"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 
@@ -202,23 +204,22 @@ monochromatism <- function(r, g, b) {
 }
 ```
 
-```{r can it work with parrots?}
-fpath <- system.file('extdata/parrots.png', package='imager')
-parrots <- load.image(fpath)
+```{r parrots and mario!}
+parrots <- load.image(system.file("extdata/parrots.png", package = "imager"))
+mario <- load.image('~/R/project-2-stats_r_us/Image/super-mario.jpeg')
 ```
 
 ```{r fxn outline}
-x = .8
-image = parrots
-filter = monochromatism
+x = .85
+image = mario
+filter = protanopia
 #x = 0 to 1
-#image = boats or parrots
-#filter = 4 types of colorblindess above. Do not include (r, g, b).
+#image = boats, parrots, mario, etc
+#filter = protanopia, deuteranopia, tritanopia, or monochromatism
+###do not include (r, g, b) in filter
 
 p <- as.ggplot(expression(plot(image, colorscale = filter, 
                                rescale = FALSE, axes = FALSE))) +
      coord_fixed()
 print(p)
-
-
 ```
