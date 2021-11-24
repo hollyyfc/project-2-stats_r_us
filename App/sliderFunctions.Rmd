@@ -69,7 +69,7 @@ ttt.t = -0.86744736
 ttt.tt = 1.86727089
 ```
 
-```{r protanopia}
+```{r protanopia, hard code data of colors}
 x = 1
 
 colorsPro <- colors %>%
@@ -202,42 +202,23 @@ monochromatism <- function(r, g, b) {
 }
 ```
 
-```{r fxn outline}
-for (i in 0:4) {
-x = i/4
-p <- as.ggplot(expression(plot(boats, colorscale = protanopia, 
-                               rescale = FALSE, axes = FALSE))) +
-     coord_fixed()
-print(p)
-}
-
-for (i in 0:4) {
-x = i/4
-p <- as.ggplot(expression(plot(boats, colorscale = deuteranopia, 
-                               rescale = FALSE, axes = FALSE))) +
-     coord_fixed()
-print(p)
-}
-
-
-for (i in 0:4) {
-x = i/4
-p <- as.ggplot(expression(plot(boats, colorscale = tritanopia, 
-                               rescale = FALSE, axes = FALSE))) +
-     coord_fixed()
-print(p)
-}
-
-for (i in 0:4) {
-x = i/4
-p <- as.ggplot(expression(plot(boats, colorscale = monochromatism, 
-                               rescale = FALSE, axes = FALSE))) +
-     coord_fixed()
-print(p)
-}
-
+```{r can it work with parrots?}
+fpath <- system.file('extdata/parrots.png', package='imager')
+parrots <- load.image(fpath)
 ```
 
-```{r fxn plz work}
-#not sure what is best for website
+```{r fxn outline}
+x = .8
+image = parrots
+filter = monochromatism
+#x = 0 to 1
+#image = boats or parrots
+#filter = 4 types of colorblindess above. Do not include (r, g, b).
+
+p <- as.ggplot(expression(plot(image, colorscale = filter, 
+                               rescale = FALSE, axes = FALSE))) +
+     coord_fixed()
+print(p)
+
+
 ```
