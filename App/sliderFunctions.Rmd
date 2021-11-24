@@ -204,22 +204,37 @@ monochromatism <- function(r, g, b) {
 }
 ```
 
-```{r parrots and mario!}
+```{r parrots! mario! and more!}
 parrots <- load.image(system.file("extdata/parrots.png", package = "imager"))
 mario <- load.image('~/R/project-2-stats_r_us/Image/super-mario.jpeg')
+starry <- load.image('~/R/project-2-stats_r_us/Image/starry-night.jpeg')
+balls <- load.image('~/R/project-2-stats_r_us/Image/ball.jpeg')
 ```
 
 ```{r fxn outline}
-x = .85
-image = mario
-filter = protanopia
 #x = 0 to 1
 #image = boats, parrots, mario, etc
 #filter = protanopia, deuteranopia, tritanopia, or monochromatism
 ###do not include (r, g, b) in filter
+x = .75
+image = mario
+filter = tritanopia
 
-p <- as.ggplot(expression(plot(image, colorscale = filter, 
+#original and colorblind image as ggplot
+old <- as.ggplot(expression(plot(image,
+                                 rescale = FALSE, axes = FALSE))) +
+       coord_fixed() +
+       theme(plot.margin = unit(c(0,0,0,0), "null")) 
+print(old)
+
+new <- as.ggplot(expression(plot(image, colorscale = filter, 
                                rescale = FALSE, axes = FALSE))) +
-     coord_fixed()
-print(p)
+       coord_fixed() +
+       theme(plot.margin = unit(c(0,0,0,0), "null")) 
+print(new)
+
+#updates original.jpeg and colorblind.jpeg w/ new images every time. 
+#might cause merge conflicts. be careful w/ pushing these files.
+ggsave(old, file = "original.jpeg")
+ggsave(new, file = "colorblind.jpeg")
 ```
