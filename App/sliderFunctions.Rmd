@@ -79,13 +79,13 @@ colorsPro <- colors %>%
          g1 = g/255,
          b1 = b/255,
 
-         l = r1*c.c   + g1*c.cc   + b1*c.ccc,
-         m = r1*cc.c  + g1*cc.cc  + b1*cc.ccc,
-         s = r1*ccc.c + g1*ccc.cc + b1*ccc.ccc,
+         l = r1*c.c      + g1*c.cc   + b1*c.ccc,
+         m = r1*cc.c     + g1*cc.cc  + b1*cc.ccc,
+         s = r1*ccc.c    + g1*ccc.cc + b1*ccc.ccc,
 
-         l1 = l*(1-x) + m*p.pp*x  + s*p.ppp*x,
-         m1 =           m,
-         s1 =                       s,
+         l1 = l*(1-x)    + m*p.pp*x  + s*p.ppp*x,
+         m1 =              m,
+         s1 =                          s,
          
          rNew = l1*u.u   + m1*u.uu   + s1*u.uuu,
          gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu,
@@ -106,13 +106,13 @@ protanopia <- function(r, g, b) {
   g1 = g
   b1 = b
    
-  l = r1*c.c   + g1*c.cc   + b1*c.ccc
-  m = r1*cc.c  + g1*cc.cc  + b1*cc.ccc
-  s = r1*ccc.c + g1*ccc.cc + b1*ccc.ccc
+  l = r1*c.c      + g1*c.cc   + b1*c.ccc
+  m = r1*cc.c     + g1*cc.cc  + b1*cc.ccc
+  s = r1*ccc.c    + g1*ccc.cc + b1*ccc.ccc
    
-  l1 = l*(1-x) + m*p.pp*x  + s*p.ppp*x
-  m1 =           m
-  s1 =                       s
+  l1 = l*(1-x)    + m*p.pp*x  + s*p.ppp*x
+  m1 =              m
+  s1 =                          s
    
   rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
   gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
@@ -132,13 +132,13 @@ tritanopia <- function(r, g, b) {
   g1 = g
   b1 = b
    
-  l = r1*c.c    + g1*c.cc   + b1*c.ccc
-  m = r1*cc.c   + g1*cc.cc  + b1*cc.ccc
-  s = r1*ccc.c  + g1*ccc.cc + b1*ccc.ccc
+  l = r1*c.c      + g1*c.cc   + b1*c.ccc
+  m = r1*cc.c     + g1*cc.cc  + b1*cc.ccc
+  s = r1*ccc.c    + g1*ccc.cc + b1*ccc.ccc
    
   l1 = l
-  m1 = l*dd.d*x + m*(1-x)   + s*dd.ddd*x
-  s1 =                        s
+  m1 = l*dd.d*x   + m*(1-x)   + s*dd.ddd*x
+  s1 =                          s
    
   rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
   gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
@@ -164,11 +164,11 @@ tritanopia <- function(r, g, b) {
    
   l1 = l
   m1 =            + m
-  s1 = l*ttt.t*x  +  m*ttt.tt*x + s*(1-x)
+  s1 = l*ttt.t*x  + m*ttt.tt*x + s*(1-x)
    
-  rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
-  gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
-  bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
+  rNew = l1*u.u   + m1*u.uu    + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu   + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu  + s1*uuu.uuu
    
   rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)
   gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)
@@ -192,9 +192,9 @@ monochromatism <- function(r, g, b) {
   m1 =            + m*(1-x)    + s*x          
   s1 =                         + s
    
-  rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
-  gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
-  bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
+  rNew = l1*u.u   + m1*u.uu    + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu   + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu  + s1*uuu.uuu
    
   rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)
   gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)
