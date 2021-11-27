@@ -7,6 +7,7 @@ library(scales)
 library(imager)
 library(magick)
 library(ggplotify)
+library(patchwork)
 
 # data and images ----
 
@@ -176,18 +177,18 @@ ui <- navbarPage("Exploring Color Blindness",
                                              "Flowers" = "flowers",
                                              "Mario Brothers" = "mario",
                                              "Parrots" = "parrots",
-                                             "Stary Night" = "starry")),
+                                             "Starry Night" = "starry")),
 
                             radioButtons(inputId = "filterInput",
-                                        label = "Type of Colorblindess:",
+                                        label = "Colorblindess:",
                                         list("Protanopia" = 1,
                                              "Deuteranopia" = 2,
                                              "Tritanopia" = 3,
                                              "Monochromatism" = 4),
-                                        selected = 2),
+                                        selected = 1),
 
                             sliderInput(inputId = "xInput",
-                                        label = "Severity",
+                                        label = "Severity:",
                                         min = 0, max = 1, value = 0),),
 
                           mainPanel(plotOutput("plotSlider")))
@@ -219,14 +220,23 @@ server <- function(input, output, session) {
     #good news x was easy
     x <<- xUpdated()
 
-    p <- as.ggplot(expression(plot(image, colorscale = filter,
+    old <- as.ggplot(expression(plot(image,
+                                     rescale = FALSE, axes = FALSE))) +
+           coord_fixed() +
+           labs(title = "Original") +
+           theme(plot.title = element_text(size = 20, hjust = .5, vjust = -4))
+
+    new <- as.ggplot(expression(plot(image, colorscale = filter,
                                    rescale = FALSE, axes = FALSE))) +
-      coord_fixed()
-    p
+           coord_fixed() +
+           labs(title = "Filtered") +
+           theme(plot.title = element_text(size = 20, hjust = .5, vjust = -4))
+
+    old + new
   })
 }
 
 
-
 # run app -----
 shinyApp(ui, server)
+
