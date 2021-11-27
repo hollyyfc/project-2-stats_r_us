@@ -10,10 +10,11 @@ library(ggplotify)
 
 # data and images ----
 
-parrot <- load.image(system.file("extdata/parrots.png", package = "imager"))
-mario <- load.image('~/R/project-2-stats_r_us/Image/super-mario.jpeg')
-starry <- load.image('~/R/project-2-stats_r_us/Image/starry-night.jpeg')
 balls <- load.image('~/R/project-2-stats_r_us/Image/ball.jpeg')
+flowers <- load.image('~/R/project-2-stats_r_us/Image/flower.jpeg')
+mario <- load.image('~/R/project-2-stats_r_us/Image/super-mario.jpeg')
+parrots <- load.image(system.file("extdata/parrots.png", package = "imager"))
+starry <- load.image('~/R/project-2-stats_r_us/Image/starry-night.jpeg')
 
 # sliderFunctions.rmd ----
 
@@ -169,23 +170,25 @@ ui <- navbarPage("Exploring Color Blindness",
                  tabPanel("Sliding Scale of Color Blindness",
                           sidebarPanel(
 
-                          selectInput(inputId = "imageInput",
-                                      label = "Image:",
-                                      list("Mario Brothers" = "mario",
-                                          "Parrot" = "parrot",
-                                          "Starry Night" = "starry",
-                                          "Ball Pit" = "balls")),
+                            selectInput(inputId = "imageInput",
+                                        label = "Image:",
+                                        list("Ball Pit" = "balls",
+                                             "Flowers" = "flowers",
+                                             "Mario Brothers" = "mario",
+                                             "Parrots" = "parrots",
+                                             "Stary Night" = "starry")),
 
-                          selectInput(inputId = "filterInput",
-                                      label = "Type of Colorblindess:",
-                                      list("Protanopia" = "protanopia",
-                                          "Deuteranopia" = "deuteranopia",
-                                          "Tritanopia" = "tritanopia",
-                                          "Monochromatism" = "monochromatism")),
+                            radioButtons(inputId = "filterInput",
+                                        label = "Type of Colorblindess:",
+                                        list("Protanopia" = 1,
+                                             "Deuteranopia" = 2,
+                                             "Tritanopia" = 3,
+                                             "Monochromatism" = 4),
+                                        selected = 2),
 
-                          sliderInput(inputId = "xInput",
-                                      label = "Severity",
-                                      min = 0, max = 1, value = 0),),
+                            sliderInput(inputId = "xInput",
+                                        label = "Severity",
+                                        min = 0, max = 1, value = 0),),
 
                           mainPanel(plotOutput("plotSlider")))
 
@@ -196,24 +199,34 @@ ui <- navbarPage("Exploring Color Blindness",
 
 server <- function(input, output, session) {
 
-    imageUpdated <- reactive({return(input$imageInput)})
-    filterUpdated <- reactive({return(input$filterInput)})
-    xUpdated <- reactive({return(input$xInput)})
+  imageUpdated <- reactive({return(as.name(input$imageInput))})
+  filterUpdated <- reactive({return(input$filterInput)})
+  xUpdated <- reactive({return(input$xInput)})
 
-    output$plotSlider <- renderPlot({
-      image <<- mario
-      filter <<- monochromatism
-      x <<- xUpdated()
+  output$plotSlider <- renderPlot({
 
-      p <- as.ggplot(expression(plot(image, colorscale = filter,
-                                     rescale = FALSE, axes = FALSE))) +
-           coord_fixed()
-      p
-    })
+    #if-statements are in fact needed here... it took hours to debug...
+    if      (imageUpdated() == "balls")   {image <<- balls}
+    else if (imageUpdated() == "flowers") {image <<- flowers}
+    else if (imageUpdated() == "mario")   {image <<- mario}
+    else if (imageUpdated() == "parrots") {image <<- parrots}
+    else                                  {image <<- starry}
+    #filter below, same approach w global vars
+    if      (filterUpdated() == 1) {filter <<- protanopia}
+    else if (filterUpdated() == 2) {filter <<- deuteranopia}
+    else if (filterUpdated() == 3) {filter <<- tritanopia}
+    else                           {filter <<- monochromatism}
+    #good news x was easy
+    x <<- xUpdated()
+
+    p <- as.ggplot(expression(plot(image, colorscale = filter,
+                                   rescale = FALSE, axes = FALSE))) +
+      coord_fixed()
+    p
+  })
 }
 
 
 
 # run app -----
 shinyApp(ui, server)
-
