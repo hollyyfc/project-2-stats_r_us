@@ -189,7 +189,7 @@ ui <- navbarPage("Exploring Color Blindness",
 
                             sliderInput(inputId = "xInput",
                                         label = "Severity:",
-                                        min = 0, max = 1, value = 0),),
+                                        min = 0, max = 1, value = 1),),
 
                           mainPanel(plotOutput("plotSlider")))
 
@@ -206,7 +206,7 @@ server <- function(input, output, session) {
 
   output$plotSlider <- renderPlot({
 
-    #if-statements are in fact needed here... it took hours to debug...
+    #if-statements are hardcoded to override fxn pass
     if      (imageUpdated() == "balls")   {image <<- balls}
     else if (imageUpdated() == "flowers") {image <<- flowers}
     else if (imageUpdated() == "mario")   {image <<- mario}
