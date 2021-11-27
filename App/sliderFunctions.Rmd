@@ -126,8 +126,8 @@ protanopia <- function(r, g, b) {
 }
 ``` 
 
-```{r tritanopia function}
-tritanopia <- function(r, g, b) {
+```{r deuteranopia function}
+deuteranopia <- function(r, g, b) {
   r1 = r
   g1 = g
   b1 = b
@@ -216,25 +216,18 @@ balls <- load.image('~/R/project-2-stats_r_us/Image/ball.jpeg')
 #image = boats, parrots, mario, etc
 #filter = protanopia, deuteranopia, tritanopia, or monochromatism
 ###do not include (r, g, b) in filter
-x = .75
-image = starry
+x = 1
+image = mario
 filter = tritanopia
 
 #original and colorblind image as ggplot
 old <- as.ggplot(expression(plot(image,
                                  rescale = FALSE, axes = FALSE))) +
-       coord_fixed() +
-       theme(plot.margin = unit(c(0,0,0,0), "null")) 
-print(old)
+       coord_fixed() 
 
 new <- as.ggplot(expression(plot(image, colorscale = filter, 
-                               rescale = FALSE, axes = FALSE))) +
-       coord_fixed() +
-       theme(plot.margin = unit(c(0,0,0,0), "null")) 
-print(new)
-
-#updates original.jpeg and colorblind.jpeg w/ new images every time. 
-#might cause merge conflicts. be careful w/ pushing these files.
-ggsave(old, file = "original.jpeg")
-ggsave(new, file = "colorblind.jpeg")
+                                 rescale = FALSE, axes = FALSE))) +
+       coord_fixed() 
+old
+new
 ```
