@@ -1,15 +1,157 @@
+# packages  ----
+
 library(shiny)
 library(ggplot2)
+library(tidyverse)
+library(scales)
+library(imager)
+library(magick)
+library(ggplotify)
+
+# data and images ----
+
+parrot <- load.image(system.file("extdata/parrots.png", package = "imager"))
+mario <- load.image('~/R/project-2-stats_r_us/Image/super-mario.jpeg')
+starry <- load.image('~/R/project-2-stats_r_us/Image/starry-night.jpeg')
+balls <- load.image('~/R/project-2-stats_r_us/Image/ball.jpeg')
+
+# sliderFunctions.rmd ----
+
+#matrix values for c, RGB to LMS. c = change
+c.c = 0.31399022
+c.cc = 0.63951294
+c.ccc = 0.04649755
+cc.c = 0.15537241
+cc.cc = 0.75789446
+cc.ccc = 0.08670142
+ccc.c = 0.01775239
+ccc.cc = 0.10944209
+ccc.ccc = 0.87256922
+
+#matrix values for t, LMS to RGB. u = undo (u = inv(c))
+u.u = 5.47221206
+u.uu = -4.6419601
+u.uuu = 0.16963708
+uu.u = -1.1252419
+uu.uu = 2.29317094
+uu.uuu = -0.1678952
+uuu.u = 0.02980165
+uuu.uu = -0.19318073
+uuu.uuu = 1.16364789
+
+#matrix values for p, p = protanopia
+#missing values are either O or 1
+p.pp = 1.05118294
+p.ppp = -0.05116099
+
+#matrix values for d, d = deuteranopia
+#missing values are either O or 1
+dd.d = 0.9513092
+dd.ddd = 0.04866992
+
+#matrix values for t, t = tritanopia
+#missing values are either O or 1
+ttt.t = -0.86744736
+ttt.tt = 1.86727089
+
+protanopia <- function(r, g, b) {
+  r1 = r
+  g1 = g
+  b1 = b
+
+  l = r1*c.c      + g1*c.cc   + b1*c.ccc
+  m = r1*cc.c     + g1*cc.cc  + b1*cc.ccc
+  s = r1*ccc.c    + g1*ccc.cc + b1*ccc.ccc
+
+  l1 = l*(1-x)    + m*p.pp*x  + s*p.ppp*x
+  m1 =              m
+  s1 =                          s
+
+  rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
+
+  rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)
+  gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)
+  bNew = case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew)
+
+  return(rgb(rNew, gNew, bNew))
+
+}
+
+deuteranopia <- function(r, g, b) {
+  r1 = r
+  g1 = g
+  b1 = b
+
+  l = r1*c.c      + g1*c.cc   + b1*c.ccc
+  m = r1*cc.c     + g1*cc.cc  + b1*cc.ccc
+  s = r1*ccc.c    + g1*ccc.cc + b1*ccc.ccc
+
+  l1 = l
+  m1 = l*dd.d*x   + m*(1-x)   + s*dd.ddd*x
+  s1 =                          s
+
+  rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
+
+  rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)
+  gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)
+  bNew = case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew)
+
+  return(rgb(rNew, gNew, bNew))
+}
+
+tritanopia <- function(r, g, b) {
+  r1 = r
+  g1 = g
+  b1 = b
+
+  l = r1*c.c      + g1*c.cc    + b1*c.ccc
+  m = r1*cc.c     + g1*cc.cc   + b1*cc.ccc
+  s = r1*ccc.c    + g1*ccc.cc  + b1*ccc.ccc
+
+  l1 = l
+  m1 =            + m
+  s1 = l*ttt.t*x  + m*ttt.tt*x + s*(1-x)
+
+  rNew = l1*u.u   + m1*u.uu    + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu   + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu  + s1*uuu.uuu
+
+  rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)
+  gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)
+  bNew = case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew)
+
+  return(rgb(rNew, gNew, bNew))
+}
+
+monochromatism <- function(r, g, b) {
+  r1 = r
+  g1 = g
+  b1 = b
+
+  l = r1*c.c      + g1*c.cc    + b1*c.ccc
+  m = r1*cc.c     + g1*cc.cc   + b1*cc.ccc
+  s = r1*ccc.c    + g1*ccc.cc  + b1*ccc.ccc
+
+  l1 = l*(1-x)                 + s*x
+  m1 =            + m*(1-x)    + s*x
+  s1 =                         + s
+
+  rNew = l1*u.u   + m1*u.uu    + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu   + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu  + s1*uuu.uuu
+
+  rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)
+  gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)
+  bNew = case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew)
+
+  return(rgb(rNew, gNew, bNew))
+}
 
 
-# constants, data, functions, etc. ----
-
-colors <- read_csv("~/R/project-2-stats_r_us/Data/wikipedia_x11_colors.csv")
-colors <- colors %>%
-  rename(r = `Red (8 bit)`,
-         b = `Blue (8 bit)`,
-         g = `Green (8 bit)`) %>%
-  select(Name, r, b, g)
 
 # Define UI for app = create layout ----
 
@@ -25,38 +167,53 @@ ui <- navbarPage("Exploring Color Blindness",
                  tabPanel("Are You Color Blind?"),
 
                  tabPanel("Sliding Scale of Color Blindness",
-                          sliderInput(inputId = "x", label = "Severity",
-                                      min = 0, max = 1, value = 0),
+                          sidebarPanel(
 
-                          selectInput("filter", "Type of Colorblindess:",
-                                      c("Protanopia" = "protanopia",
-                                        "Deuteranopia" = "deuteranopia",
-                                        "Tritanopia" = "tritanopia",
-                                        "Monochromatism" = "monochromatism")),
+                          selectInput(inputId = "imageInput",
+                                      label = "Image:",
+                                      list("Mario Brothers" = "mario",
+                                          "Parrot" = "parrot",
+                                          "Starry Night" = "starry",
+                                          "Ball Pit" = "balls")),
 
-                          selectInput("image", "Image:",
-                                      c("Mario Brothers" = "mario",
-                                        "Parrot" = "parrot",
-                                        "Starry Night" = "starry",
-                                        "Ball Pit" = "balls")),
-                          mainPanel(plotOutput("plot1")))
+                          selectInput(inputId = "filterInput",
+                                      label = "Type of Colorblindess:",
+                                      list("Protanopia" = "protanopia",
+                                          "Deuteranopia" = "deuteranopia",
+                                          "Tritanopia" = "tritanopia",
+                                          "Monochromatism" = "monochromatism")),
+
+                          sliderInput(inputId = "xInput",
+                                      label = "Severity",
+                                      min = 0, max = 1, value = 0),),
+
+                          mainPanel(plotOutput("plotSlider")))
 
 
 )
 
 # Define server logic ----
 
-server <- function(input, output) {
-  output$plot1 <- renderPlot({
-    p <- ggplot(data=colors,aes(x=r,y=b,color="red")) +
-      geom_point()
-    print(p)
-  })
+server <- function(input, output, session) {
+
+    imageUpdated <- reactive({return(input$imageInput)})
+    filterUpdated <- reactive({return(input$filterInput)})
+    xUpdated <- reactive({return(input$xInput)})
+
+    output$plotSlider <- renderPlot({
+      image <<- mario
+      filter <<- monochromatism
+      x <<- xUpdated()
+
+      p <- as.ggplot(expression(plot(image, colorscale = filter,
+                                     rescale = FALSE, axes = FALSE))) +
+           coord_fixed()
+      p
+    })
 }
 
 
 
 # run app -----
-
 shinyApp(ui, server)
 
