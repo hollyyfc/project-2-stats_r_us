@@ -207,27 +207,27 @@ server <- function(input, output, session) {
   output$plotSlider <- renderPlot({
 
     #if-statements are hardcoded to override fxn pass
-    if      (imageUpdated() == "balls")   {image <<- balls}
-    else if (imageUpdated() == "flowers") {image <<- flowers}
-    else if (imageUpdated() == "mario")   {image <<- mario}
-    else if (imageUpdated() == "parrots") {image <<- parrots}
-    else                                  {image <<- starry}
+    if      (imageUpdated() == "balls")   {pic <<- balls}
+    else if (imageUpdated() == "flowers") {pic <<- flowers}
+    else if (imageUpdated() == "mario")   {pic <<- mario}
+    else if (imageUpdated() == "parrots") {pic <<- parrots}
+    else                                  {pic <<- starry}
     #filter below, same approach w global vars
-    if      (filterUpdated() == 1) {filter <<- protanopia}
-    else if (filterUpdated() == 2) {filter <<- deuteranopia}
-    else if (filterUpdated() == 3) {filter <<- tritanopia}
-    else                           {filter <<- monochromatism}
+    if      (filterUpdated() == 1) {colorblindness <<- protanopia}
+    else if (filterUpdated() == 2) {colorblindness <<- deuteranopia}
+    else if (filterUpdated() == 3) {colorblindness <<- tritanopia}
+    else                           {colorblindness <<- monochromatism}
     #good news x was easy
     x <<- xUpdated()
 
-    old <- as.ggplot(expression(plot(image,
+    old <- as.ggplot(expression(plot(pic,
                                      rescale = FALSE, axes = FALSE))) +
            coord_fixed() +
            labs(title = "Original") +
            theme(plot.title = element_text(size = 20, hjust = .5, vjust = -4))
 
-    new <- as.ggplot(expression(plot(image, colorscale = filter,
-                                   rescale = FALSE, axes = FALSE))) +
+    new <- as.ggplot(expression(plot(pic, colorscale = colorblindness,
+                                     rescale = FALSE, axes = FALSE))) +
            coord_fixed() +
            labs(title = "Filtered") +
            theme(plot.title = element_text(size = 20, hjust = .5, vjust = -4))
@@ -239,4 +239,5 @@ server <- function(input, output, session) {
 
 # run app -----
 shinyApp(ui, server)
+
 
