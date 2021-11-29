@@ -41,7 +41,7 @@ server <- function(input, output, session){
   # Output photo
   output$photo <- renderImage({
     list(
-      src = normalizePath(file.path(filename = "/home/guest/Project 2/project-2-stats_r_us/Image",
+      src = normalizePath(file.path(filename = "~/R/project-2-stats_r_us/Image/",
                                     paste0(input$id, ".jpeg"))),
       width = 450,
       height = 300
