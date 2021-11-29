@@ -76,11 +76,11 @@ proHex <- function(hex) {
   gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
   bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
    
-  rNew = round(case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)) * 255
-  gNew = round(case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)) * 255
-  bNew = round(case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew)) * 255
+  rNew = round(case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew) * 255)
+  gNew = round(case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew) * 255)
+  bNew = round(case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew) * 255)
   
-  newHex = rgb2hex(rNew, gNew, bNew)
+  newHex = toupper(rgb2hex(rNew, gNew, bNew))
   return(newHex)
 }
 ```

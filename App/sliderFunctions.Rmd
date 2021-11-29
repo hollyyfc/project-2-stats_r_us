@@ -23,13 +23,13 @@ colors <- colors %>%
   arrange(-b, -g, -r) %>%
   select(Name, r, b, g)
 
-colors <- colors[1:144,]
+colors <- colors[1:5,]
 ```
 
 
 ```{r colors original grid}
 pal <- rgb(colors$r, colors$g, colors$b, max = 255)
-show_col(pal, borders = "black", labels = FALSE, ncol = 12)
+show_col(pal, borders = "black", ncol = 5)
 ```
 
 ```{r important constants}
