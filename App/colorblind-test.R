@@ -30,7 +30,7 @@ ui <- fluidPage(
     )
   ),
   fluidRow(
-    textOutput("result")
+    verbatimTextOutput("result")
   )
 )
 
@@ -38,23 +38,25 @@ ui <- fluidPage(
 # server
 server <- function(input, output, session){
 
+  # Output photo
   output$photo <- renderImage({
     list(
       src = normalizePath(file.path(filename = "/home/guest/Project 2/project-2-stats_r_us/Image",
                                     paste0(input$id, ".jpeg"))),
-      width = 300,
-      height = 200
+      width = 450,
+      height = 300
     )
   }, deleteFile = FALSE)
 
-  observeEvent(input$act, {cat("Showing", input$id)})
+  # Output result
+  observeEvent(input$act,{
+    output$result <- renderText({ paste("You chose",
+                                        input$col1, input$col2, input$col3, input$col4,
+                                        "as the dominant color of",
+                                        input$id) })
+  }, once = TRUE)
 
-  output$result <- renderText({
-    paste("You chose",
-          input$col1, input$col2, input$col3, input$col4,
-          "as the dominant color")
-      })
-  }
+}
 
 
 
