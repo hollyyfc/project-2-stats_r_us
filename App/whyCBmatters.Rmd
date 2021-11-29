@@ -24,7 +24,8 @@ man <- readPNG("data/man.png", native = TRUE, info = TRUE)
 ```
 
 ```{r cb-viz}
-waffle(cb$of100, rows = 40, size=1)
+waffle(cb$of100, rows = 40, size=1) + 
+  labs(title = "Title")
 ```
 
 ```{r}
