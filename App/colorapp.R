@@ -172,21 +172,22 @@ cbplot <- waffle(of1000,
 # stored text for why colorblindness matters
 ## NEEDS FORMATTING
 
-text1 <- "Color blindness affects approximately 1 in every 12 men and 1 in every 200 women.
+text1 <- "<h1> What is color blindness? </h1>
+Color blindness affects approximately 1 in every 12 men and 1 in every 200 women.
 Worldwide, that works out to about 300 million people - same as the population of
 the United States. Color blindness affects a significant portion of the population,
 yet it is not often talked about. Let's continue that conversation here!
 
 There are different causes, kinds, and severities of colorblindnes.
 
-CAUSES
+<h4> CAUSES </h4>
 
 Color blindness is almost always inherited genetically, from the mother's X
 chromosome, which is why it affects so many more men than women. However, it can also
 develop as a result of other diseases like diabetes or multiple sclerosis, or can be
 established over time as a result of aging or medication.
 
-KINDS
+<h4> KINDS </h4>
 
 {{blurb about each different kind of colorblindness}}
 "
