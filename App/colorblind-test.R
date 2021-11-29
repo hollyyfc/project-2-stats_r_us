@@ -86,7 +86,7 @@ proHex <- function(hex) {
 ui <- fluidPage(
   fluidRow(
 
-    column(2, colourInput("col1", "Choose 1st color"), submitButton("Update View", icon("refresh"))),
+    column(2, colourInput("col1", "Choose 1st color"), submitButton("Update", icon("refresh"))),
     column(2, colourInput("col2", "Choose 2nd color")),
     column(2, colourInput("col3", "Choose 3rd color")),
     column(2, colourInput("col4", "Choose 4th color")),
@@ -96,10 +96,18 @@ ui <- fluidPage(
     )
   ),
   fluidRow(
-    column(5,
+    column(6,
            plotOutput(outputId = "plot1")),
-    column(5,
-           plotOutput(outputId = "plot2"))
+    column(6,
+           plotOutput(outputId = "plot2")),
+    column(6,
+           plotOutput(outputId = "plot3")),
+    column(6,
+           plotOutput(outputId = "plot4")),
+    column(6,
+           plotOutput(outputId = "plot5")),
+    column(6,
+           plotOutput(outputId = "plot6"))
     ),
   fluidRow(
     column(12,
@@ -125,44 +133,71 @@ server <- function(input, output, session){
   #   })
 
   # Output bars
+  colorsquares <- data.frame(
+    xmin = seq(1, 6),
+    xmax = seq(2, 7),
+    ymin = rep(0, 6),
+    ymax = rep(1, 6)
+  )
+
+  squareplot <-
+    ggplot(colorsquares, aes(fill=factor(xmin))) +
+    geom_rect(aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+              color = "black", show.legend = F) +
+    coord_fixed() +
+    theme_void() +
+    theme(plot.title = element_text(size = 25, hjust = 0.5, vjust = 3))
+
   output$plot1 <- renderPlot({
 
-    colorsquares <- data.frame(
-      xmin = seq(1, 6),
-      xmax = seq(2, 7),
-      ymin = rep(0, 6),
-      ymax = rep(1, 6)
-    )
-
-    ggplot(colorsquares, aes(fill=factor(xmin))) +
-      geom_rect(aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
-                color = "black", show.legend = F) +
-      coord_fixed() +
-      theme_void() +
-      theme(plot.title = element_text(size = 25, hjust = 0.5, vjust = 3)) +
+      squareplot +
       scale_fill_manual(values = c("blue", "red", "yellow", "green", "purple", "black")) +
       labs(title = "test")
   })
 
-  # output$plot2 <- renderPlot({
-  #   ggplot(data = penguins,
-  #          aes(x = flipper_length_mm,
-  #              y = body_mass_g)) +
-  #     geom_point(aes(color = species,
-  #                    shape = species),
-  #                size = 3,
-  #                alpha = 0.8) +
-  #     theme_minimal() +
-  #     scale_color_manual(values = c(proHex(input$col1),
-  #                                   proHex(input$col2),
-  #                                   proHex(input$col3)))
-  #
-  # })
+  output$plot2 <- renderPlot({
+
+      squareplot +
+      scale_fill_manual(values = c("blue", "red", "yellow", "green", "purple", "black")) +
+      labs(title = "test")
+  })
+
+  output$plot3 <- renderPlot({
+
+      squareplot +
+      scale_fill_manual(values = c("blue", "red", "yellow", "green", "purple", "black")) +
+      labs(title = "test")
+  })
+
+  output$plot4 <- renderPlot({
+
+      squareplot +
+      scale_fill_manual(values = c("blue", "red", "yellow", "green", "purple", "black")) +
+      labs(title = "test")
+  })
+
+
+  output$plot5 <- renderPlot({
+
+      squareplot +
+      scale_fill_manual(values = c("blue", "red", "yellow", "green", "purple", "black")) +
+      labs(title = "test")
+  })
+
+  output$plot6 <- renderPlot({
+
+      squareplot +
+      scale_fill_manual(values = c("blue", "red", "yellow", "green", "purple", "black")) +
+      labs(title = "test")
+  })
+
+
+
 
   # Output result text
   output$result <- renderText({paste(
-    input$col1, input$col2, input$col3, "...", "are the original colors\n",
-    proHex(input$col1), proHex(input$col2), proHex(input$col3), "...", "are the protanaisfdfaef colors") })
+    input$col1, " ", input$col2, " ", input$col3, "...", "are the original colors\n",
+    proHex(input$col1), " ", proHex(input$col2), " ", proHex(input$col3), "...", "are the protanaisfdfaef colors", sep = "") })
 }
 
 
