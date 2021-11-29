@@ -112,17 +112,37 @@ ui <- fluidPage(
 server <- function(input, output, session){
 
   # Output plots
+  # output$plot1 <- renderPlot({
+  #   ggplot(data = penguins,
+  #          aes(x = flipper_length_mm,
+  #              y = body_mass_g)) +
+  #     geom_point(aes(color = species,
+  #                    shape = species),
+  #                size = 3,
+  #                alpha = 0.8) +
+  #     theme_minimal() +
+  #     scale_color_manual(values = c(input$col1,input$col2,input$col3))
+  #   })
+
+  # Output bars
   output$plot1 <- renderPlot({
-    ggplot(data = penguins,
-           aes(x = flipper_length_mm,
-               y = body_mass_g)) +
-      geom_point(aes(color = species,
-                     shape = species),
-                 size = 3,
-                 alpha = 0.8) +
-      theme_minimal() +
-      scale_color_manual(values = c(input$col1,input$col2,input$col3))
-    })
+
+    colorsquares <- data.frame(
+      xmin = seq(1, 6),
+      xmax = seq(2, 7),
+      ymin = rep(0, 6),
+      ymax = rep(1, 6)
+    )
+
+    ggplot(colorsquares, aes(fill=factor(xmin))) +
+      geom_rect(aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+                color = "black", show.legend = F) +
+      coord_fixed() +
+      theme_void() +
+      theme(plot.title = element_text(size = 25, hjust = 0.5, vjust = 3)) +
+      scale_fill_manual(values = c("blue", "red", "yellow", "green", "purple", "black")) +
+      labs(title = "test")
+  })
 
   # output$plot2 <- renderPlot({
   #   ggplot(data = penguins,
