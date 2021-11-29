@@ -159,7 +159,7 @@ monochromatism <- function(r, g, b) {
 
 # Define UI for app = create layout ----
 
-ui <- navbarPage("Exploring Color Blindness",
+ui <- navbarPage(em("Exploring Color Blindness"),
 
                  tabPanel("Why Should You care about Color Blindness?",
                           h5("Vision problems affect 1,430,176,980 Americans.
