@@ -156,12 +156,24 @@ monochromatism <- function(r, g, b) {
 }
 
 
+# data and plot for why colorblindness matters
+of1000 = c("Color Blind Males"=80,
+         "Normal Vision Males"=420,
+         "Color Blind Females"=4,
+         "Normal Vision Feales"=496)
+
+cbplot <- waffle(of1000,
+                 rows = 25,
+                 size=1,
+                 colors=c("darkblue", "dodgerblue2", "#CC0000", "lightcoral"))
+
 
 # Define UI for app = create layout ----
 
 ui <- navbarPage(em("Exploring Color Blindness"),
 
                  tabPanel("Why Should You care about Color Blindness?",
+                          plotOutput("cbplot"),
                           HTML(paste0(
                           "<p>Vision problems affect 1,430,176,980 Americans.",
                           "<p>The eight most prevalent types of vision problems include myopia,",

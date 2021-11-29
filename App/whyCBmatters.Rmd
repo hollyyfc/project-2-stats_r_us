@@ -13,19 +13,24 @@ library(png)
 ```{r make-df}
 cb <- tribble(
   ~entity, ~of100,
-  "Color Blind Males",   80,
-  "Normal Vision Males",   420,
-  "Color Blind Females",   4,
-  "Normal Vision Females", 496
+  "Color Blind Males",   8,
+  "Normal Vision Males",   42,
+  "Color Blind Females",   .4,
+  "Normal Vision Females", 49.6
 )
+
+of1000=c("Color Blind Males"=80, 
+        "Normal Vision Males"=420, 
+        "Color Blind Females"=4,
+        "Normal Vision Feales"=496)
 
 man <- readPNG("data/man.png", native = TRUE, info = TRUE)
 
 ```
 
 ```{r cb-viz}
-waffle(cb$of100, rows = 40, size=1) + 
-  labs(title = "Title")
+waffle(of1000, rows = 25, size=1, colors=c("darkblue", "dodgerblue2", "#CC0000", "lightcoral")) + 
+  labs(title = "x")
 ```
 
 ```{r}
