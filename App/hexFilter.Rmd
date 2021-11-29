@@ -92,3 +92,13 @@ proHex("#ffaaff")
 
 
 ```
+
+
+```{r make stacked bar chart 6 colors}
+
+
+
+```
+
+
+

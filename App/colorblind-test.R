@@ -1,26 +1,17 @@
+#packages ----
 library(shiny)
 library(imager)
 library(colourpicker)
 library(palmerpenguins)
 library(ggplot2)
-
 library(tidyverse)
 library(scales)
-library(imager)
 library(magick)
 library(ggplotify)
 library(patchwork)
 library(ggtern)
 
-
-# load image
-pics <- tibble::tribble(
-  ~name, ~ id,
-  "red-green test", "super-mario",
-  "blue-yellow test", "starry-night",
-  "general", "colorful-flowers"
-)
-
+#constants ----
 #matrix values for c, RGB to LMS. c = change
 c.c = 0.31399022
 c.cc = 0.63951294
@@ -58,6 +49,7 @@ dd.ddd = 0.04866992
 ttt.t = -0.86744736
 ttt.tt = 1.86727089
 
+#hex functions ----
 
 proHex <- function(hex) {
 
@@ -79,72 +71,47 @@ proHex <- function(hex) {
   gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
   bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
 
-  rNew = round(case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)) * 255
-  gNew = round(case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)) * 255
-  bNew = round(case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew)) * 255
+  rNew = round(case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew) * 255)
+  gNew = round(case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew) * 255)
+  bNew = round(case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew) * 255)
 
-  newHex = rgb2hex(rNew, gNew, bNew)
+  newHex = toupper(rgb2hex(rNew, gNew, bNew))
   return(newHex)
 }
 
+#ui and server ----
 
 # ui
 ## Add sliding size scale for plot?
 ui <- fluidPage(
   fluidRow(
-    column(5,
-           selectInput("id", "Pick a test",
-                       choices = setNames(pics$id, pics$name)),
-           imageOutput("photo")
-    ),
-    column(2,
-           colourInput("col1", "Choose 1st color", palette = "limited"),
-           colourInput("col3", "Choose 3rd color", palette = "limited"),
-           actionButton("act", "Check!", class = "btn-success btn-block")
-    ),
-    column(2,
-           colourInput("col2", "Choose 2nd color", palette = "limited"),
-           colourInput("col4", "Choose 4th color", palette = "limited"),
-           submitButton("Update View", icon("refresh"))
+
+    column(2, colourInput("col1", "Choose 1st color"), submitButton("Update View", icon("refresh"))),
+    column(2, colourInput("col2", "Choose 2nd color")),
+    column(2, colourInput("col3", "Choose 3rd color")),
+    column(2, colourInput("col4", "Choose 4th color")),
+    column(2, colourInput("col5", "Choose 5th color")),
+    column(2, colourInput("col6", "Choose 6th color"),
+
     )
   ),
   fluidRow(
-    verbatimTextOutput("result"),
     column(5,
            plotOutput(outputId = "plot1")),
     column(5,
            plotOutput(outputId = "plot2"))
-    )
+    ),
+  fluidRow(
+    column(12,
+           verbatimTextOutput("result"))
+  )
 )
 
 
 # server
 server <- function(input, output, session){
 
-  # Output photo
-  output$photo <- renderImage({
-    list(
-      src = normalizePath(file.path(filename = "~/R/project-2-stats_r_us/Image/",
-                                    paste0(input$id, ".jpeg"))),
-      width = 450,
-      height = 300
-    )
-  }, deleteFile = FALSE)
-
-  # Output result
-  # observeEvent(input$act,{
-  #   output$result <- renderText({ paste("You chose",
-  #                                       input$col1, input$col2, input$col3, input$col4,
-  #                                       "as the dominant color of",
-  #                                       input$id) })
-  # }, once = TRUE)
-
-  # Output result text
-  output$result <- renderText({ paste("You chose",
-                                      input$col1, input$col2, input$col3, input$col4,
-                                      "as the dominant color of",
-                                      input$id) })
-
+  # Output plots
   output$plot1 <- renderPlot({
     ggplot(data = penguins,
            aes(x = flipper_length_mm,
@@ -157,59 +124,25 @@ server <- function(input, output, session){
       scale_color_manual(values = c(input$col1,input$col2,input$col3))
     })
 
-  output$plot2 <- renderPlot({
-    ggplot(data = penguins,
-           aes(x = flipper_length_mm,
-               y = body_mass_g)) +
-      geom_point(aes(color = species,
-                     shape = species),
-                 size = 3,
-                 alpha = 0.8) +
-      theme_minimal() +
-      scale_color_manual(values = c(proHex(input$col1),
-                                    proHex(input$col2),
-                                    proHex(input$col3)))
-  })
-
-
-  # values<- reactiveValues()
-  # values$df<- data.frame()
+  # output$plot2 <- renderPlot({
+  #   ggplot(data = penguins,
+  #          aes(x = flipper_length_mm,
+  #              y = body_mass_g)) +
+  #     geom_point(aes(color = species,
+  #                    shape = species),
+  #                size = 3,
+  #                alpha = 0.8) +
+  #     theme_minimal() +
+  #     scale_color_manual(values = c(proHex(input$col1),
+  #                                   proHex(input$col2),
+  #                                   proHex(input$col3)))
   #
-  # observeEvent(input$act, {
-  #   pic <- input$id
-  #   col1 <- input$col1
-  #   col2 <- input$col2
-  #   col3 <- input$col3
-  #   col4 <- input$col4
-  #   score <- 0
-  #
-  #   colorlist <- list(col1, col2, col3, col4)
-  #
-  #   # new_row <- data.frame(rank,name,college,gender,team,score)
-  #   #
-  #   # values$df<- rbind(values$df, new_row)
-  #   # values$df<- values$df[order(values$df$score,decreasing=TRUE),]
-  #   # values$df$rank<- 1:nrow(values$df)
-  # })
-  #
-  # output$test <- renderPrint({
-  #   df <- data.frame()
-  #   for (team_name in unique(values$df$team)){ #this does NOT work
-  #     local({
-  #       rank <- 0
-  #       team <- team_name
-  #       score <- format(mean(values$df[values$df$team==team_name,]$score), digits=4)
-  #
-  #       new_row<- data.frame(rank, team, score)
-  #
-  #       df <<- rbind(df, new_row)
-  #       df <<- df[order(df$score,decreasing=TRUE),]
-  #       df$rank <<- 1:nrow(df)
-  #     })
-  #   }
-  #   return(df)
   # })
 
+  # Output result text
+  output$result <- renderText({paste(
+    input$col1, input$col2, input$col3, "...", "are the original colors\n",
+    proHex(input$col1), proHex(input$col2), proHex(input$col3), "...", "are the protanaisfdfaef colors") })
 }
 
 
