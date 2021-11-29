@@ -162,24 +162,22 @@ monochromatism <- function(r, g, b) {
 ui <- navbarPage("Exploring Color Blindness",
 
                  tabPanel("Why Should You care about Color Blindness?",
-                          h5("Vision problems affect 1,430,176,980 Americans.
-                                     The eight most prevalent types of vision problems include myopia,
-                                     cataracts, hyperopia,diabetic tetinopathy, vision impairment,
-                                     glaucoma, AMD (Age-Related Macular Degeneration), and blindness.
+                          HTML(paste0(
+                          "<p>Vision problems affect 1,430,176,980 Americans.",
+                          "<p>The eight most prevalent types of vision problems include myopia,",
+                          "<p>cataracts, hyperopia,diabetic tetinopathy, vision impairment,",
+                          "<p>glaucoma, AMD (Age-Related Macular Degeneration), and blindness.",
 
+                          "<p>Color blindness is a type of vision impairment; vision impairment",
+                          "<p>affects almost 50 million people, which is over 80 times the",
+                          "<p>population of Durham! 1 in 12 men and 1 in 200 women are color",
+                          "<p> blind, which accounts for 300 million people in the world! ",
+                          "<p>Color blindness is a widespread problem that is usually caused",
+                          "<p> by genetics, diabetes, multiple sclerosis, or aging. Colorblindness",
+                          "<p> affects so many yet is not talked about enough!",
+                          "<p>Let's start the conversation here.",
 
-
-                                     Color blindness is a type of vision impairment; vision impairment
-                                     affects almost 50 million people, which is over 80 times the
-                                     population of Durham! 1 in 12 men and 1 in 200 women are color blind,
-                                     which accounts for 300 million people in the world! Color blindness
-                                     is a widespread problem that is usually caused by genetics, diabetes,
-                                     multiple sclerosis, or aging. Colorblindness affects so many yet
-                                     is not talked about enough! Let's start the conversation here.
-
-
-
-                                     Here are some examples of common types of colorblindness: (insert images)")),
+                          "<p><b>Here are some examples of common types of colorblindness"))),
 
 
                  tabPanel("Are You Color Blind?"),
