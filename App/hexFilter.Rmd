@@ -6,6 +6,38 @@ output: html_document
 ```{r proHex fxn}
 
 
+proHex <- function(hex) {
+  
+  rgb.array = col2rgb(hex)
+  
+  r1 = rgb.array[1] / 255
+  g1 = rgb.array[2] / 255
+  b1 = rgb.array[3] / 255
+   
+  l = r1*c.c      + g1*c.cc   + b1*c.ccc
+  m = r1*cc.c     + g1*cc.cc  + b1*cc.ccc
+  s = r1*ccc.c    + g1*ccc.cc + b1*ccc.ccc
+   
+  l1 = l          + m*p.pp    + s*p.ppp
+  m1 =              m
+  s1 =                          s
+   
+  rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
+   
+  rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew) * 255
+  gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew) * 255
+  bNew = case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew) * 255
+  
+  newHex = rgb2hex(rNew, gNew, bNew)
+  return(newHex)
+}
+```
+
+
+```{r test}
+proHex("#FFFFFF")
 
 
 
