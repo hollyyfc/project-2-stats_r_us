@@ -158,6 +158,7 @@ monochromatism <- function(r, g, b) {
 
 
 # data and plot for why colorblindness matters
+
 of1000 = c("Color Blind Males"=80,
          "Normal Vision Males"=420,
          "Color Blind Females"=4,
@@ -167,6 +168,28 @@ cbplot <- waffle(of1000,
                  rows = 25,
                  size=1,
                  colors=c("darkblue", "dodgerblue2", "#CC0000", "lightcoral"))
+
+# stored text for why colorblindness matters
+## NEEDS FORMATTING
+
+text <- "Color blindness affects approximately 1 in every 12 men and 1 in every 200 women.
+Worldwide, that works out to about 300 million people - same as the population of
+the United States. Color blindness affects a significant portion of the population,
+yet it is not often talked about. Let's continue that conversation here!
+
+There are different causes, kinds, and severities of colorblindnes.
+
+CAUSES
+
+Color blindness is almost always inherited genetically, from the mother's X
+chromosome, which is why it affects so many more men than women. However, it can also
+develop as a result of other diseases like diabetes or multiple sclerosis, or can be
+established over time as a result of aging or medication.
+
+KINDS
+
+{{blurb about each different kind of colorblindness}}
+"
 
 
 # Define UI for app = create layout ----
