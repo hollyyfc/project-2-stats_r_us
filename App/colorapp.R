@@ -231,10 +231,10 @@ ui <- navbarPage(em("Exploring Color Blindness"),
                                         label = "Severity:",
                                         min = 0, max = 1, value = 1),),
 
-                          mainPanel(plotOutput("plotSlider")))
+                          mainPanel(shinycssloaders::withSpinner(plotOutput("plotSlider")))
 
 
-)
+))
 
 # Define server logic ----
 
