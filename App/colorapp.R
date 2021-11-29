@@ -20,7 +20,7 @@ mario <- load.image('~/R/project-2-stats_r_us/Image/super-mario.jpeg')
 parrots <- load.image(system.file("extdata/parrots.png", package = "imager"))
 starry <- load.image('~/R/project-2-stats_r_us/Image/starry-night.jpeg')
 
-# sliderFunctions.rmd ----
+# sliderFunctions.rmd (with constants) ----
 
 #matrix values for c, RGB to LMS. c = change
 c.c = 0.31399022
@@ -192,6 +192,9 @@ established over time as a result of aging or medication.
 {{blurb about each different kind of colorblindness}}
 "
 
+
+
+# hexFilter.rmd ----
 
 # Define UI for app = create layout ----
 
