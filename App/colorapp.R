@@ -172,7 +172,7 @@ cbplot <- waffle(of1000,
 # stored text for why colorblindness matters
 ## NEEDS FORMATTING
 
-text <- "Color blindness affects approximately 1 in every 12 men and 1 in every 200 women.
+text1 <- "Color blindness affects approximately 1 in every 12 men and 1 in every 200 women.
 Worldwide, that works out to about 300 million people - same as the population of
 the United States. Color blindness affects a significant portion of the population,
 yet it is not often talked about. Let's continue that conversation here!
@@ -199,22 +199,7 @@ ui <- navbarPage(em("Exploring Color Blindness"),
                  tabPanel("Why Should You care about Color Blindness?",
                           fluidRow(
                             column(width=6,
-                                   HTML(paste0(
-                                     "<p>Vision problems affect 1,430,176,980 Americans.",
-                                     "<p>The eight most prevalent types of vision problems include myopia,",
-                                     "<p>cataracts, hyperopia,diabetic tetinopathy, vision impairment,",
-                                     "<p>glaucoma, AMD (Age-Related Macular Degeneration), and blindness.",
-
-                                     "<p>Color blindness is a type of vision impairment; vision impairment",
-                                     "<p>affects almost 50 million people, which is over 80 times the",
-                                     "<p>population of Durham! 1 in 12 men and 1 in 200 women are color",
-                                     "<p> blind, which accounts for 300 million people in the world! ",
-                                     "<p>Color blindness is a widespread problem that is usually caused",
-                                     "<p> by genetics, diabetes, multiple sclerosis, or aging. Colorblindness",
-                                     "<p> affects so many yet is not talked about enough!",
-                                     "<p>Let's start the conversation here.",
-
-                                     "<p><b>Here are some examples of common types of colorblindness"))),
+                                   HTML(text1)),
 
                             column(width=6,
                                    plotOutput("cbplot")))),
