@@ -222,13 +222,20 @@ ui <- navbarPage(em("Exploring Color Blindness"),
                                              "Parrots" = "parrots",
                                              "Starry Night" = "starry")),
 
+                            fileInput(inputId = "fileInput",
+                                      label = "Upload JPG:",
+                                      accept = ".jpg"),
+
+                            checkboxInput(inputId = "usePic",
+                                          label = "Use Upload"),
+
                             radioButtons(inputId = "filterInput",
-                                        label = "Colorblindess:",
-                                        list("Protanopia" = 1,
+                                         label = "Colorblindess:",
+                                         list("Protanopia" = 1,
                                              "Deuteranopia" = 2,
                                              "Tritanopia" = 3,
                                              "Monochromatism" = 4),
-                                        selected = 1),
+                                         selected = 1),
 
                             sliderInput(inputId = "xInput",
                                         label = "Severity:",
@@ -247,6 +254,9 @@ server <- function(input, output, session) {
     cbplot
   })
 
+  fileUpload <- reactive({return(input$fileInput)})
+  fileThere <- reactive({return(input$usePic)})
+
   imageUpdated <- reactive({return(as.name(input$imageInput))})
   filterUpdated <- reactive({return(input$filterInput)})
   xUpdated <- reactive({return(input$xInput)})
@@ -254,7 +264,11 @@ server <- function(input, output, session) {
   output$plotSlider <- renderPlot({
 
     #if-statements are hardcoded to override fxn pass
-    if      (imageUpdated() == "balls")   {pic <<- balls}
+    if (fileThere() & !is.null(fileUpload())){
+      temp <- fileUpload()
+      fileUploadDouble <- load.image(temp$datapath)
+      pic  <<- fileUploadDouble}
+    else if (imageUpdated() == "balls")   {pic <<- balls}
     else if (imageUpdated() == "flowers") {pic <<- flowers}
     else if (imageUpdated() == "mario")   {pic <<- mario}
     else if (imageUpdated() == "parrots") {pic <<- parrots}
