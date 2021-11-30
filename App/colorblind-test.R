@@ -181,17 +181,20 @@ ui <- fluidPage(
   ),
   fluidRow(
     column(6,
-           plotOutput(outputId = "plot1")),
+           plotOutput(outputId = "plot1"),
+           plotOutput(outputId = "graph1")),
     column(6,
-           plotOutput(outputId = "plot2")),
+           plotOutput(outputId = "plot2"),
+           plotOutput(outputId = "graph2")),
     column(6,
-           plotOutput(outputId = "plot3")),
+           plotOutput(outputId = "plot3"),
+           plotOutput(outputId = "graph3")),
     column(6,
-           plotOutput(outputId = "plot4")),
+           plotOutput(outputId = "plot4"),
+           plotOutput(outputId = "graph4")),
     column(6,
-           plotOutput(outputId = "plot5")),
-    column(6,
-           plotOutput(outputId = "plot6"))
+           plotOutput(outputId = "plot5"),
+           plotOutput(outputId = "graph5"))
   ),
   fluidRow(
     column(12,
@@ -203,7 +206,7 @@ ui <- fluidPage(
 # server
 server <- function(input, output, session){
 
-  # Output bars
+  # Output bars ----
   colorsquares <- data.frame(
     xmin = seq(1, 6),
     xmax = seq(2, 7),
@@ -228,20 +231,13 @@ server <- function(input, output, session){
 
   output$plot2 <- renderPlot({
     squareplot +
-      scale_fill_manual(values = c(input$col1, input$col2, input$col3,
-                                   input$col4, input$col5, input$col6)) +
-      labs(title = "Original")
-  })
-
-  output$plot3 <- renderPlot({
-    squareplot +
       scale_fill_manual(values = c(proHex(input$col1), proHex(input$col2),
                                    proHex(input$col3), proHex(input$col4),
                                    proHex(input$col5), proHex(input$col6))) +
       labs(title = "Protanopia")
   })
 
-  output$plot4 <- renderPlot({
+  output$plot3 <- renderPlot({
     squareplot +
       scale_fill_manual(values = c(deutHex(input$col1), deutHex(input$col2),
                                    deutHex(input$col3), deutHex(input$col4),
@@ -250,7 +246,7 @@ server <- function(input, output, session){
   })
 
 
-  output$plot5 <- renderPlot({
+  output$plot4 <- renderPlot({
     squareplot +
       scale_fill_manual(values = c(triHex(input$col1), triHex(input$col2),
                                    triHex(input$col3), triHex(input$col4),
@@ -258,7 +254,7 @@ server <- function(input, output, session){
       labs(title = "Tritanopia")
   })
 
-  output$plot6 <- renderPlot({
+  output$plot5 <- renderPlot({
     squareplot +
       scale_fill_manual(values = c(monoHex(input$col1), monoHex(input$col2),
                                    monoHex(input$col3), monoHex(input$col4),
@@ -266,14 +262,63 @@ server <- function(input, output, session){
       labs(title = "Monochromatism")
   })
 
+  # Output art ----
+  set.seed(1)
+  obj <- tibble(
+    x = rnorm(100),
+    y = rnorm(100),
+    g = sample(6, 100, TRUE)
+  )
+
+  art <-
+  ggplot(obj, aes(x, y, fill = factor(g), group = factor(g))) +
+    geom_polygon(show.legend = FALSE) +
+    coord_equal() +
+    theme_void()
+
+  output$graph1 <- renderPlot({
+    art +
+      scale_fill_manual(values = c(input$col1, input$col2, input$col3,
+                                   input$col4, input$col5, input$col6))
+  })
+
+  output$graph2 <- renderPlot({
+    art +
+      scale_fill_manual(values = c(proHex(input$col1), proHex(input$col2),
+                                   proHex(input$col3), proHex(input$col4),
+                                   proHex(input$col5), proHex(input$col6)))
+  })
+
+  output$graph3 <- renderPlot({
+    art +
+      scale_fill_manual(values = c(deutHex(input$col1), deutHex(input$col2),
+                                   deutHex(input$col3), deutHex(input$col4),
+                                   deutHex(input$col5), deutHex(input$col6)))
+  })
 
 
-  # Output result text
+  output$graph4 <- renderPlot({
+    art +
+      scale_fill_manual(values = c(triHex(input$col1), triHex(input$col2),
+                                   triHex(input$col3), triHex(input$col4),
+                                   triHex(input$col5), triHex(input$col6)))
+  })
+
+  output$graph5 <- renderPlot({
+    art +
+      scale_fill_manual(values = c(monoHex(input$col1), monoHex(input$col2),
+                                   monoHex(input$col3), monoHex(input$col4),
+                                   monoHex(input$col5), monoHex(input$col6)))
+  })
+
+  # Output result text ----
+  # Put under each chart!!!
   output$result <- renderText({paste(
     input$col1, " ", input$col2, " ", input$col3, "...", "are the original colors\n",
     proHex(input$col1), " ", proHex(input$col2), " ", proHex(input$col3), "...", "are the protanaisfdfaef colors", sep = "") })
+
 }
- ## Put under each chart!!!
+
 
 
 
