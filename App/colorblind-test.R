@@ -263,50 +263,102 @@ server <- function(input, output, session){
   })
 
   # Output art ----
-  set.seed(1)
-  obj <- tibble(
-    x = rnorm(100),
-    y = rnorm(100),
-    g = sample(6, 100, TRUE)
-  )
 
-  art <-
-  ggplot(obj, aes(x, y, fill = factor(g), group = factor(g))) +
-    geom_polygon(show.legend = FALSE) +
+  # set.seed(1)
+  # obj <- tibble(
+  #   x = rnorm(100),
+  #   y = rnorm(100),
+  #   g = sample(6, 100, TRUE)
+  # )
+  #
+  # art <-
+  # ggplot(obj, aes(x, y, fill = factor(g), group = factor(g))) +
+  #   geom_polygon(show.legend = FALSE) +
+  #   coord_equal() +
+  #   theme_void()
+
+  build_art <- function(points,
+                        angle,
+                        adjustment,
+                        sd=0
+                        #seed=123
+  ) {
+    #set.seed(seed)
+
+    tibble(
+      i = 1:points, # 1~200
+      t = (1:points) * angle + adjustment, # angle with adjustment
+      x = sin(t), # polar x(should be y, but doesn't matter)
+      y = cos(t), # polar y(should be x, but doesn't matter)
+      g = sample(6, points, TRUE)
+    ) %>%
+      mutate(
+        x = x + rnorm(n = points, mean = 0, sd), # random noise
+        y = y + rnorm(n = points, mean = 0, sd)
+      )
+  }
+
+  art2 <-
+  build_art(
+    angle = pi * (3 - sqrt(5)),
+    points = 500,
+    adjustment = 20,
+    sd = 1
+  ) %>%
+    ggplot(aes(x = x * t, y = y * t)) +
+    geom_point(aes(size = factor(g), color = factor(g), fill = factor(g)),
+               alpha = 0.5, shape = "square filled", show.legend = FALSE) +
     coord_equal() +
     theme_void()
 
+
+
   output$graph1 <- renderPlot({
-    art +
+    art2 +
       scale_fill_manual(values = c(input$col1, input$col2, input$col3,
+                                   input$col4, input$col5, input$col6)) +
+      scale_color_manual(values = c(input$col1, input$col2, input$col3,
                                    input$col4, input$col5, input$col6))
   })
 
   output$graph2 <- renderPlot({
-    art +
+    art2 +
       scale_fill_manual(values = c(proHex(input$col1), proHex(input$col2),
                                    proHex(input$col3), proHex(input$col4),
+                                   proHex(input$col5), proHex(input$col6)))+
+      scale_color_manual(values = c(proHex(input$col1), proHex(input$col2),
+                                   proHex(input$col3), proHex(input$col4),
                                    proHex(input$col5), proHex(input$col6)))
+
   })
 
   output$graph3 <- renderPlot({
-    art +
+    art2 +
       scale_fill_manual(values = c(deutHex(input$col1), deutHex(input$col2),
+                                   deutHex(input$col3), deutHex(input$col4),
+                                   deutHex(input$col5), deutHex(input$col6)))+
+      scale_color_manual(values = c(deutHex(input$col1), deutHex(input$col2),
                                    deutHex(input$col3), deutHex(input$col4),
                                    deutHex(input$col5), deutHex(input$col6)))
   })
 
 
   output$graph4 <- renderPlot({
-    art +
+    art2 +
       scale_fill_manual(values = c(triHex(input$col1), triHex(input$col2),
+                                   triHex(input$col3), triHex(input$col4),
+                                   triHex(input$col5), triHex(input$col6)))+
+      scale_color_manual(values = c(triHex(input$col1), triHex(input$col2),
                                    triHex(input$col3), triHex(input$col4),
                                    triHex(input$col5), triHex(input$col6)))
   })
 
   output$graph5 <- renderPlot({
-    art +
+    art2 +
       scale_fill_manual(values = c(monoHex(input$col1), monoHex(input$col2),
+                                   monoHex(input$col3), monoHex(input$col4),
+                                   monoHex(input$col5), monoHex(input$col6)))+
+      scale_color_manual(values = c(monoHex(input$col1), monoHex(input$col2),
                                    monoHex(input$col3), monoHex(input$col4),
                                    monoHex(input$col5), monoHex(input$col6)))
   })
