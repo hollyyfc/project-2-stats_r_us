@@ -209,6 +209,7 @@ parrot <- load.image(system.file("extdata/parrots.png", package = "imager"))
 mario <- load.image('~/R/project-2-stats_r_us/Image/super-mario.jpeg')
 starry <- load.image('~/R/project-2-stats_r_us/Image/starry-night.jpeg')
 balls <- load.image('~/R/project-2-stats_r_us/Image/ball.jpeg')
+typeof(balls)
 ```
 
 ```{r fxn outline}
