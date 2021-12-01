@@ -305,7 +305,19 @@ established over time as a result of aging or medication.
 
 <h4> KINDS </h4>
 
-{{blurb about each different kind of colorblindness}}
+While there are seven kinds of colorblindness, we will be focusing on the four most
+common: protanopia, deuteranopia, tritanopia, and monochromatism. <em>Protanopia</em> is
+a type of colorblindness where the L-cone (also known as the red cone or the
+long-wavelength cone) is completely missing. People with protanopia
+are unable to perceive red and green. <em>Deuteranopia</em> is a type of colorblindness
+where those affected cannot perceive green; it is caused by the absence of the
+M-cone (also known as the green cone or the medium-wavelength cone).
+Those affected by <em>tritanopia</em> cannot distinguish between blue and yellow due to missing
+S-cones (blue cones, short-wavelength cones). Lastly, <em>monochromatism</em> is a type of
+colorblindness in which one perceives all colors as varying shades of gray. In other words,
+people with monochromatism cannot perceive color at all. Monochromatism is characterized by a
+lack of all cones that perceive color.
+
 "
 
 
