@@ -171,41 +171,62 @@ monoHex <- function(hex) {
 ui <- fluidPage(
   titlePanel("Are You Colorblind?"),
 
+  ### FORMAT TEXTS!!!!!
+  "Want to check if you have colorblindness or color deficiency? This test is simple:",
+  "\nFirst, randomly choose six colors. Then, navigate to the sidebar\nsection where
+  you choose a letter representing a type of colorblindness plot.",
+  "\nFinally, hit the update button and see the two uniquely generated plots
+  based on your selections.",
+  "\nAfter comparing the two plots, hit the red or green button in sidebar
+  section to check your result. ",
+
+  HTML("<h4> Step 1 </h4>"),
   fluidRow(
     column(2,
            colourInput("col1", "Choose 1st color")
-           #submitButton("Update", icon("refresh"))
            ),
     column(2, colourInput("col2", "Choose 2nd color")),
     column(2, colourInput("col3", "Choose 3rd color")),
     column(2, colourInput("col4", "Choose 4th color")),
     column(2, colourInput("col5", "Choose 5th color")),
-    column(2, colourInput("col6", "Choose 6th color"))
+    column(2, colourInput("col6", "Choose 6th color")),
+    style='padding:0px; padding-top:0px; padding-bottom:10px'
   ),
 
   sidebarLayout(
     sidebarPanel(
+      HTML("<h4> Step 2 </h4>"),
       radioButtons("colorblind", "Choose a newly-generated image to compare",
                    c("A", "B", "C", "D")),
       submitButton("Update", icon("sync")),
       "\n-----------------------------------------------------------------------",
+      HTML("<h4> Step 3 </h4>"),
+      fluidRow(
+      HTML(" After comparing the two plots, check your result by first hit one of
+      the buttons below, and then press <strong> UPDATE </strong> above again."),
+      style='padding-top:5px; padding-bottom:10px; padding-left:20px; padding-right:20px'
+      ),
       useShinyalert(),
       actionButton("correct", "I can see the difference of colors in each plot",
                    icon("laugh-wink"), class = "btn-success btn-block"),
       actionButton("check", "After comparison, I find colors in both plots similar",
-                   icon("flushed"), class = "btn-danger btn-block ")
+                   icon("flushed"), class = "btn-danger btn-block "),
+      fluidRow(
+      "**This test does not suggest any professional or medical advice.**",
+      style='padding-top:20px; padding-bottom:10px; padding-left:20px; padding-right:10px')
     ),
 
     mainPanel(
+      ### MARGIN LAYOUT!!!
       fluidRow(
         column(6,
                offset = 0,
-               style='padding:0px; padding-top:5px; padding-bottom:0px',
+               style='padding:0px; padding-top:0px; padding-bottom:0px',
                plotOutput(outputId = "graph1"),
                plotOutput(outputId = "plot1")),
         column(6,
                offset = 0,
-               style='padding:0px; padding-top:5px; padding-bottom:0px',
+               style='padding:0px; padding-top:0px; padding-bottom:0px',
                plotOutput(outputId = "graph2"),
                plotOutput(outputId = "plot2"))
     )
@@ -405,7 +426,7 @@ server <- function(input, output, session){
 
 }
 
-# "\n**This test does not suggest any professional or medical advice.**"
+
 
 # app
 shinyApp(ui = ui, server = server)
