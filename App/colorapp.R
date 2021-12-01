@@ -275,15 +275,15 @@ monoHex <- function(hex) {
 
 # data and plot for why colorblindness matters ----
 
-of1000 = c("Color Blind Males"=80,
-         "Normal Vision Males"=420,
-         "Color Blind Females"=4,
-         "Normal Vision Feales"=496)
+of1000 = c("Color Blind Males" = 80,
+         "Normal Vision Males" = 420,
+         "Color Blind Females" = 4,
+         "Normal Vision Feales" = 496)
 
 cbplot <- waffle(of1000,
                  rows = 25,
-                 size=1,
-                 colors=c("darkblue", "dodgerblue2", "#CC0000", "lightcoral"))
+                 size = 1,
+                 colors = c("darkblue", "dodgerblue2", "#CC0000", "lightcoral"))
 
 # stored text for why colorblindness matters
 ## NEEDS FORMATTING
@@ -327,10 +327,10 @@ ui <- navbarPage(em("Exploring Color Blindness"),
 
                  tabPanel("Why Should You care about Color Blindness?",
                           fluidRow(
-                            column(width=6,
+                            column(width = 6,
                                    HTML(text1)),
 
-                            column(width=6,
+                            column(width = 6,
                                    plotOutput("cbplot")))),
 
                  tabPanel("Sliding Scale of Color Blindness",
@@ -363,10 +363,14 @@ ui <- navbarPage(em("Exploring Color Blindness"),
                                         label = "Severity:",
                                         min = 0, max = 1, value = 1),),
 
-                          mainPanel(shinycssloaders::withSpinner(plotOutput("plotSlider")))
+                          mainPanel(shinycssloaders::withSpinner(plotOutput("plotSlider")))),
+
+                 tabPanel("The Math: Explained"),
+
+                 tabPanel("Writeup and Acknowledgements")
 
 
-))
+)
 
 # Define server logic ----
 
