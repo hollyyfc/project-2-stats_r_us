@@ -195,17 +195,17 @@ ui <- fluidPage(
       "\n-----------------------------------------------------------------------",
       HTML("<h4> Step 3 </h4>"),
       fluidRow(
-      HTML("<b>After comparing the two plots, check your result by hitting one of
+        HTML("<b>After comparing the two plots, check your result by hitting one of
       the buttons below:<b>"),
-      style='padding-top:5px; padding-bottom:10px; padding-left:20px; padding-right:20px'),
+        style='padding-top:5px; padding-bottom:10px; padding-left:20px; padding-right:20px'),
       useShinyalert(),
       actionButton("correct", "I can see very different colors in both plots.",
                    icon("laugh-wink"), class = "btn-success btn-block"),
       actionButton("check", "After comparison, I see similar colors in both plots.",
                    icon("flushed"), class = "btn-danger btn-block "),
       fluidRow(
-      "***Disclaimer: This test is not a professional diagnosis.***",
-      style='padding-top:20px; padding-bottom:10px; padding-left:20px; padding-right:10px')),
+        "***Disclaimer: This test is not a professional diagnosis.***",
+        style='padding-top:20px; padding-bottom:10px; padding-left:20px; padding-right:10px')),
 
     mainPanel(
       ### MARGIN LAYOUT!!!
@@ -219,8 +219,8 @@ ui <- fluidPage(
                style='padding:0px; padding-top:0px; padding-bottom:0px',
                plotOutput(outputId = "graph2"),
                plotOutput(outputId = "plot2"))
+      )
     )
-  )
   )
 )
 
@@ -263,7 +263,7 @@ server <- function(input, output, session){
     plotA <-
       squareplot +
       scale_fill_manual(values = c(input$col1, input$col2, input$col3,
-                                     input$col4, input$col5, input$col6)) +
+                                   input$col4, input$col5, input$col6)) +
       labs(title = "Original Plot")
 
     plotB <-
@@ -271,7 +271,7 @@ server <- function(input, output, session){
       scale_fill_manual(values = c(input$col1, input$col2, input$col3,
                                    input$col4, input$col5, input$col6)) +
       scale_color_manual(values = c(input$col1, input$col2, input$col3,
-                                   input$col4, input$col5, input$col6))
+                                    input$col4, input$col5, input$col6))
     plotA / plotB
 
   })
@@ -303,17 +303,17 @@ server <- function(input, output, session){
 
       output$graph2 <- renderPlot({
         plotA <-
-         squareplot +
-         scale_fill_manual(values = c(deutHex(input$col1), deutHex(input$col2),
+          squareplot +
+          scale_fill_manual(values = c(deutHex(input$col1), deutHex(input$col2),
                                        deutHex(input$col3), deutHex(input$col4),
                                        deutHex(input$col5), deutHex(input$col6)))
 
         plotB <-
-         art +
-         scale_fill_manual(values = c(deutHex(input$col1), deutHex(input$col2),
+          art +
+          scale_fill_manual(values = c(deutHex(input$col1), deutHex(input$col2),
                                        deutHex(input$col3), deutHex(input$col4),
                                        deutHex(input$col5), deutHex(input$col6)))+
-         scale_color_manual(values = c(deutHex(input$col1), deutHex(input$col2),
+          scale_color_manual(values = c(deutHex(input$col1), deutHex(input$col2),
                                         deutHex(input$col3), deutHex(input$col4),
                                         deutHex(input$col5), deutHex(input$col6)))
 
@@ -401,10 +401,10 @@ server <- function(input, output, session){
     else {
       type_color <- "monochromatism"}
 
-  shinyalert(
-             paste0("Oops! You may have symptoms of", " ", type_color, "."),
-             "Try doing the test again with different colors \nor seek a professional colorblindness test.",
-             type = "error")
+    shinyalert(
+      paste0("Oops! You may have symptoms of", " ", type_color, "."),
+      "Try doing the test again with different colors \nor seek a professional colorblindness test.",
+      type = "error")
   })
 
 }
@@ -413,9 +413,5 @@ server <- function(input, output, session){
 
 # app
 shinyApp(ui = ui, server = server)
-
-
-
-
 
 
