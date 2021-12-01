@@ -362,7 +362,7 @@ server <- function(input, output, session) {
 
 
 
-  # Filter tab ------
+  # filter tab ------
   output$cbplot <- renderPlot({
     cbplot
   })

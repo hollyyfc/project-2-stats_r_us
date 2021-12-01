@@ -208,7 +208,7 @@ ui <- fluidPage(
         style='padding-top:20px; padding-bottom:10px; padding-left:20px; padding-right:10px')),
 
     mainPanel(
-      ### MARGIN LAYOUT!!!
+      ### MARGIN LAYOUT!
       fluidRow(
         column(6,
                offset = 0,
