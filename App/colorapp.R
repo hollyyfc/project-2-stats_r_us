@@ -11,6 +11,7 @@ library(patchwork)
 library(shinyalert)
 library(shinybusy)
 library(waffle)
+library(colourpicker)
 
 # data and images ----
 
@@ -59,6 +60,7 @@ dd.ddd = 0.04866992
 ttt.t = -0.86744736
 ttt.tt = 1.86727089
 
+## functions for RGB
 protanopia <- function(r, g, b) {
   r1 = r
   g1 = g
@@ -156,8 +158,122 @@ monochromatism <- function(r, g, b) {
   return(rgb(rNew, gNew, bNew))
 }
 
+# hexFilter.rmd ----
+proHex <- function(hex) {
 
-# data and plot for why colorblindness matters
+  rgb.array = col2rgb(hex)
+
+  r1 = rgb.array[1] / 255
+  g1 = rgb.array[2] / 255
+  b1 = rgb.array[3] / 255
+
+  l = r1*c.c      + g1*c.cc   + b1*c.ccc
+  m = r1*cc.c     + g1*cc.cc  + b1*cc.ccc
+  s = r1*ccc.c    + g1*ccc.cc + b1*ccc.ccc
+
+  l1 =              m*p.pp    + s*p.ppp
+  m1 =              m
+  s1 =                          s
+
+  rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
+
+  rNew = round(case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew) * 255)
+  gNew = round(case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew) * 255)
+  bNew = round(case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew) * 255)
+
+  newHex = toupper(rgb2hex(rNew, gNew, bNew))
+  return(newHex)
+}
+
+deutHex <- function(hex) {
+
+  rgb.array = col2rgb(hex)
+
+  r1 = rgb.array[1] / 255
+  g1 = rgb.array[2] / 255
+  b1 = rgb.array[3] / 255
+
+  l = r1*c.c      + g1*c.cc   + b1*c.ccc
+  m = r1*cc.c     + g1*cc.cc  + b1*cc.ccc
+  s = r1*ccc.c    + g1*ccc.cc + b1*ccc.ccc
+
+  l1 = l
+  m1 = l*dd.d                 + s*dd.ddd
+  s1 =                          s
+
+  rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
+
+  rNew = round(case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew) * 255)
+  gNew = round(case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew) * 255)
+  bNew = round(case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew) * 255)
+
+  newHex = toupper(rgb2hex(rNew, gNew, bNew))
+  return(newHex)
+}
+
+triHex <- function(hex) {
+
+  rgb.array = col2rgb(hex)
+
+  r1 = rgb.array[1] / 255
+  g1 = rgb.array[2] / 255
+  b1 = rgb.array[3] / 255
+
+  l = r1*c.c      + g1*c.cc   + b1*c.ccc
+  m = r1*cc.c     + g1*cc.cc  + b1*cc.ccc
+  s = r1*ccc.c    + g1*ccc.cc + b1*ccc.ccc
+
+  l1 = l
+  m1 =            + m
+  s1 = l*ttt.t    + m*ttt.tt
+
+  rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
+
+  rNew = round(case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew) * 255)
+  gNew = round(case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew) * 255)
+  bNew = round(case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew) * 255)
+
+  newHex = toupper(rgb2hex(rNew, gNew, bNew))
+  return(newHex)
+}
+
+monoHex <- function(hex) {
+
+  rgb.array = col2rgb(hex)
+
+  r1 = rgb.array[1] / 255
+  g1 = rgb.array[2] / 255
+  b1 = rgb.array[3] / 255
+
+  l = r1*c.c      + g1*c.cc   + b1*c.ccc
+  m = r1*cc.c     + g1*cc.cc  + b1*cc.ccc
+  s = r1*ccc.c    + g1*ccc.cc + b1*ccc.ccc
+
+  l1 =                          s
+  m1 =                          s
+  s1 =                          s
+
+  rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
+
+  rNew = round(case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew) * 255)
+  gNew = round(case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew) * 255)
+  bNew = round(case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew) * 255)
+
+  newHex = toupper(rgb2hex(rNew, gNew, bNew))
+  return(newHex)
+}
+
+
+
+# data and plot for why colorblindness matters ----
 
 of1000 = c("Color Blind Males"=80,
          "Normal Vision Males"=420,
@@ -193,9 +309,6 @@ established over time as a result of aging or medication.
 "
 
 
-
-# hexFilter.rmd ----
-
 # Define UI for app = create layout ----
 
 ui <- navbarPage(em("Exploring Color Blindness"),
@@ -209,7 +322,81 @@ ui <- navbarPage(em("Exploring Color Blindness"),
                                    plotOutput("cbplot")))),
 
 
-                 tabPanel("Are You Color Blind?"),
+                 tabPanel("Are You Color Blind?",
+                          titlePanel("Are You Colorblind?"),
+
+                          ### FORMAT TEXTS!!!!!
+                          "Want to check if you have colorblindness or color
+                          deficiency? This test is simple:",
+                          "\nFirst, randomly choose six colors. Then, navigate
+                          to the sidebar\nsection where you choose a letter
+                          representing a type of colorblindness plot.",
+                          "\nFinally, hit the update button and see the two
+                          uniquely generated plots based on your selections.",
+                          "\nAfter comparing the two plots, hit the red or green
+                          button in sidebar section to check your result.",
+
+                          HTML("<h4> Step 1 </h4>"),
+                          fluidRow(
+                            column(2,
+                                   colourInput("col1", "Choose 1st color")
+                            ),
+                            column(2, colourInput("col2", "Choose 2nd color")),
+                            column(2, colourInput("col3", "Choose 3rd color")),
+                            column(2, colourInput("col4", "Choose 4th color")),
+                            column(2, colourInput("col5", "Choose 5th color")),
+                            column(2, colourInput("col6", "Choose 6th color")),
+                            style='padding:0px; padding-top:0px; padding-bottom:10px'
+                          ),
+
+                          sidebarLayout(
+                            sidebarPanel(
+                              HTML("<h4> Step 2 </h4>"),
+                              radioButtons("colorblind",
+                                           "Choose a newly-generated image to compare",
+                                           c("A", "B", "C", "D")),
+                              submitButton("Update", icon("sync")),
+                              "\n-----------------------------------------------------------------------",
+                              HTML("<h4> Step 3 </h4>"),
+                              fluidRow(
+                                HTML(" After comparing the two plots, check
+                                your result by first hit one of the buttons
+                                below, and then press <strong> UPDATE </strong>
+                                above again."),
+                                style='padding-top:5px; padding-bottom:10px; padding-left:20px; padding-right:20px'
+                              ),
+                              useShinyalert(),
+                              actionButton("correct",
+                                           "I can see the difference of colors in each plot",
+                                           icon("laugh-wink"),
+                                           class = "btn-success btn-block"),
+                              actionButton("check",
+                                           "I find colors in both plots hard to differentiate.",
+                                           icon("flushed"),
+                                           class = "btn-danger btn-block "),
+                              fluidRow(
+                                "**This test does not suggest any professional
+                                or medical advice.**",
+                                style='padding-top:20px; padding-bottom:10px; padding-left:20px; padding-right:10px')
+                            ),
+
+                            mainPanel(
+                              ### MARGIN LAYOUT!!!
+                              fluidRow(
+                                column(6,
+                                       offset = 0,
+                                       style='padding:0px; padding-top:0px; padding-bottom:0px',
+                                       plotOutput(outputId = "graph1"),
+                                       plotOutput(outputId = "plot1")),
+                                column(6,
+                                       offset = 0,
+                                       style='padding:0px; padding-top:0px; padding-bottom:0px',
+                                       plotOutput(outputId = "graph2"),
+                                       plotOutput(outputId = "plot2"))
+                              )
+                            )
+                          )
+                        ),
 
                  tabPanel("Sliding Scale of Color Blindness",
                           sidebarPanel(
@@ -250,6 +437,199 @@ ui <- navbarPage(em("Exploring Color Blindness"),
 
 server <- function(input, output, session) {
 
+  # Test tab -----
+
+  ## Output bars
+  colorsquares <- data.frame(
+    xmin = seq(1, 6),
+    xmax = seq(2, 7),
+    ymin = rep(0, 6),
+    ymax = rep(1, 6)
+  )
+
+  squareplot <-
+    ggplot(colorsquares, aes(fill=factor(xmin))) +
+    geom_rect(aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+              color = "black", show.legend = F) +
+    coord_fixed() +
+    theme_void() +
+    theme(plot.title = element_text(size = 25, hjust = 0.5, vjust = 3)) +
+    labs(title = "Colorblind")
+
+  output$plot1 <- renderPlot({
+    squareplot +
+      scale_fill_manual(values = c(input$col1, input$col2, input$col3,
+                                   input$col4, input$col5, input$col6)) +
+      labs(title = "Original")
+  })
+
+
+  ## Output art
+
+  build_art <- function(points,
+                        angle,
+                        adjustment
+  ) {
+
+    tibble(
+      i = 1:points,
+      t = (1:points) * angle + adjustment,
+      x = sin(t),
+      y = cos(t),
+      g = sample(6, points, TRUE)
+    )
+  }
+
+  art <-
+    build_art(
+      angle = pi * (3 - sqrt(5)),
+      points = 500,
+      adjustment = 0
+    ) %>%
+    ggplot(aes(x = x * t, y = y * t)) +
+    geom_point(aes(size = factor(g), color = factor(g), fill = factor(g)),
+               alpha = 0.5, shape = "square filled", show.legend = FALSE) +
+    coord_equal() +
+    theme_void()
+
+
+
+  output$graph1 <- renderPlot({
+    art +
+      scale_fill_manual(values = c(input$col1, input$col2, input$col3,
+                                   input$col4, input$col5, input$col6)) +
+      scale_color_manual(values = c(input$col1, input$col2, input$col3,
+                                    input$col4, input$col5, input$col6))
+  })
+
+
+  observe({
+
+    if (input$colorblind == "A") {
+
+      output$plot2 <- renderPlot({
+        squareplot +
+          scale_fill_manual(values = c(proHex(input$col1), proHex(input$col2),
+                                       proHex(input$col3), proHex(input$col4),
+                                       proHex(input$col5), proHex(input$col6)))
+      })
+
+      output$graph2 <- renderPlot({
+        art +
+          scale_fill_manual(values = c(proHex(input$col1), proHex(input$col2),
+                                       proHex(input$col3), proHex(input$col4),
+                                       proHex(input$col5), proHex(input$col6)))+
+          scale_color_manual(values = c(proHex(input$col1), proHex(input$col2),
+                                        proHex(input$col3), proHex(input$col4),
+                                        proHex(input$col5), proHex(input$col6)))
+      })
+    }
+
+    else if (input$colorblind == "B") {
+
+      output$plot2 <- renderPlot({
+        squareplot +
+          scale_fill_manual(values = c(deutHex(input$col1), deutHex(input$col2),
+                                       deutHex(input$col3), deutHex(input$col4),
+                                       deutHex(input$col5), deutHex(input$col6)))
+      })
+
+      output$graph2 <- renderPlot({
+        art +
+          scale_fill_manual(values = c(deutHex(input$col1), deutHex(input$col2),
+                                       deutHex(input$col3), deutHex(input$col4),
+                                       deutHex(input$col5), deutHex(input$col6)))+
+          scale_color_manual(values = c(deutHex(input$col1), deutHex(input$col2),
+                                        deutHex(input$col3), deutHex(input$col4),
+                                        deutHex(input$col5), deutHex(input$col6)))
+      })
+    }
+
+    else if (input$colorblind == "C") {
+
+      output$plot2 <- renderPlot({
+        squareplot +
+          scale_fill_manual(values = c(triHex(input$col1), triHex(input$col2),
+                                       triHex(input$col3), triHex(input$col4),
+                                       triHex(input$col5), triHex(input$col6)))
+      })
+
+      output$graph2 <- renderPlot({
+        art +
+          scale_fill_manual(values = c(triHex(input$col1), triHex(input$col2),
+                                       triHex(input$col3), triHex(input$col4),
+                                       triHex(input$col5), triHex(input$col6)))+
+          scale_color_manual(values = c(triHex(input$col1), triHex(input$col2),
+                                        triHex(input$col3), triHex(input$col4),
+                                        triHex(input$col5), triHex(input$col6)))
+      })
+    }
+
+    else {
+
+      output$plot2 <- renderPlot({
+        squareplot +
+          scale_fill_manual(values = c(monoHex(input$col1), monoHex(input$col2),
+                                       monoHex(input$col3), monoHex(input$col4),
+                                       monoHex(input$col5), monoHex(input$col6)))
+      })
+
+      output$graph2 <- renderPlot({
+        art +
+          scale_fill_manual(values = c(monoHex(input$col1), monoHex(input$col2),
+                                       monoHex(input$col3), monoHex(input$col4),
+                                       monoHex(input$col5), monoHex(input$col6)))+
+          scale_color_manual(values = c(monoHex(input$col1), monoHex(input$col2),
+                                        monoHex(input$col3), monoHex(input$col4),
+                                        monoHex(input$col5), monoHex(input$col6)))
+      })
+    }
+
+  })
+
+
+  ## Output result text
+
+  observeEvent(input$correct, {
+
+    if (input$colorblind == "A") {
+      type_color <- "Protanopia"}
+    else if (input$colorblind == "B") {
+      type_color <- "Deuteranopia"}
+    else if (input$colorblind == "C") {
+      type_color <- "Tritanopia"}
+    else {
+      type_color <- "Monochromatism"}
+
+    shinyalert(
+      "Congratulations!",
+      paste0("You have no symptoms of", " ", type_color, "."),
+      type = "success")
+  })
+
+
+  observeEvent(input$check, {
+
+    if (input$colorblind == "A") {
+      type_color <- "Protanopia"}
+    else if (input$colorblind == "B") {
+      type_color <- "Deuteranopia"}
+    else if (input$colorblind == "C") {
+      type_color <- "Tritanopia"}
+    else {
+      type_color <- "Monochromatism"}
+
+    shinyalert(
+      paste0("Oops! Looks like you may have symptoms of", " ", type_color, "."),
+      "Try doing the test again with different colors \nor take a real colorblind test with a doctor.",
+      type = "error")
+  })
+
+
+
+
+
+  # Filter tab ------
   output$cbplot <- renderPlot({
     cbplot
   })

@@ -2,14 +2,12 @@
 library(shiny)
 library(imager)
 library(colourpicker)
-library(palmerpenguins)
 library(ggplot2)
 library(tidyverse)
 library(scales)
 library(magick)
 library(ggplotify)
 library(patchwork)
-library(ggtern)
 library(shinyalert)
 
 
@@ -238,7 +236,7 @@ ui <- fluidPage(
 # server
 server <- function(input, output, session){
 
-  # Output bars ----
+  ## Output bars ----
   colorsquares <- data.frame(
     xmin = seq(1, 6),
     xmax = seq(2, 7),
@@ -263,7 +261,7 @@ server <- function(input, output, session){
   })
 
 
-  # Output art ----
+  ## Output art ----
 
   build_art <- function(points,
                         angle,
@@ -387,7 +385,7 @@ server <- function(input, output, session){
   })
 
 
-  # Output result text ----
+  ## Output result text ----
 
   observeEvent(input$correct, {
 
