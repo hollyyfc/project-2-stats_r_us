@@ -10,6 +10,7 @@ library(magick)
 library(ggplotify)
 library(patchwork)
 library(ggtern)
+library(shinyalert)
 
 
 #constants ----
@@ -168,10 +169,12 @@ monoHex <- function(hex) {
 
 # ui
 ui <- fluidPage(
+  titlePanel("Are You Colorblind?"),
+
   fluidRow(
     column(2,
-           colourInput("col1", "Choose 1st color"),
-           submitButton("Update", icon("refresh"))
+           colourInput("col1", "Choose 1st color")
+           #submitButton("Update", icon("refresh"))
            ),
     column(2, colourInput("col2", "Choose 2nd color")),
     column(2, colourInput("col3", "Choose 3rd color")),
@@ -179,26 +182,34 @@ ui <- fluidPage(
     column(2, colourInput("col5", "Choose 5th color")),
     column(2, colourInput("col6", "Choose 6th color"))
   ),
-  fluidRow(
-    column(2,
-           plotOutput(outputId = "plot1"),
-           plotOutput(outputId = "graph1")),
-    column(2,
-           plotOutput(outputId = "plot2"),
-           plotOutput(outputId = "graph2")),
-    column(2,
-           plotOutput(outputId = "plot3"),
-           plotOutput(outputId = "graph3")),
-    column(2,
-           plotOutput(outputId = "plot4"),
-           plotOutput(outputId = "graph4")),
-    column(2,
-           plotOutput(outputId = "plot5"),
-           plotOutput(outputId = "graph5"))
-  ),
-  fluidRow(
-    column(12,
-           verbatimTextOutput("result"))
+
+  sidebarLayout(
+    sidebarPanel(
+      radioButtons("colorblind", "Choose a newly-generated image to compare",
+                   c("A", "B", "C", "D")),
+      submitButton("Update", icon("sync")),
+      "\n-----------------------------------------------------------------------",
+      useShinyalert(),
+      actionButton("correct", "I can see the difference of colors in each plot",
+                   icon("laugh-wink"), class = "btn-success btn-block"),
+      actionButton("check", "After comparison, I find colors in both plots similar",
+                   icon("flushed"), class = "btn-danger btn-block ")
+    ),
+
+    mainPanel(
+      fluidRow(
+        column(6,
+               offset = 0,
+               style='padding:0px; padding-top:5px; padding-bottom:0px',
+               plotOutput(outputId = "graph1"),
+               plotOutput(outputId = "plot1")),
+        column(6,
+               offset = 0,
+               style='padding:0px; padding-top:5px; padding-bottom:0px',
+               plotOutput(outputId = "graph2"),
+               plotOutput(outputId = "plot2"))
+    )
+  )
   )
 )
 
@@ -220,7 +231,8 @@ server <- function(input, output, session){
               color = "black", show.legend = F) +
     coord_fixed() +
     theme_void() +
-    theme(plot.title = element_text(size = 25, hjust = 0.5, vjust = 3))
+    theme(plot.title = element_text(size = 25, hjust = 0.5, vjust = 3)) +
+    labs(title = "Colorblind")
 
   output$plot1 <- renderPlot({
     squareplot +
@@ -229,81 +241,28 @@ server <- function(input, output, session){
       labs(title = "Original")
   })
 
-  output$plot2 <- renderPlot({
-    squareplot +
-      scale_fill_manual(values = c(proHex(input$col1), proHex(input$col2),
-                                   proHex(input$col3), proHex(input$col4),
-                                   proHex(input$col5), proHex(input$col6))) +
-      labs(title = "Protanopia")
-  })
-
-  output$plot3 <- renderPlot({
-    squareplot +
-      scale_fill_manual(values = c(deutHex(input$col1), deutHex(input$col2),
-                                   deutHex(input$col3), deutHex(input$col4),
-                                   deutHex(input$col5), deutHex(input$col6))) +
-      labs(title = "Deuteranopia")
-  })
-
-
-  output$plot4 <- renderPlot({
-    squareplot +
-      scale_fill_manual(values = c(triHex(input$col1), triHex(input$col2),
-                                   triHex(input$col3), triHex(input$col4),
-                                   triHex(input$col5), triHex(input$col6))) +
-      labs(title = "Tritanopia")
-  })
-
-  output$plot5 <- renderPlot({
-    squareplot +
-      scale_fill_manual(values = c(monoHex(input$col1), monoHex(input$col2),
-                                   monoHex(input$col3), monoHex(input$col4),
-                                   monoHex(input$col5), monoHex(input$col6))) +
-      labs(title = "Monochromatism")
-  })
 
   # Output art ----
 
-  # set.seed(1)
-  # obj <- tibble(
-  #   x = rnorm(100),
-  #   y = rnorm(100),
-  #   g = sample(6, 100, TRUE)
-  # )
-  #
-  # art <-
-  # ggplot(obj, aes(x, y, fill = factor(g), group = factor(g))) +
-  #   geom_polygon(show.legend = FALSE) +
-  #   coord_equal() +
-  #   theme_void()
-
   build_art <- function(points,
                         angle,
-                        adjustment,
-                        sd=0
-                        #seed=123
+                        adjustment
   ) {
-    #set.seed(seed)
 
     tibble(
-      i = 1:points, # 1~200
-      t = (1:points) * angle + adjustment, # angle with adjustment
-      x = sin(t), # polar x(should be y, but doesn't matter)
-      y = cos(t), # polar y(should be x, but doesn't matter)
+      i = 1:points,
+      t = (1:points) * angle + adjustment,
+      x = sin(t),
+      y = cos(t),
       g = sample(6, points, TRUE)
-    ) %>%
-      mutate(
-        x = x + rnorm(n = points, mean = 0, sd), # random noise
-        y = y + rnorm(n = points, mean = 0, sd)
-      )
+    )
   }
 
-  art2 <-
+  art <-
   build_art(
     angle = pi * (3 - sqrt(5)),
     points = 500,
-    adjustment = 20,
-    sd = 1
+    adjustment = 0
   ) %>%
     ggplot(aes(x = x * t, y = y * t)) +
     geom_point(aes(size = factor(g), color = factor(g), fill = factor(g)),
@@ -314,65 +273,139 @@ server <- function(input, output, session){
 
 
   output$graph1 <- renderPlot({
-    art2 +
+    art +
       scale_fill_manual(values = c(input$col1, input$col2, input$col3,
                                    input$col4, input$col5, input$col6)) +
       scale_color_manual(values = c(input$col1, input$col2, input$col3,
                                    input$col4, input$col5, input$col6))
   })
 
-  output$graph2 <- renderPlot({
-    art2 +
-      scale_fill_manual(values = c(proHex(input$col1), proHex(input$col2),
-                                   proHex(input$col3), proHex(input$col4),
-                                   proHex(input$col5), proHex(input$col6)))+
-      scale_color_manual(values = c(proHex(input$col1), proHex(input$col2),
-                                   proHex(input$col3), proHex(input$col4),
-                                   proHex(input$col5), proHex(input$col6)))
+
+  observe({
+
+    if (input$colorblind == "A") {
+
+      output$plot2 <- renderPlot({
+        squareplot +
+          scale_fill_manual(values = c(proHex(input$col1), proHex(input$col2),
+                                       proHex(input$col3), proHex(input$col4),
+                                       proHex(input$col5), proHex(input$col6)))
+      })
+
+      output$graph2 <- renderPlot({
+        art +
+          scale_fill_manual(values = c(proHex(input$col1), proHex(input$col2),
+                                       proHex(input$col3), proHex(input$col4),
+                                       proHex(input$col5), proHex(input$col6)))+
+          scale_color_manual(values = c(proHex(input$col1), proHex(input$col2),
+                                        proHex(input$col3), proHex(input$col4),
+                                        proHex(input$col5), proHex(input$col6)))
+      })
+    }
+
+    else if (input$colorblind == "B") {
+
+      output$plot2 <- renderPlot({
+        squareplot +
+          scale_fill_manual(values = c(deutHex(input$col1), deutHex(input$col2),
+                                       deutHex(input$col3), deutHex(input$col4),
+                                       deutHex(input$col5), deutHex(input$col6)))
+      })
+
+      output$graph2 <- renderPlot({
+        art +
+          scale_fill_manual(values = c(deutHex(input$col1), deutHex(input$col2),
+                                       deutHex(input$col3), deutHex(input$col4),
+                                       deutHex(input$col5), deutHex(input$col6)))+
+          scale_color_manual(values = c(deutHex(input$col1), deutHex(input$col2),
+                                        deutHex(input$col3), deutHex(input$col4),
+                                        deutHex(input$col5), deutHex(input$col6)))
+      })
+    }
+
+    else if (input$colorblind == "C") {
+
+      output$plot2 <- renderPlot({
+        squareplot +
+          scale_fill_manual(values = c(triHex(input$col1), triHex(input$col2),
+                                       triHex(input$col3), triHex(input$col4),
+                                       triHex(input$col5), triHex(input$col6)))
+      })
+
+      output$graph2 <- renderPlot({
+        art +
+          scale_fill_manual(values = c(triHex(input$col1), triHex(input$col2),
+                                       triHex(input$col3), triHex(input$col4),
+                                       triHex(input$col5), triHex(input$col6)))+
+          scale_color_manual(values = c(triHex(input$col1), triHex(input$col2),
+                                        triHex(input$col3), triHex(input$col4),
+                                        triHex(input$col5), triHex(input$col6)))
+      })
+    }
+
+    else {
+
+      output$plot2 <- renderPlot({
+        squareplot +
+          scale_fill_manual(values = c(monoHex(input$col1), monoHex(input$col2),
+                                       monoHex(input$col3), monoHex(input$col4),
+                                       monoHex(input$col5), monoHex(input$col6)))
+      })
+
+      output$graph2 <- renderPlot({
+        art +
+          scale_fill_manual(values = c(monoHex(input$col1), monoHex(input$col2),
+                                       monoHex(input$col3), monoHex(input$col4),
+                                       monoHex(input$col5), monoHex(input$col6)))+
+          scale_color_manual(values = c(monoHex(input$col1), monoHex(input$col2),
+                                        monoHex(input$col3), monoHex(input$col4),
+                                        monoHex(input$col5), monoHex(input$col6)))
+      })
+    }
 
   })
 
-  output$graph3 <- renderPlot({
-    art2 +
-      scale_fill_manual(values = c(deutHex(input$col1), deutHex(input$col2),
-                                   deutHex(input$col3), deutHex(input$col4),
-                                   deutHex(input$col5), deutHex(input$col6)))+
-      scale_color_manual(values = c(deutHex(input$col1), deutHex(input$col2),
-                                   deutHex(input$col3), deutHex(input$col4),
-                                   deutHex(input$col5), deutHex(input$col6)))
-  })
-
-
-  output$graph4 <- renderPlot({
-    art2 +
-      scale_fill_manual(values = c(triHex(input$col1), triHex(input$col2),
-                                   triHex(input$col3), triHex(input$col4),
-                                   triHex(input$col5), triHex(input$col6)))+
-      scale_color_manual(values = c(triHex(input$col1), triHex(input$col2),
-                                   triHex(input$col3), triHex(input$col4),
-                                   triHex(input$col5), triHex(input$col6)))
-  })
-
-  output$graph5 <- renderPlot({
-    art2 +
-      scale_fill_manual(values = c(monoHex(input$col1), monoHex(input$col2),
-                                   monoHex(input$col3), monoHex(input$col4),
-                                   monoHex(input$col5), monoHex(input$col6)))+
-      scale_color_manual(values = c(monoHex(input$col1), monoHex(input$col2),
-                                   monoHex(input$col3), monoHex(input$col4),
-                                   monoHex(input$col5), monoHex(input$col6)))
-  })
 
   # Output result text ----
-  # Put under each chart!!!
-  output$result <- renderText({paste(
-    input$col1, " ", input$col2, " ", input$col3, "...", "are the original colors\n",
-    proHex(input$col1), " ", proHex(input$col2), " ", proHex(input$col3), "...", "are the protanaisfdfaef colors", sep = "") })
+
+  observeEvent(input$correct, {
+
+    if (input$colorblind == "A") {
+      type_color <- "Protanopia"}
+    else if (input$colorblind == "B") {
+      type_color <- "Deuteranopia"}
+    else if (input$colorblind == "C") {
+      type_color <- "Tritanopia"}
+    else {
+      type_color <- "Monochromatism"}
+
+    shinyalert(
+      "Congratulations!",
+      paste0("You have no symptoms of", " ", type_color, "."),
+      type = "success")
+  })
+
+
+  observeEvent(input$check, {
+
+    if (input$colorblind == "A") {
+      type_color <- "Protanopia"}
+    else if (input$colorblind == "B") {
+      type_color <- "Deuteranopia"}
+    else if (input$colorblind == "C") {
+      type_color <- "Tritanopia"}
+    else {
+      type_color <- "Monochromatism"}
+
+  shinyalert(
+             paste0("Oops! Looks like you may have symptoms of", " ", type_color, "."),
+             "Try doing the test again with different colors \nor take a real colorblind test with a doctor.",
+             type = "error")
+  })
 
 }
 
-
-
+# "\n**This test does not suggest any professional or medical advice.**"
 
 # app
 shinyApp(ui = ui, server = server)
