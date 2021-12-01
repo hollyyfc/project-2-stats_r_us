@@ -12,6 +12,7 @@ library(shinyalert)
 library(shinybusy)
 library(waffle)
 library(colourpicker)
+library(shinythemes)
 
 # data and images ----
 
@@ -296,14 +297,14 @@ yet it is not often talked about. Let's continue that conversation here!
 
 There are different causes, kinds, and severities of colorblindnes.
 
-<h4> CAUSES </h4>
+<h4> 🌟CAUSES🌟 </h4>
 
 Color blindness is almost always inherited genetically, from the mother's X
 chromosome, which is why it affects so many more men than women. However, it can also
 develop as a result of other diseases like diabetes or multiple sclerosis, or can be
 established over time as a result of aging or medication.
 
-<h4> KINDS </h4>
+<h4> 🌟KINDS🌟 </h4>
 
 While there are seven kinds of colorblindness, we will be focusing on the four most
 common: protanopia, deuteranopia, tritanopia, and monochromatism. <em>Protanopia</em> is
@@ -323,7 +324,7 @@ lack of all cones that perceive color.
 
 # Define UI for app = create layout ----
 
-ui <- navbarPage(em("Exploring Color Blindness"),
+ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
 
                  tabPanel("Why Should You care about Color Blindness?",
                           fluidRow(
