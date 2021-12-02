@@ -432,6 +432,21 @@ ui <- navbarPage(em("Exploring Color Blindness"),
                  ),
 
                  tabPanel("Sliding Scale of Color Blindness",
+                          titlePanel("Colorblindness Filter"),
+
+                          "Hopefully, you have tested normal of your color vision.",
+                          "However, understanding what the world looks like in
+                          the eye of people suffering from colorblindness is
+                          also important.",
+                          "Here, we build a colorblindness filter that simulate
+                          the color vision of different types and degrees of
+                          colorblindness.",
+                          "By choosing from four colorblindness types and
+                          adjusting the sliding scale, we have two plots
+                          generated and being compared. ",
+                          "You can also upload your own image and apply the fiter!",
+
+
                           sidebarPanel(
 
                             selectInput(inputId = "imageInput",
