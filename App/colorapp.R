@@ -314,7 +314,7 @@ art <-
     adjustment = 0
   ) %>%
   ggplot(aes(x = x * t, y = y * t)) +
-  geom_point(aes(size = factor(g), color = factor(g), fill = factor(g)),
+  geom_point(aes(size = g, color = factor(g), fill = factor(g)),
              alpha = 0.5, shape = "square filled", show.legend = FALSE) +
   coord_equal() +
   theme_void()
@@ -369,62 +369,54 @@ ui <- navbarPage(em("Exploring Color Blindness"),
                  tabPanel("Are You Color Blind?",
                           titlePanel("Are You Colorblind?"),
 
-                          ### FORMAT TEXTS!!!!!
                           "Want to check if you have colorblindness or color
-                          deficiency? This test is simple:",
+                          deficiency? Take this test!",
                           "\nFirst, randomly choose six colors. Then, navigate
-                          to the sidebar\nsection where you choose a letter
-                          representing a type of colorblindness plot.",
-                          "\nFinally, hit the update button and see the two
-                          uniquely generated plots based on your selections.",
-                          "\nAfter comparing the two plots, hit the red or green
-                          button in sidebar section to check your result.",
+                          to the sidebar\nsection where you choose an unknown
+                          type of colorblindness.",
+                          "\nNext, compare the newly generated plots.",
+                          "\nFinally, choose the green button on top or red
+                          button below it to check your results.",
 
                           HTML("<h4> Step 1 </h4>"),
                           fluidRow(
-                            column(2,
-                                   colourInput("col1", "Choose 1st color")
-                            ),
+                            column(2, colourInput("col1", "Choose 1st color")),
                             column(2, colourInput("col2", "Choose 2nd color")),
                             column(2, colourInput("col3", "Choose 3rd color")),
                             column(2, colourInput("col4", "Choose 4th color")),
                             column(2, colourInput("col5", "Choose 5th color")),
                             column(2, colourInput("col6", "Choose 6th color")),
-                            style='padding:0px; padding-top:0px; padding-bottom:10px'
+                            style = 'padding:0px; padding-top:0px; padding-bottom:10px'
                           ),
 
                           sidebarLayout(
                             sidebarPanel(
                               HTML("<h4> Step 2 </h4>"),
                               radioButtons("colorblind",
-                                           "Choose a newly-generated image to compare",
+                                           "Choose an unknown type of colorblindness:",
                                            c("A", "B", "C", "D")),
                               "\n-----------------------------------------------------------------------",
                               HTML("<h4> Step 3 </h4>"),
                               fluidRow(
-                                HTML(" After comparing the two plots, check
-                                your result by first hit one of the buttons
-                                below, and then press <strong> UPDATE </strong>
-                                above again."),
+                                HTML("<b>After comparing the two plots, check
+                                your result by hitting one of the buttons below:</b>"),
                                 style='padding-top:5px; padding-bottom:10px; padding-left:20px; padding-right:20px'
                               ),
                               useShinyalert(),
                               actionButton("correct",
-                                           "I can see the difference of colors in each plot",
+                                           "I can see very different colors in both plots.",
                                            icon("laugh-wink"),
                                            class = "btn-success btn-block"),
                               actionButton("check",
-                                           "I find colors in both plots hard to differentiate.",
+                                           "I see similar colors in both plots.",
                                            icon("flushed"),
                                            class = "btn-danger btn-block "),
                               fluidRow(
-                                "**This test does not suggest any professional
-                                or medical advice.**",
+                                "***Disclaimer: This test is not a professional diagnosis.***",
                                 style='padding-top:20px; padding-bottom:10px; padding-left:20px; padding-right:10px')
                             ),
 
                             mainPanel(
-                              ### MARGIN LAYOUT!!!
                               fluidRow(
                                 column(6,
                                        offset = 0,
@@ -591,7 +583,7 @@ output$graph2 <- renderPlot({
 
     shinyalert(
       "Congratulations!",
-      paste0("You have no symptoms of", " ", type_color, "."),
+      paste0("You are showing no symptoms of", " ", type_color, "."),
       type = "success")
   })
 
@@ -599,17 +591,17 @@ output$graph2 <- renderPlot({
   observeEvent(input$check, {
 
     if (cbindLet() == "A") {
-      type_color <- "Protanopia"}
+      type_color <- "protanopia"}
     else if (cbindLet() == "B") {
-      type_color <- "Deuteranopia"}
+      type_color <- "deuteranopia"}
     else if (cbindLet() == "C") {
-      type_color <- "Tritanopia"}
+      type_color <- "tritanopia"}
     else {
-      type_color <- "Monochromatism"}
+      type_color <- "monochromatism"}
 
     shinyalert(
-      paste0("Oops! Looks like you may have symptoms of", " ", type_color, "."),
-      "Try doing the test again with different colors \nor take a real colorblind test with a doctor.",
+      paste0("Oops! You may have symptoms of", " ", type_color, "."),
+      "Try doing the test again with different colors \nor seek a professional colorblindness test.",
       type = "error")
   })
 
