@@ -338,18 +338,24 @@ cbplot <- waffle(of1000,
 ## NEEDS FORMATTING
 
 text1 <- "<h1> What is color blindness? </h1>
-Color blindness affects approximately 1 in every 12 men and 1 in every 200 women.
+
+<h5> Color blindness affects approximately 1 in every 12 men and 1 in every 200 women.
 Worldwide, that works out to about 300 million people - same as the population of
 the United States. Color blindness affects a significant portion of the population,
 yet it is not often talked about. Let's continue that conversation here!
-There are different causes, kinds, and severities of colorblindnes.
-<h4> ✨CAUSES ✨     <h4>
-Color blindness is almost always inherited genetically, from the mother's X
+There are different causes, kinds, and severities of colorblindnes. <h5>
+
+<h4> ✨CAUSES ✨  <h4>
+
+<h5> Color blindness is almost always inherited genetically, from the mother's X
 chromosome, which is why it affects so many more men than women. However, it can also
 develop as a result of other diseases like diabetes or multiple sclerosis, or can be
-established over time as a result of aging or medication.
-<h4> ✨KINDS ✨           <h4>
-While there are seven kinds of colorblindness, we will be focusing on the four most
+established over time as a result of aging or medication. <h5>
+
+
+<h4> ✨KINDS ✨   <h4>
+
+<h5> While there are seven kinds of colorblindness, we will be focusing on the four most
 common: protanopia, deuteranopia, tritanopia, and monochromatism. <em>Protanopia</em> is
 a type of colorblindness where the L-cone (also known as the red cone or the
 long-wavelength cone) is completely missing. People with protanopia
@@ -360,7 +366,7 @@ Those affected by <em>tritanopia</em> cannot distinguish between blue and yellow
 S-cones (blue cones, short-wavelength cones). Lastly, <em>monochromatism</em> is a type of
 colorblindness in which one perceives all colors as varying shades of gray. In other words,
 people with monochromatism cannot perceive color at all. Monochromatism is characterized by a
-lack of all cones that perceive color."
+lack of all cones that perceive color. <h5> "
 
 
 # Define UI for app = create layout ----
