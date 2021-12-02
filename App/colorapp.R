@@ -22,7 +22,7 @@ mario <- load.image('~/R/project-2-stats_r_us/Image/super-mario.jpeg')
 parrots <- load.image(system.file("extdata/parrots.png", package = "imager"))
 starry <- load.image('~/R/project-2-stats_r_us/Image/starry-night.jpeg')
 
-# sliderFunctions.rmd (with constants) ----
+# sliderFunctions (with constants) ----
 
 #matrix values for c, RGB to LMS. c = change
 c.c = 0.31399022
@@ -159,7 +159,7 @@ monochromatism <- function(r, g, b) {
   return(rgb(rNew, gNew, bNew))
 }
 
-# hexFilter.rmd ----
+# hexFilter----
 proHex <- function(hex) {
 
   rgb.array = col2rgb(hex)
@@ -292,7 +292,6 @@ squareplot <-
   labs(title = "Colorblind")
 
 ## Output art
-
 build_art <- function(points,
                       angle,
                       adjustment
@@ -314,8 +313,10 @@ art <-
     adjustment = 0
   ) %>%
   ggplot(aes(x = x * t, y = y * t)) +
-  geom_point(aes(size = g, color = factor(g), fill = factor(g)),
-             alpha = 0.5, shape = "square filled", show.legend = FALSE) +
+  geom_point(aes(size = g, color = factor(g), fill = factor(g), shape = factor(g)),
+             alpha = 0.5, show.legend = FALSE
+             #shape = "square filled"
+             ) +
   coord_equal() +
   theme_void()
 
