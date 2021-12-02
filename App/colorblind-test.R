@@ -166,8 +166,11 @@ monoHex <- function(hex) {
 #ui and server ----
 
 # ui
-ui <- fluidPage(
-  titlePanel("Are You Colorblind?"),
+ui <- navbarPage("Exploring Color Blindness",
+
+  tabPanel("tab 1", "test1"),
+
+  tabPanel("Are You Colorblind?",
 
   ### FORMAT TEXTS!!!!!
   "Want to check if you might have colorblindness? Take this test!",
@@ -218,10 +221,7 @@ ui <- fluidPage(
                offset = 0,
                style='padding:0px; padding-top:0px; padding-bottom:0px',
                plotOutput(outputId = "graph2"),
-               plotOutput(outputId = "plot2"))
-      )
-    )
-  )
+               plotOutput(outputId = "plot2"))))))
 )
 
 

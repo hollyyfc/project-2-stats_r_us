@@ -12,7 +12,7 @@ library(shinyalert)
 library(shinybusy)
 library(waffle)
 library(colourpicker)
-library(shinythemes)
+library(ggtern)
 
 # data and images ----
 
@@ -272,19 +272,67 @@ monoHex <- function(hex) {
   return(newHex)
 }
 
+# art functions ----
+
+## Output bars
+colorsquares <- data.frame(
+  xmin = seq(1, 6),
+  xmax = seq(2, 7),
+  ymin = rep(0, 6),
+  ymax = rep(1, 6)
+)
+
+squareplot <-
+  ggplot(colorsquares, aes(fill=factor(xmin))) +
+  geom_rect(aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+            color = "black", show.legend = F) +
+  coord_fixed() +
+  theme_void() +
+  theme(plot.title = element_text(size = 25, hjust = 0.5, vjust = 3)) +
+  labs(title = "Colorblind")
+
+## Output art
+
+build_art <- function(points,
+                      angle,
+                      adjustment
+) {
+
+  tibble(
+    i = 1:points,
+    t = (1:points) * angle + adjustment,
+    x = sin(t),
+    y = cos(t),
+    g = sample(6, points, TRUE)
+  )
+}
+
+art <-
+  build_art(
+    angle = pi * (3 - sqrt(5)),
+    points = 500,
+    adjustment = 0
+  ) %>%
+  ggplot(aes(x = x * t, y = y * t)) +
+  geom_point(aes(size = factor(g), color = factor(g), fill = factor(g)),
+             alpha = 0.5, shape = "square filled", show.legend = FALSE) +
+  coord_equal() +
+  theme_void()
+
+
 
 
 # data and plot for why colorblindness matters ----
 
-of1000 = c("Color Blind Males" = 80,
-         "Normal Vision Males" = 420,
-         "Color Blind Females" = 4,
-         "Normal Vision Feales" = 496)
+of1000 = c("Color Blind Males"=80,
+           "Normal Vision Males"=420,
+           "Color Blind Females"=4,
+           "Normal Vision Feales"=496)
 
 cbplot <- waffle(of1000,
                  rows = 25,
-                 size = 1,
-                 colors = c("darkblue", "dodgerblue2", "#CC0000", "lightcoral"))
+                 size=1,
+                 colors=c("darkblue", "dodgerblue2", "#CC0000", "lightcoral"))
 
 # stored text for why colorblindness matters
 ## NEEDS FORMATTING
@@ -294,45 +342,102 @@ Color blindness affects approximately 1 in every 12 men and 1 in every 200 women
 Worldwide, that works out to about 300 million people - same as the population of
 the United States. Color blindness affects a significant portion of the population,
 yet it is not often talked about. Let's continue that conversation here!
-
 There are different causes, kinds, and severities of colorblindnes.
-
-<h4> ✨CAUSES✨    </h4>
-
+<h4> CAUSES </h4>
 Color blindness is almost always inherited genetically, from the mother's X
 chromosome, which is why it affects so many more men than women. However, it can also
 develop as a result of other diseases like diabetes or multiple sclerosis, or can be
 established over time as a result of aging or medication.
-
-<h4> ✨TYPES✨   </h4>
-
-While there are seven kinds of colorblindness, we will be focusing on the four most
-common: protanopia, deuteranopia, tritanopia, and monochromatism. <em>Protanopia</em> is
-a type of colorblindness where the L-cone (also known as the red cone or the
-long-wavelength cone) is completely missing. People with protanopia
-are unable to perceive red and green. <em>Deuteranopia</em> is a type of colorblindness
-where those affected cannot perceive green; it is caused by the absence of the
-M-cone (also known as the green cone or the medium-wavelength cone).
-Those affected by <em>tritanopia</em> cannot distinguish between blue and yellow due to missing
-S-cones (blue cones, short-wavelength cones). Lastly, <em>monochromatism</em> is a type of
-colorblindness in which one perceives all colors as varying shades of gray. In other words,
-people with monochromatism cannot perceive color at all. Monochromatism is characterized by a
-lack of all cones that perceive color.
-
+<h4> KINDS </h4>
+{{blurb about each different kind of colorblindness}}
 "
 
 
 # Define UI for app = create layout ----
 
-ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
+ui <- navbarPage(em("Exploring Color Blindness"),
 
                  tabPanel("Why Should You care about Color Blindness?",
                           fluidRow(
-                            column(width = 6,
+                            column(width=6,
                                    HTML(text1)),
 
-                            column(width = 6,
+                            column(width=6,
                                    plotOutput("cbplot")))),
+
+
+                 tabPanel("Are You Color Blind?",
+                          titlePanel("Are You Colorblind?"),
+
+                          ### FORMAT TEXTS!!!!!
+                          "Want to check if you have colorblindness or color
+                          deficiency? This test is simple:",
+                          "\nFirst, randomly choose six colors. Then, navigate
+                          to the sidebar\nsection where you choose a letter
+                          representing a type of colorblindness plot.",
+                          "\nFinally, hit the update button and see the two
+                          uniquely generated plots based on your selections.",
+                          "\nAfter comparing the two plots, hit the red or green
+                          button in sidebar section to check your result.",
+
+                          HTML("<h4> Step 1 </h4>"),
+                          fluidRow(
+                            column(2,
+                                   colourInput("col1", "Choose 1st color")
+                            ),
+                            column(2, colourInput("col2", "Choose 2nd color")),
+                            column(2, colourInput("col3", "Choose 3rd color")),
+                            column(2, colourInput("col4", "Choose 4th color")),
+                            column(2, colourInput("col5", "Choose 5th color")),
+                            column(2, colourInput("col6", "Choose 6th color")),
+                            style='padding:0px; padding-top:0px; padding-bottom:10px'
+                          ),
+
+                          sidebarLayout(
+                            sidebarPanel(
+                              HTML("<h4> Step 2 </h4>"),
+                              radioButtons("colorblind",
+                                           "Choose a newly-generated image to compare",
+                                           c("A", "B", "C", "D")),
+                              "\n-----------------------------------------------------------------------",
+                              HTML("<h4> Step 3 </h4>"),
+                              fluidRow(
+                                HTML(" After comparing the two plots, check
+                                your result by first hit one of the buttons
+                                below, and then press <strong> UPDATE </strong>
+                                above again."),
+                                style='padding-top:5px; padding-bottom:10px; padding-left:20px; padding-right:20px'
+                              ),
+                              useShinyalert(),
+                              actionButton("correct",
+                                           "I can see the difference of colors in each plot",
+                                           icon("laugh-wink"),
+                                           class = "btn-success btn-block"),
+                              actionButton("check",
+                                           "I find colors in both plots hard to differentiate.",
+                                           icon("flushed"),
+                                           class = "btn-danger btn-block "),
+                              fluidRow(
+                                "**This test does not suggest any professional
+                                or medical advice.**",
+                                style='padding-top:20px; padding-bottom:10px; padding-left:20px; padding-right:10px')
+                            ),
+
+                            mainPanel(
+                              ### MARGIN LAYOUT!!!
+                              fluidRow(
+                                column(6,
+                                       offset = 0,
+                                       style='padding:0px; padding-top:0px; padding-bottom:0px',
+                                       plotOutput(outputId = "graph1")),
+                                column(6,
+                                       offset = 0,
+                                       style='padding:0px; padding-top:0px; padding-bottom:0px',
+                                       plotOutput(outputId = "graph2"))
+                              )
+                            )
+                          )
+                 ),
 
                  tabPanel("Sliding Scale of Color Blindness",
                           sidebarPanel(
@@ -355,34 +460,160 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                             radioButtons(inputId = "filterInput",
                                          label = "Colorblindess:",
                                          list("Protanopia" = 1,
-                                             "Deuteranopia" = 2,
-                                             "Tritanopia" = 3,
-                                             "Monochromatism" = 4),
+                                              "Deuteranopia" = 2,
+                                              "Tritanopia" = 3,
+                                              "Monochromatism" = 4),
                                          selected = 1),
 
                             sliderInput(inputId = "xInput",
                                         label = "Severity:",
                                         min = 0, max = 1, value = 1),),
 
-                          mainPanel(shinycssloaders::withSpinner(plotOutput("plotSlider")))),
-
-                 tabPanel("The Math: Explained"),
-
-                 tabPanel("Writeup and Acknowledgements")
+                          mainPanel(shinycssloaders::withSpinner(plotOutput("plotSlider")))
 
 
-)
+                 ))
 
 # Define server logic ----
 
 server <- function(input, output, session) {
 
-
-
-  # filter tab ------
+  # first page ----
   output$cbplot <- renderPlot({
     cbplot
   })
+
+  # testing tab -----
+  c1 <- reactive({return(input$col1)})
+  c2 <- reactive({return(input$col2)})
+  c3 <- reactive({return(input$col3)})
+  c4 <- reactive({return(input$col4)})
+  c5 <- reactive({return(input$col5)})
+  c6 <- reactive({return(input$col6)})
+  cbindLet <- reactive({return(input$colorblind)})
+
+  output$graph1 <- renderPlot({
+
+   plotA <- squareplot +
+            scale_fill_manual(values = c(c1(), c2(), c3(),
+                                   c4(), c5(), c6())) +
+            labs(title = "Original")
+
+   plotB <- art +
+            scale_fill_manual(values = c(c1(), c2(), c3(),
+                                         c4(), c5(), c6())) +
+            scale_color_manual(values = c(c1(), c2(), c3(),
+                                          c4(), c5(), c6()))
+
+   plotA / plotB
+  })
+
+
+
+output$graph2 <- renderPlot({
+
+    if (cbindLet() == "A") {
+    plotA <- squareplot +
+             scale_fill_manual(values = c(proHex(c1()), proHex(c2()),
+                                          proHex(c3()), proHex(c4()),
+                                          proHex(c5()), proHex(c6())))
+    plotB <- art +
+             scale_fill_manual(values = c(proHex(c1()), proHex(c2()),
+                                          proHex(c3()), proHex(c4()),
+                                          proHex(c5()), proHex(c6())))+
+             scale_color_manual(values = c(proHex(c1()), proHex(c2()),
+                                          proHex(c3()), proHex(c4()),
+                                          proHex(c5()), proHex(c6())))
+    plotA / plotB
+    }
+
+
+    else if (cbindLet() == "B") {
+    plotA <- squareplot +
+             scale_fill_manual(values = c(deutHex(c1()), deutHex(c2()),
+                                           deutHex(c3()), deutHex(c4()),
+                                           deutHex(c5()), deutHex(c6())))
+    plotB <- art +
+             scale_fill_manual(values = c(deutHex(c1()), deutHex(c2()),
+                                          deutHex(c3()), deutHex(c4()),
+                                          deutHex(c5()), deutHex(c6())))+
+             scale_color_manual(values = c(deutHex(c1()), deutHex(c2()),
+                                           deutHex(c3()), deutHex(c4()),
+                                           deutHex(c5()), deutHex(c6())))
+    plotA / plotB
+}
+
+    else if (cbindLet() == "C") {
+    plotA <- squareplot +
+             scale_fill_manual(values = c(triHex(c1()), triHex(c2()),
+                                          triHex(c3()), triHex(c4()),
+                                          triHex(c5()), triHex(c6())))
+
+    plotB <- art +
+             scale_fill_manual(values = c(triHex(c1()), triHex(c2()),
+                                          triHex(c3()), triHex(c4()),
+                                          triHex(c5()), triHex(c6())))+
+             scale_color_manual(values = c(triHex(c1()), triHex(c2()),
+                                           triHex(c3()), triHex(c4()),
+                                           triHex(c5()), triHex(c6())))
+    plotA / plotB
+    }
+
+    else {
+    plotA <- squareplot +
+             scale_fill_manual(values = c(monoHex(c1()), monoHex(c2()),
+                                          monoHex(c3()), monoHex(c4()),
+                                          monoHex(c5()), monoHex(c6())))
+
+    plotB <- art +
+             scale_fill_manual(values = c(monoHex(c1()), monoHex(c2()),
+                                          monoHex(c3()), monoHex(c4()),
+                                          monoHex(c5()), monoHex(c6())))+
+             scale_color_manual(values = c(monoHex(c1()), monoHex(c2()),
+                                           monoHex(c3()), monoHex(c4()),
+                                           monoHex(c5()), monoHex(c6())))
+    plotA / plotB
+    }
+})
+
+  ## Output result text
+
+  observeEvent(input$correct, {
+
+    if (cbindLet() == "A") {
+      type_color <- "protanopia"}
+    else if (cbindLet() == "B") {
+      type_color <- "deuteranopia"}
+    else if (cbindLet() == "C") {
+      type_color <- "tritanopia"}
+    else {
+      type_color <- "monochromatism"}
+
+    shinyalert(
+      "Congratulations!",
+      paste0("You have no symptoms of", " ", type_color, "."),
+      type = "success")
+  })
+
+
+  observeEvent(input$check, {
+
+    if (cbindLet() == "A") {
+      type_color <- "Protanopia"}
+    else if (cbindLet() == "B") {
+      type_color <- "Deuteranopia"}
+    else if (cbindLet() == "C") {
+      type_color <- "Tritanopia"}
+    else {
+      type_color <- "Monochromatism"}
+
+    shinyalert(
+      paste0("Oops! Looks like you may have symptoms of", " ", type_color, "."),
+      "Try doing the test again with different colors \nor take a real colorblind test with a doctor.",
+      type = "error")
+  })
+
+  # Filter tab ----
 
   fileUpload <- reactive({return(input$fileInput)})
   fileThere <- reactive({return(input$usePic)})
@@ -413,15 +644,15 @@ server <- function(input, output, session) {
 
     old <- as.ggplot(expression(plot(pic,
                                      rescale = FALSE, axes = FALSE))) +
-           coord_fixed() +
-           labs(title = "Original") +
-           theme(plot.title = element_text(size = 20, hjust = .5, vjust = -4))
+      coord_fixed() +
+      labs(title = "Original") +
+      theme(plot.title = element_text(size = 20, hjust = .5, vjust = -4))
 
     new <- as.ggplot(expression(plot(pic, colorscale = colorblindness,
                                      rescale = FALSE, axes = FALSE))) +
-           coord_fixed() +
-           labs(title = "Filtered") +
-           theme(plot.title = element_text(size = 20, hjust = .5, vjust = -4))
+      coord_fixed() +
+      labs(title = "Filtered") +
+      theme(plot.title = element_text(size = 20, hjust = .5, vjust = -4))
 
     old + new
   })
@@ -430,5 +661,4 @@ server <- function(input, output, session) {
 
 # run app -----
 shinyApp(ui, server)
-
 
