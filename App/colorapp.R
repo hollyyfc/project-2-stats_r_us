@@ -1,4 +1,4 @@
-# packages  ----
+# Load packages ----------------------------------------------------------------
 
 library(shiny)
 library(ggplot2)
@@ -14,15 +14,64 @@ library(waffle)
 library(colourpicker)
 library(ggtern)
 
-# data and images ----
 
-balls <- load.image('~/R/project-2-stats_r_us/Image/ball.jpeg')
-flowers <- load.image('~/R/project-2-stats_r_us/Image/flower.jpeg')
-mario <- load.image('~/R/project-2-stats_r_us/Image/super-mario.jpeg')
-parrots <- load.image(system.file("extdata/parrots.png", package = "imager"))
-starry <- load.image('~/R/project-2-stats_r_us/Image/starry-night.jpeg')
 
-# sliderFunctions (with constants) ----
+# Preparations:-----------------------------------------------------------------
+## Tab 1) Why color blindness matters?----
+### Stored text for  -----
+
+text1 <- "<h1> What is color blindness? </h1>
+
+<h5> Color blindness affects approximately 1 in every 12 men and 1 in every 200 women.
+Worldwide, that works out to about 300 million people - same as the population of
+the United States. Color blindness affects a significant portion of the population,
+yet it is not often talked about. Let's continue that conversation here!</br></h5>
+
+<h4>  ✨CAUSES ✨  </h4>
+
+<h5> Color blindness is almost always inherited genetically, from the mother's X
+chromosome, which is why it affects so many more men than women. However, it can also
+develop as a result of other diseases like diabetes or multiple sclerosis, or can be
+established over time as a result of aging or medication. <h5> </br>
+
+
+<h4>  ✨KINDS ✨  </h4>
+
+<h5> While there are seven kinds of colorblindness, we will be focusing on the four most
+common: protanopia, deuteranopia, tritanopia, and monochromatism: </br>
+<br><em><u>Protanopia</u></em> is a type of colorblindness where the L-cone (also
+known as the red cone or the long-wavelength cone) is completely missing.
+People with protanopia are unable to perceive red and green. </br>
+<br><em><u>Deuteranopia</u></em> is a type of colorblindness where those affected
+cannot perceive green; it is caused by the absence of the M-cone (also known as
+the green cone or the medium-wavelength cone). </br>
+<br><em><u>Tritanopia</u></em> affected people cannot distinguish between blue and
+yellow due to missing S-cones (blue cones, short-wavelength cones). </br>
+<br><em><u>monochromatism</u></em> is a type of colorblindness in which one perceives
+all colors as varying shades of gray. In other words, people with monochromatism
+cannot perceive color at all. Monochromatism is characterized by a lack of all
+cones that perceive color. </h5> "
+
+### Data visualization for why colorblindness matters -----
+
+of1000 = c("Color Blind Males"=80,
+           "Normal Vision Males"=420,
+           "Color Blind Females"=4,
+           "Normal Vision Feales"=496)
+
+cbplot <- waffle(of1000,
+                 rows = 25,
+                 size=1,
+                 colors=c("darkblue", "dodgerblue2", "#CC0000", "lightcoral"))
+
+
+
+
+
+
+
+## Tab 2) Color blindness test ----
+### Define constants for matrices -----
 
 #matrix values for c, RGB to LMS. c = change
 c.c = 0.31399022
@@ -61,105 +110,9 @@ dd.ddd = 0.04866992
 ttt.t = -0.86744736
 ttt.tt = 1.86727089
 
-## functions for RGB
-protanopia <- function(r, g, b) {
-  r1 = r
-  g1 = g
-  b1 = b
 
-  l = r1*c.c      + g1*c.cc   + b1*c.ccc
-  m = r1*cc.c     + g1*cc.cc  + b1*cc.ccc
-  s = r1*ccc.c    + g1*ccc.cc + b1*ccc.ccc
 
-  l1 = l*(1-x)    + m*p.pp*x  + s*p.ppp*x
-  m1 =              m
-  s1 =                          s
-
-  rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
-  gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
-  bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
-
-  rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)
-  gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)
-  bNew = case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew)
-
-  return(rgb(rNew, gNew, bNew))
-
-}
-
-deuteranopia <- function(r, g, b) {
-  r1 = r
-  g1 = g
-  b1 = b
-
-  l = r1*c.c      + g1*c.cc   + b1*c.ccc
-  m = r1*cc.c     + g1*cc.cc  + b1*cc.ccc
-  s = r1*ccc.c    + g1*ccc.cc + b1*ccc.ccc
-
-  l1 = l
-  m1 = l*dd.d*x   + m*(1-x)   + s*dd.ddd*x
-  s1 =                          s
-
-  rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
-  gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
-  bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
-
-  rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)
-  gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)
-  bNew = case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew)
-
-  return(rgb(rNew, gNew, bNew))
-}
-
-tritanopia <- function(r, g, b) {
-  r1 = r
-  g1 = g
-  b1 = b
-
-  l = r1*c.c      + g1*c.cc    + b1*c.ccc
-  m = r1*cc.c     + g1*cc.cc   + b1*cc.ccc
-  s = r1*ccc.c    + g1*ccc.cc  + b1*ccc.ccc
-
-  l1 = l
-  m1 =            + m
-  s1 = l*ttt.t*x  + m*ttt.tt*x + s*(1-x)
-
-  rNew = l1*u.u   + m1*u.uu    + s1*u.uuu
-  gNew = l1*uu.u  + m1*uu.uu   + s1*uu.uuu
-  bNew = l1*uuu.u + m1*uuu.uu  + s1*uuu.uuu
-
-  rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)
-  gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)
-  bNew = case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew)
-
-  return(rgb(rNew, gNew, bNew))
-}
-
-monochromatism <- function(r, g, b) {
-  r1 = r
-  g1 = g
-  b1 = b
-
-  l = r1*c.c      + g1*c.cc    + b1*c.ccc
-  m = r1*cc.c     + g1*cc.cc   + b1*cc.ccc
-  s = r1*ccc.c    + g1*ccc.cc  + b1*ccc.ccc
-
-  l1 = l*(1-x)                 + s*x
-  m1 =            + m*(1-x)    + s*x
-  s1 =                         + s
-
-  rNew = l1*u.u   + m1*u.uu    + s1*u.uuu
-  gNew = l1*uu.u  + m1*uu.uu   + s1*uu.uuu
-  bNew = l1*uuu.u + m1*uuu.uu  + s1*uuu.uuu
-
-  rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)
-  gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)
-  bNew = case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew)
-
-  return(rgb(rNew, gNew, bNew))
-}
-
-# hexFilter----
+### Hex functions for HEX converting -----
 proHex <- function(hex) {
 
   rgb.array = col2rgb(hex)
@@ -272,9 +225,12 @@ monoHex <- function(hex) {
   return(newHex)
 }
 
-# art functions ----
 
-## Output bars
+
+## Tab3)
+### Art functions -----
+
+# Output bars
 colorsquares <- data.frame(
   xmin = seq(1, 6),
   xmax = seq(2, 7),
@@ -291,7 +247,7 @@ squareplot <-
   theme(plot.title = element_text(size = 25, hjust = 0.5, vjust = 3)) +
   labs(title = "Colorblind")
 
-## Output art
+# Output art
 build_art <- function(points,
                       angle,
                       adjustment
@@ -313,67 +269,130 @@ art <-
     adjustment = 0
   ) %>%
   ggplot(aes(x = x * t, y = y * t)) +
-  geom_point(aes(size = g, color = factor(g), fill = factor(g), shape = factor(g)),
-             alpha = 0.5, show.legend = FALSE
-             #shape = "square filled"
-             ) +
+  geom_point(aes(size = g, color = factor(g), fill = factor(g)),
+             alpha = 0.5, shape = "square filled", show.legend = FALSE) +
   coord_equal() +
   theme_void()
 
 
 
 
-# data and plot for why colorblindness matters ----
-
-of1000 = c("Color Blind Males"=80,
-           "Normal Vision Males"=420,
-           "Color Blind Females"=4,
-           "Normal Vision Feales"=496)
-
-cbplot <- waffle(of1000,
-                 rows = 25,
-                 size=1,
-                 colors=c("darkblue", "dodgerblue2", "#CC0000", "lightcoral"))
-
-# stored text for why colorblindness matters
-
-text1 <- "<h1> What is color blindness? </h1>
-
-<h5> Color blindness affects approximately 1 in every 12 men and 1 in every 200 women.
-Worldwide, that works out to about 300 million people - same as the population of
-the United States. Color blindness affects a significant portion of the population,
-yet it is not often talked about. Let's continue that conversation here!</br></h5>
-
-<h4>  ✨CAUSES ✨  </h4>
-
-<h5> Color blindness is almost always inherited genetically, from the mother's X
-chromosome, which is why it affects so many more men than women. However, it can also
-develop as a result of other diseases like diabetes or multiple sclerosis, or can be
-established over time as a result of aging or medication. <h5> </br>
 
 
-<h4>  ✨KINDS ✨  </h4>
 
-<h5> While there are seven kinds of colorblindness, we will be focusing on the four most
-common: protanopia, deuteranopia, tritanopia, and monochromatism: </br>
-<br><em><u>Protanopia</u></em> is a type of colorblindness where the L-cone (also
-known as the red cone or the long-wavelength cone) is completely missing.
-People with protanopia are unable to perceive red and green. </br>
-<br><em><u>Deuteranopia</u></em> is a type of colorblindness where those affected
-cannot perceive green; it is caused by the absence of the M-cone (also known as
-the green cone or the medium-wavelength cone). </br>
-<br><em><u>Tritanopia</u></em> affected people cannot distinguish between blue and
-yellow due to missing S-cones (blue cones, short-wavelength cones). </br>
-<br><em><u>monochromatism</u></em> is a type of colorblindness in which one perceives
-all colors as varying shades of gray. In other words, people with monochromatism
-cannot perceive color at all. Monochromatism is characterized by a lack of all
-cones that perceive color. </h5> "
+## Tab 3) Color blindness Filter ----
+### Load data and images -----
+balls <- load.image('~/R/project-2-stats_r_us/Image/ball.jpeg')
+flowers <- load.image('~/R/project-2-stats_r_us/Image/flower.jpeg')
+mario <- load.image('~/R/project-2-stats_r_us/Image/super-mario.jpeg')
+parrots <- load.image(system.file("extdata/parrots.png", package = "imager"))
+starry <- load.image('~/R/project-2-stats_r_us/Image/starry-night.jpeg')
+
+### Slider functions for RGB converting(with constants) -----
+protanopia <- function(r, g, b) {
+  r1 = r
+  g1 = g
+  b1 = b
+
+  l = r1*c.c      + g1*c.cc   + b1*c.ccc
+  m = r1*cc.c     + g1*cc.cc  + b1*cc.ccc
+  s = r1*ccc.c    + g1*ccc.cc + b1*ccc.ccc
+
+  l1 = l*(1-x)    + m*p.pp*x  + s*p.ppp*x
+  m1 =              m
+  s1 =                          s
+
+  rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
+
+  rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)
+  gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)
+  bNew = case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew)
+
+  return(rgb(rNew, gNew, bNew))
+
+}
+
+deuteranopia <- function(r, g, b) {
+  r1 = r
+  g1 = g
+  b1 = b
+
+  l = r1*c.c      + g1*c.cc   + b1*c.ccc
+  m = r1*cc.c     + g1*cc.cc  + b1*cc.ccc
+  s = r1*ccc.c    + g1*ccc.cc + b1*ccc.ccc
+
+  l1 = l
+  m1 = l*dd.d*x   + m*(1-x)   + s*dd.ddd*x
+  s1 =                          s
+
+  rNew = l1*u.u   + m1*u.uu   + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu  + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu + s1*uuu.uuu
+
+  rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)
+  gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)
+  bNew = case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew)
+
+  return(rgb(rNew, gNew, bNew))
+}
+
+tritanopia <- function(r, g, b) {
+  r1 = r
+  g1 = g
+  b1 = b
+
+  l = r1*c.c      + g1*c.cc    + b1*c.ccc
+  m = r1*cc.c     + g1*cc.cc   + b1*cc.ccc
+  s = r1*ccc.c    + g1*ccc.cc  + b1*ccc.ccc
+
+  l1 = l
+  m1 =            + m
+  s1 = l*ttt.t*x  + m*ttt.tt*x + s*(1-x)
+
+  rNew = l1*u.u   + m1*u.uu    + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu   + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu  + s1*uuu.uuu
+
+  rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)
+  gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)
+  bNew = case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew)
+
+  return(rgb(rNew, gNew, bNew))
+}
+
+monochromatism <- function(r, g, b) {
+  r1 = r
+  g1 = g
+  b1 = b
+
+  l = r1*c.c      + g1*c.cc    + b1*c.ccc
+  m = r1*cc.c     + g1*cc.cc   + b1*cc.ccc
+  s = r1*ccc.c    + g1*ccc.cc  + b1*ccc.ccc
+
+  l1 = l*(1-x)                 + s*x
+  m1 =            + m*(1-x)    + s*x
+  s1 =                         + s
+
+  rNew = l1*u.u   + m1*u.uu    + s1*u.uuu
+  gNew = l1*uu.u  + m1*uu.uu   + s1*uu.uuu
+  bNew = l1*uuu.u + m1*uuu.uu  + s1*uuu.uuu
+
+  rNew = case_when(rNew > 1 ~ 1, rNew < 0 ~ 0, TRUE ~ rNew)
+  gNew = case_when(gNew > 1 ~ 1, gNew < 0 ~ 0, TRUE ~ gNew)
+  bNew = case_when(bNew > 1 ~ 1, bNew < 0 ~ 0, TRUE ~ bNew)
+
+  return(rgb(rNew, gNew, bNew))
+}
 
 
-# Define UI for app = create layout ----
+
+# Define UI for app ------------------------------------------------------------
 
 ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
 
+                 # Tab 1 ----
                  tabPanel("Why Should You Care About Color Blindness?",
                           fluidRow(
                             column(width=6,
@@ -383,6 +402,7 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                                    plotOutput("cbplot")))),
 
 
+                 # Tab 2 ----
                  tabPanel("Are You Color Blind?",
                           titlePanel("Color Blind Test"),
 
@@ -414,7 +434,7 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                               radioButtons("colorblind",
                                            "Choose an unknown type of colorblindness:",
                                            c("A", "B", "C", "D")),
-                              "\n-----------------------------------------------------------------------",
+                              "-----------------------------------------------------------------------",
                               HTML("<h4> Step 3 </h4>"),
                               fluidRow(
                                 HTML("<b>After comparing the two plots, check
@@ -451,6 +471,7 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                           )
                  ),
 
+                 # Tab 3 ----
                  tabPanel("Color Blindness Filter",
                           titlePanel("Color Blindness Filter"),
 
@@ -501,21 +522,27 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
 
                           mainPanel(shinycssloaders::withSpinner(plotOutput("plotSlider")))
                           )),
+
+                 # Tab 4 ----
                  tabPanel("The Math: Explained"),
+
+                 # Tab 5 ----
                  tabPanel("Writeup & Acknowledgements")
 
 )
 
-# Define server logic ----
 
+
+
+# Define server logic ----------------------------------------------------------
 server <- function(input, output, session) {
 
-  # first page ----
+  # Tab 1 ----
   output$cbplot <- renderPlot({
     cbplot
   })
 
-  # testing tab -----
+  # Tab 2 -----
   c1 <- reactive({return(input$col1)})
   c2 <- reactive({return(input$col2)})
   c3 <- reactive({return(input$col3)})
@@ -645,7 +672,7 @@ output$graph2 <- renderPlot({
       type = "error")
   })
 
-  # Filter tab ----
+  # Tab 3 ----
 
   fileUpload <- reactive({return(input$fileInput)})
   fileThere <- reactive({return(input$usePic)})
@@ -691,6 +718,7 @@ output$graph2 <- renderPlot({
 }
 
 
-# run app -----
+
+# Run app ----------------------------------------------------------------------
 shinyApp(ui, server)
 
