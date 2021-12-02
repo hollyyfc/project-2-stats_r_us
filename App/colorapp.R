@@ -335,45 +335,45 @@ cbplot <- waffle(of1000,
                  colors=c("darkblue", "dodgerblue2", "#CC0000", "lightcoral"))
 
 # stored text for why colorblindness matters
-## NEEDS FORMATTING
 
 text1 <- "<h1> What is color blindness? </h1>
 
 <h5> Color blindness affects approximately 1 in every 12 men and 1 in every 200 women.
 Worldwide, that works out to about 300 million people - same as the population of
 the United States. Color blindness affects a significant portion of the population,
-yet it is not often talked about. Let's continue that conversation here!
-There are different causes, kinds, and severities of colorblindnes. <h5>
+yet it is not often talked about. Let's continue that conversation here!</br></h5>
 
-<h4> ✨CAUSES ✨  <h4>
+<h4>  ✨CAUSES ✨  </h4>
 
 <h5> Color blindness is almost always inherited genetically, from the mother's X
 chromosome, which is why it affects so many more men than women. However, it can also
 develop as a result of other diseases like diabetes or multiple sclerosis, or can be
-established over time as a result of aging or medication. <h5>
+established over time as a result of aging or medication. <h5> </br>
 
 
-<h4> ✨KINDS ✨   <h4>
+<h4>  ✨KINDS ✨  </h4>
 
 <h5> While there are seven kinds of colorblindness, we will be focusing on the four most
-common: protanopia, deuteranopia, tritanopia, and monochromatism. <em>Protanopia</em> is
-a type of colorblindness where the L-cone (also known as the red cone or the
-long-wavelength cone) is completely missing. People with protanopia
-are unable to perceive red and green. <em>Deuteranopia</em> is a type of colorblindness
-where those affected cannot perceive green; it is caused by the absence of the
-M-cone (also known as the green cone or the medium-wavelength cone).
-Those affected by <em>tritanopia</em> cannot distinguish between blue and yellow due to missing
-S-cones (blue cones, short-wavelength cones). Lastly, <em>monochromatism</em> is a type of
-colorblindness in which one perceives all colors as varying shades of gray. In other words,
-people with monochromatism cannot perceive color at all. Monochromatism is characterized by a
-lack of all cones that perceive color. <h5> "
+common: protanopia, deuteranopia, tritanopia, and monochromatism: </br>
+<br><em><u>Protanopia</u></em> is a type of colorblindness where the L-cone (also
+known as the red cone or the long-wavelength cone) is completely missing.
+People with protanopia are unable to perceive red and green. </br>
+<br><em><u>Deuteranopia</u></em> is a type of colorblindness where those affected
+cannot perceive green; it is caused by the absence of the M-cone (also known as
+the green cone or the medium-wavelength cone). </br>
+<br><em><u>Tritanopia</u></em> affected people cannot distinguish between blue and
+yellow due to missing S-cones (blue cones, short-wavelength cones). </br>
+<br><em><u>monochromatism</u></em> is a type of colorblindness in which one perceives
+all colors as varying shades of gray. In other words, people with monochromatism
+cannot perceive color at all. Monochromatism is characterized by a lack of all
+cones that perceive color. </h5> "
 
 
 # Define UI for app = create layout ----
 
 ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
 
-                 tabPanel("Why Should You care about Color Blindness?",
+                 tabPanel("Why Should You Care About Color Blindness?",
                           fluidRow(
                             column(width=6,
                                    HTML(text1)),
@@ -383,16 +383,18 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
 
 
                  tabPanel("Are You Color Blind?",
-                          titlePanel("Are You Colorblind?"),
+                          titlePanel("Color Blind Test"),
 
+                          HTML(
                           "Want to check if you have colorblindness or color
-                          deficiency? Take this test!",
-                          "\nFirst, randomly choose six colors. Then, navigate
-                          to the sidebar\nsection where you choose an unknown
-                          type of colorblindness.",
-                          "\nNext, compare the newly generated plots.",
-                          "\nFinally, choose the green button on top or red
-                          button below it to check your results.",
+                          deficiency? Take this test! </br>
+                          First, randomly choose six colors.
+                          Then, navigate to the sidebar section where you choose
+                          an unknown type of colorblindness. </br>
+                          Next, compare the newly generated plots.</br>
+                          Finally, choose the green button on top or red
+                          button below it to check your results."
+                          ),
 
                           HTML("<h4> Step 1 </h4>"),
                           fluidRow(
@@ -428,7 +430,8 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                                            icon("flushed"),
                                            class = "btn-danger btn-block "),
                               fluidRow(
-                                "***Disclaimer: This test is not a professional diagnosis.***",
+                                HTML("<b>***Disclaimer: This test is not a
+                                     professional diagnosis.***</b>"),
                                 style='padding-top:20px; padding-bottom:10px; padding-left:20px; padding-right:10px')
                             ),
 
@@ -447,22 +450,25 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                           )
                  ),
 
-                 tabPanel("Sliding Scale of Color Blindness",
-                          titlePanel("Colorblindness Filter"),
+                 tabPanel("Color Blindness Filter",
+                          titlePanel("Color Blindness Filter"),
 
-                          "Hopefully, you have tested normal of your color vision.",
-                          "However, understanding what the world looks like in
+                          HTML(
+                          "Hopefully, you have tested normal for your color vision.
+                          However, understanding what the world looks like in
                           the eye of people suffering from colorblindness is
-                          also important.",
-                          "Here, we build a colorblindness filter that simulate
+                          also important.</br>
+                          Here, we build a colorblindness filter that simulate
                           the color vision of different types and degrees of
-                          colorblindness.",
-                          "By choosing from four colorblindness types and
+                          colorblindness.</br>
+                          By choosing from four colorblindness types and
                           adjusting the sliding scale, we have two plots
-                          generated and being compared. ",
-                          "You can also upload your own image and apply the fiter!",
+                          generated for comparison. </br>
+                          Besides built-in images, you can also <u>upload
+                          your own</u> to try the filter!</br>"
+                          ),
 
-
+                          sidebarLayout(
                           sidebarPanel(
 
                             selectInput(inputId = "imageInput",
@@ -493,9 +499,9 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                                         min = 0, max = 1, value = 1),),
 
                           mainPanel(shinycssloaders::withSpinner(plotOutput("plotSlider")))
-                          ),
+                          )),
                  tabPanel("The Math: Explained"),
-                 tabPanel("Writeup and Acknowledgements")
+                 tabPanel("Writeup & Acknowledgements")
 
 )
 
