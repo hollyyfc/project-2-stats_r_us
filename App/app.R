@@ -491,11 +491,11 @@ art <-
 
 ## Tab 3) Color blindness Filter ----
 ### Load data and images -----
-balls <- load.image('~/R/project-2-stats_r_us/App/Image/ball.jpeg')
-flowers <- load.image('~/R/project-2-stats_r_us/App/Image/flower.jpeg')
-mario <- load.image('~/R/project-2-stats_r_us/App/Image/super-mario.jpeg')
+balls <- load.image('Image/ball.jpeg')
+flowers <- load.image('Image/flower.jpeg')
+mario <- load.image('Image/super-mario.jpeg')
 parrots <- load.image(system.file("extdata/parrots.png", package = "imager"))
-starry <- load.image('~/R/project-2-stats_r_us/App/Image/starry-night.jpeg')
+starry <- load.image('Image/starry-night.jpeg')
 
 ### Slider functions for RGB converting(with constants) -----
 protanopia <- function(r, g, b) {
@@ -987,7 +987,7 @@ server <- function(input, output, session) {
   output$cbmathplot <- renderImage({
 
     cbmathJPG <-
-      normalizePath(file.path('~/R/project-2-stats_r_us/App/Image/cb_math.jpg'))
+      normalizePath(file.path('Image/cb_math.jpg'))
     list(src = cbmathJPG, width = "95%", height = "165%")}, deleteFile = FALSE)
 
 
