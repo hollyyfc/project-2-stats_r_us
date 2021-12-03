@@ -64,32 +64,6 @@ space <-
 smallspace <-
   HTML(paste(" ", " ", sep="<br/>"))
 
-
-### Data visualization for why colorblindness matters -----
-
-of1000 = c("Color Blind Males"=80,
-           "Normal Vision Males"=420,
-           "Color Blind Females"=4,
-           "Normal Vision Feales"=496)
-
-cbplot <- waffle(of1000,
-                 rows = 25,
-                 size = 1,
-                 colors = c("#fe6100", "#648fff", "#ffb000", "#dc267f")) +
-  labs(title = "Colorblindness in 1000 people",
-       caption = "Source: NIH National Library of Medicine") +
-  theme(plot.title = element_text(hjust = 0.5, size = 27))
-
-cbplot2 <- waffle(of1000,
-                  rows = 25,
-                  size=1,
-                  colors=c("blue", "dodgerblue1", "red", "lightcoral"))
-
-
-
-
-
-
 ## Tab 2) Color blindness test ----
 ### Define constants for matrices -----
 
@@ -406,6 +380,20 @@ monochromatism <- function(r, g, b) {
   return(rgb(rNew, gNew, bNew))
 }
 
+### Data visualizations -----
+
+of1000 = c("Color Blind Males"=80,
+           "Normal Vision Males"=420,
+           "Color Blind Females"=4,
+           "Normal Vision Feales"=496)
+
+cbplot <- waffle(of1000,
+                 rows = 25,
+                 size = 1,
+                 colors = c("#fe6100", "#648fff", "#ffb000", "#dc267f")) +
+  labs(title = "Colorblindness in 1000 people",
+       caption = "Source: NIH National Library of Medicine") +
+  theme(plot.title = element_text(hjust = 0.5, size = 27))
 
 
 # Define UI for app ------------------------------------------------------------
@@ -551,7 +539,7 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                                    HTML(text2)),
 
                             column(width=6,
-                                   plotOutput("cbplot2")))),
+                                   plotOutput("cbmathplot")))),
 
                  # Tab 5 ----
                  tabPanel("Writeup & Acknowledgements")
@@ -744,9 +732,11 @@ server <- function(input, output, session) {
   })
 
   # Tab 4 ----
-  output$cbplot2 <- renderPlot({
-    cbplot2
-  })
+  output$cbmathplot <- renderImage({
+
+    cbmathJPG <- normalizePath(file.path('~/R/project-2-stats_r_us/Image/cb_math.jpg'))
+    list(src = cbmathJPG, width = width, height = height)}, deleteFile = FALSE)
+
 
 }
 
