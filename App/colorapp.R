@@ -14,6 +14,11 @@ library(waffle)
 library(colourpicker)
 library(ggtern)
 library(shinythemes)
+library(fontawesome)
+library(extrafont)
+library(emojifont)
+library(showtext)
+library(ggpubr)
 
 
 
@@ -54,6 +59,9 @@ cannot perceive color at all. Monochromatism is characterized by a lack of all
 cones that perceive color. </h5> "
 
 
+space <-
+  HTML(paste(" ", " ", " ", " ", " ", sep="<br/>"))
+
 text2 <- "
 
 <h1> Math Behind Colorblindness Filters </h1>
@@ -84,17 +92,22 @@ of1000 = c("Color Blind Males"=80,
 
 cbplot <- waffle(of1000,
                  rows = 25,
-                 size=1,
-                 colors=c("#fe6100", "#648fff", "#ffb000", "#dc267f")) +
+                 size = 1,
+                 colors = c("#fe6100", "#648fff", "#ffb000", "#dc267f")) +
   labs(title = "Colorblindness in 1000 people",
-       caption = "Source: NIH National Library of Medicine")
+       caption = "Source: NIH National Library of Medicine") +
+  geom_text(family = 'fontawesome-webfont', size = 4, label = fontawesome("fa-user")) +
+  theme(plot.title = element_text(hjust = 0.5, size = 27))
+
+
 
 cbplot2 <- waffle(of1000,
                  rows = 25,
-                 size=1,
-                 colors=c("#fe6100", "#648fff", "#ffb000", "#dc267f")) +
+                 size = 1) +
   labs(title = "Colorblindness in 1000 people",
-       caption = "Source: NIH National Library of Medicine")
+       caption = "Source: NIH National Library of Medicine") +
+  geom_text(family = 'fontawesome-webfont', size = 4, label = fontawesome("fa-user"))
+
 
 
 ## Tab 2) Color blindness test ----
@@ -422,10 +435,11 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                  # Tab 1 ----
                  tabPanel("Why Should You Care About Color Blindness?",
                           fluidRow(
-                            column(width=6,
+                            column(width=5,
                                    HTML(text1)),
 
-                            column(width=6,
+                            column(width=7,
+                                   space,
                                    plotOutput("cbplot")))),
 
 
