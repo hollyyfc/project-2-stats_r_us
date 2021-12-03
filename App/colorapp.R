@@ -22,22 +22,16 @@ library(shinythemes)
 ### Stored text for  -----
 
 text1 <- "<h1> What is color blindness? </h1>
-
 <h5> Color blindness affects approximately 1 in every 12 men and 1 in every 200 women.
 Worldwide, that works out to about 300 million people - same as the population of
 the United States. Color blindness affects a significant portion of the population,
-yet it is not often talked about. Let's continue that conversation here!</br></h5>
-
+yet it is not often talked about. Let's continue that conversation here!</br></br></h5>
 <h4>  ✨CAUSES ✨  </h4>
-
 <h5> Color blindness is almost always inherited genetically, from the mother's X
 chromosome, which is why it affects so many more men than women. However, it can also
 develop as a result of other diseases like diabetes or multiple sclerosis, or can be
 established over time as a result of aging or medication. <h5> </br>
-
-
-<h4>  ✨KINDS ✨  </h4>
-
+<h4>  ✨TYPES ✨  </h4>
 <h5> While there are seven kinds of colorblindness, we will be focusing on the four most
 common: protanopia, deuteranopia, tritanopia, and monochromatism: </br>
 <br><em><u>Protanopia</u></em> is a type of colorblindness where the L-cone (also
@@ -55,24 +49,20 @@ cones that perceive color. </h5> "
 
 
 text2 <- "
-
 <h1> Math Behind Colorblindness Filters </h1>
-
 <h5> This is an over view of math woohoo </br></h5>
-
 <h4>  Step 1  /h4>
-
 <h5> This is a tab to talk about rgb to lms <h5> </br>
-
 <h4>  Step 2  /h4>
-
 <h5> This is a tab to talk about the lms stuff filter big part. <h5> </br>
-
 <h4>  Step 3  /h4>
-
 <h5> This is a tab to to talk about simply going back to rgb. <h5> </br>
-
 "
+space <-
+  HTML(paste(" ", " ", " ", " ", " ", sep="<br/>"))
+
+smallspace <-
+  HTML(paste(" ", " ", sep="<br/>"))
 
 
 ### Data visualization for why colorblindness matters -----
@@ -84,13 +74,16 @@ of1000 = c("Color Blind Males"=80,
 
 cbplot <- waffle(of1000,
                  rows = 25,
-                 size=1,
-                 colors=c("darkblue", "dodgerblue2", "#CC0000", "lightcoral"))
+                 size = 1,
+                 colors = c("#fe6100", "#648fff", "#ffb000", "#dc267f")) +
+  labs(title = "Colorblindness in 1000 people",
+       caption = "Source: NIH National Library of Medicine") +
+  theme(plot.title = element_text(hjust = 0.5, size = 27))
 
 cbplot2 <- waffle(of1000,
-                 rows = 25,
-                 size=1,
-                 colors=c("blue", "dodgerblue1", "red", "lightcoral"))
+                  rows = 25,
+                  size=1,
+                  colors=c("blue", "dodgerblue1", "red", "lightcoral"))
 
 
 
@@ -422,10 +415,11 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                  # Tab 1 ----
                  tabPanel("Why Should You Care About Color Blindness?",
                           fluidRow(
-                            column(width=6,
+                            column(width = 6,
                                    HTML(text1)),
 
-                            column(width=6,
+                            column(width = 6,
+                                   space,
                                    plotOutput("cbplot")))),
 
 
@@ -434,7 +428,7 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                           titlePanel("Color Blind Test"),
 
                           HTML(
-                          "Want to check if you have colorblindness or color
+                            "Want to check if you have colorblindness or color
                           deficiency? Take this test! </br>
                           First, randomly choose six colors.
                           Then, navigate to the sidebar section where you choose
@@ -503,10 +497,10 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                           titlePanel("Color Blindness Filter"),
 
                           HTML(
-                          "Hopefully, the test did not suggest that you have colorblindness.
-                          However, understanding what the world looks like from
+                            "Whether or not you show symptoms of color deficiency,
+                            understanding what the world looks like from
                           the eye of people suffering from colorblindness is
-                          also important.</br>
+                           important.</br>
                           Below is an interactive colorblindness filter that simulates
                           the vision for different types and serverities of
                           colorblindness.</br>
@@ -518,36 +512,36 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                           ),
 
                           sidebarLayout(
-                          sidebarPanel(
+                            sidebarPanel(
 
-                            selectInput(inputId = "imageInput",
-                                        label = "Image:",
-                                        list("Ball Pit" = "balls",
-                                             "Flowers" = "flowers",
-                                             "Mario Brothers" = "mario",
-                                             "Parrots" = "parrots",
-                                             "Starry Night" = "starry")),
+                              selectInput(inputId = "imageInput",
+                                          label = "Image:",
+                                          list("Ball Pit" = "balls",
+                                               "Flowers" = "flowers",
+                                               "Mario Brothers" = "mario",
+                                               "Parrots" = "parrots",
+                                               "Starry Night" = "starry")),
 
-                            fileInput(inputId = "fileInput",
-                                      label = "Upload JPG:",
-                                      accept = ".jpg"),
+                              fileInput(inputId = "fileInput",
+                                        label = "Upload JPG:",
+                                        accept = ".jpg"),
 
-                            checkboxInput(inputId = "usePic",
-                                          label = "Use Upload"),
+                              checkboxInput(inputId = "usePic",
+                                            label = "Use Upload"),
 
-                            radioButtons(inputId = "filterInput",
-                                         label = "Colorblindess:",
-                                         list("Protanopia" = 1,
-                                              "Deuteranopia" = 2,
-                                              "Tritanopia" = 3,
-                                              "Monochromatism" = 4),
-                                         selected = 1),
+                              radioButtons(inputId = "filterInput",
+                                           label = "Colorblindess:",
+                                           list("Protanopia" = 1,
+                                                "Deuteranopia" = 2,
+                                                "Tritanopia" = 3,
+                                                "Monochromatism" = 4),
+                                           selected = 1),
 
-                            sliderInput(inputId = "xInput",
-                                        label = "Severity:",
-                                        min = 0, max = 1, value = 1),),
+                              sliderInput(inputId = "xInput",
+                                          label = "Severity:",
+                                          min = 0, max = 1, value = 1),),
 
-                          mainPanel(shinycssloaders::withSpinner(plotOutput("plotSlider")))
+                            mainPanel(shinycssloaders::withSpinner(plotOutput("plotSlider")))
                           )),
 
                  # Tab 4 ----
@@ -586,87 +580,87 @@ server <- function(input, output, session) {
 
   output$graph1 <- renderPlot({
 
-   plotA <- squareplot +
-            scale_fill_manual(values = c(c1(), c2(), c3(),
+    plotA <- squareplot +
+      scale_fill_manual(values = c(c1(), c2(), c3(),
                                    c4(), c5(), c6())) +
-            labs(title = "Original")
+      labs(title = "Original")
 
-   plotB <- art +
-            scale_fill_manual(values = c(c1(), c2(), c3(),
-                                         c4(), c5(), c6())) +
-            scale_color_manual(values = c(c1(), c2(), c3(),
-                                          c4(), c5(), c6()))
+    plotB <- art +
+      scale_fill_manual(values = c(c1(), c2(), c3(),
+                                   c4(), c5(), c6())) +
+      scale_color_manual(values = c(c1(), c2(), c3(),
+                                    c4(), c5(), c6()))
 
-   plotA / plotB
+    plotA / plotB
   })
 
 
 
-output$graph2 <- renderPlot({
+  output$graph2 <- renderPlot({
 
     if (cbindLet() == "A") {
-    plotA <- squareplot +
-             scale_fill_manual(values = c(proHex(c1()), proHex(c2()),
-                                          proHex(c3()), proHex(c4()),
-                                          proHex(c5()), proHex(c6())))
-    plotB <- art +
-             scale_fill_manual(values = c(proHex(c1()), proHex(c2()),
-                                          proHex(c3()), proHex(c4()),
-                                          proHex(c5()), proHex(c6())))+
-             scale_color_manual(values = c(proHex(c1()), proHex(c2()),
-                                          proHex(c3()), proHex(c4()),
-                                          proHex(c5()), proHex(c6())))
-    plotA / plotB
+      plotA <- squareplot +
+        scale_fill_manual(values = c(proHex(c1()), proHex(c2()),
+                                     proHex(c3()), proHex(c4()),
+                                     proHex(c5()), proHex(c6())))
+      plotB <- art +
+        scale_fill_manual(values = c(proHex(c1()), proHex(c2()),
+                                     proHex(c3()), proHex(c4()),
+                                     proHex(c5()), proHex(c6())))+
+        scale_color_manual(values = c(proHex(c1()), proHex(c2()),
+                                      proHex(c3()), proHex(c4()),
+                                      proHex(c5()), proHex(c6())))
+      plotA / plotB
     }
 
 
     else if (cbindLet() == "B") {
-    plotA <- squareplot +
-             scale_fill_manual(values = c(deutHex(c1()), deutHex(c2()),
-                                           deutHex(c3()), deutHex(c4()),
-                                           deutHex(c5()), deutHex(c6())))
-    plotB <- art +
-             scale_fill_manual(values = c(deutHex(c1()), deutHex(c2()),
-                                          deutHex(c3()), deutHex(c4()),
-                                          deutHex(c5()), deutHex(c6())))+
-             scale_color_manual(values = c(deutHex(c1()), deutHex(c2()),
-                                           deutHex(c3()), deutHex(c4()),
-                                           deutHex(c5()), deutHex(c6())))
-    plotA / plotB
-}
+      plotA <- squareplot +
+        scale_fill_manual(values = c(deutHex(c1()), deutHex(c2()),
+                                     deutHex(c3()), deutHex(c4()),
+                                     deutHex(c5()), deutHex(c6())))
+      plotB <- art +
+        scale_fill_manual(values = c(deutHex(c1()), deutHex(c2()),
+                                     deutHex(c3()), deutHex(c4()),
+                                     deutHex(c5()), deutHex(c6())))+
+        scale_color_manual(values = c(deutHex(c1()), deutHex(c2()),
+                                      deutHex(c3()), deutHex(c4()),
+                                      deutHex(c5()), deutHex(c6())))
+      plotA / plotB
+    }
 
     else if (cbindLet() == "C") {
-    plotA <- squareplot +
-             scale_fill_manual(values = c(triHex(c1()), triHex(c2()),
-                                          triHex(c3()), triHex(c4()),
-                                          triHex(c5()), triHex(c6())))
+      plotA <- squareplot +
+        scale_fill_manual(values = c(triHex(c1()), triHex(c2()),
+                                     triHex(c3()), triHex(c4()),
+                                     triHex(c5()), triHex(c6())))
 
-    plotB <- art +
-             scale_fill_manual(values = c(triHex(c1()), triHex(c2()),
-                                          triHex(c3()), triHex(c4()),
-                                          triHex(c5()), triHex(c6())))+
-             scale_color_manual(values = c(triHex(c1()), triHex(c2()),
-                                           triHex(c3()), triHex(c4()),
-                                           triHex(c5()), triHex(c6())))
-    plotA / plotB
+      plotB <- art +
+        scale_fill_manual(values = c(triHex(c1()), triHex(c2()),
+                                     triHex(c3()), triHex(c4()),
+                                     triHex(c5()), triHex(c6())))+
+        scale_color_manual(values = c(triHex(c1()), triHex(c2()),
+                                      triHex(c3()), triHex(c4()),
+                                      triHex(c5()), triHex(c6())))
+      plotA / plotB
     }
 
     else {
-    plotA <- squareplot +
-             scale_fill_manual(values = c(monoHex(c1()), monoHex(c2()),
-                                          monoHex(c3()), monoHex(c4()),
-                                          monoHex(c5()), monoHex(c6())))
+      plotA <- squareplot +
+        scale_fill_manual(values = c(monoHex(c1()), monoHex(c2()),
+                                     monoHex(c3()), monoHex(c4()),
+                                     monoHex(c5()), monoHex(c6())))
 
-    plotB <- art +
-             scale_fill_manual(values = c(monoHex(c1()), monoHex(c2()),
-                                          monoHex(c3()), monoHex(c4()),
-                                          monoHex(c5()), monoHex(c6())))+
-             scale_color_manual(values = c(monoHex(c1()), monoHex(c2()),
-                                           monoHex(c3()), monoHex(c4()),
-                                           monoHex(c5()), monoHex(c6())))
-    plotA / plotB
+      plotB <- art +
+        scale_fill_manual(values = c(monoHex(c1()), monoHex(c2()),
+                                     monoHex(c3()), monoHex(c4()),
+                                     monoHex(c5()), monoHex(c6())))+
+        scale_color_manual(values = c(monoHex(c1()), monoHex(c2()),
+                                      monoHex(c3()), monoHex(c4()),
+                                      monoHex(c5()), monoHex(c6())))
+      plotA / plotB
     }
-})
+  })
 
   ## Output result text
 
@@ -760,4 +754,3 @@ output$graph2 <- renderPlot({
 
 # Run app ----------------------------------------------------------------------
 shinyApp(ui, server)
-
