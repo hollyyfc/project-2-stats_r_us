@@ -623,7 +623,7 @@ monochromatism <- function(r, g, b) {
 ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
 
                  # Tab 1 ----
-                 tabPanel("Why Should You Care About Color Blindness?",
+                 tabPanel("What Is Color Blindness?",
                           fluidRow(
                             column(width = 6,
                                    HTML(text1)),
@@ -668,8 +668,6 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                                            "Choose an unknown type of
                                            colorblindness:",
                                            c("A", "B", "C", "D")),
-                              "-----------------------------------------------
-                              ------------------------",
                               HTML("<h4> Step 3 </h4>"),
                               fluidRow(
                                 HTML("<b>After comparing the two plots, check
