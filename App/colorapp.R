@@ -390,7 +390,7 @@ of1000 = c("Color Blind Males"=80,
 cbplot <- waffle(of1000,
                  rows = 25,
                  size = 1,
-                 colors = c("#fe6100", "#648fff", "#ffb000", "#dc267f")) +
+                 colors = c("#EE6677", "#4477AA", "#CCBB44", "#66CCEE")) +
   labs(title = "Colorblindness in 1000 people",
        caption = "Source: NIH National Library of Medicine") +
   theme(plot.title = element_text(hjust = 0.5, size = 27))
