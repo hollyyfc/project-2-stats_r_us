@@ -10,7 +10,7 @@ https://kateneal.shinyapps.io/exploring-colorblindness/
 
 Write-up page can be found in the last tab of the website. 
 
-All of our code for the dashboard is under `App` folder ⬇️: 
+All of our code for the dashboard is under the `App` folder ⬇️: 
 
 https://github.com/vizdata-f21/project-2-stats_r_us/blob/main/App/app.R 
 
