@@ -671,7 +671,8 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
 
                               sliderInput(inputId = "xInput",
                                           label = "Severity:",
-                                          min = 0, max = 1, value = 1),),
+                                          min = 0, max = 100,
+                                          post = "%", value = 100),),
 
                             mainPanel(shinycssloaders::withSpinner(plotOutput("plotSlider")))
                           )),
@@ -900,7 +901,7 @@ server <- function(input, output, session) {
     else if (filterUpdated() == 3) {colorblindness <<- tritanopia}
     else                           {colorblindness <<- monochromatism}
     #good news x works
-    x <<- xUpdated()
+    x <<- (xUpdated() / 100)
 
     old <- as.ggplot(expression(plot(pic,
                                      rescale = FALSE, axes = FALSE))) +
