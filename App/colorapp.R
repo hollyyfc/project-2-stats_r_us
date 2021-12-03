@@ -30,8 +30,8 @@ population, yet it is not often talked about. Let's continue that conversation
 here!</br> </br></h5>
 <h4>  ✨CAUSES ✨  </h4>
 <h5> Color blindness is almost always inherited genetically from the mother's X
-chromosome. Women usually carry the chromosome responsible for colorblindness,
-but men are more likely to inherit the condition. However, it can also
+chromosome. Because women carry the recessive condition on their X chromosome,
+men are more likely to inherit the condition. However, it can also
 develop as a result of other diseases like diabetes or multiple sclerosis,
 or can be established over time as a result of aging or medication. <h5> </br>
 <h4>  ✨TYPES ✨  </h4>
@@ -59,7 +59,7 @@ text2 <-
 <h5> Any picture on a screen is made up of many tiny pixels coded to specific
 red, green, and blue values (RGB values).
 These pixels are stored as RGB values in 3 different ways:
-three integers from 0 to 255 coresponsing to RGB values,
+three integers from 0 to 255 coresponding to RGB values,
 three decimals from 0 to 1 corresponding to a ratio of RGB values,
 or a hexidecimal string such as #FFFFFF.
 In order to maintain consistency, all of the filter functions convert these
@@ -134,7 +134,7 @@ populations around the world, so we want to acknowledge this bias in our data.
   colorblind person and (3) identifying users who may potentially be affected by
   one of the four main types of colorblindness.</p>
 
-  <h4>Math section</h4>
+  <h4>Math Section</h4>
 
 	<p>Although the math section is not the first tab in our app,
 	it provides the basis for all the filters used in the previous tabs.
@@ -165,7 +165,7 @@ populations around the world, so we want to acknowledge this bias in our data.
 	is needed to create this filter adjustment.</p>
 
 
-  <h4>Colorblind test</h4>
+  <h4>Colorblind Test</h4>
 
   <p>The “Color Blind Test'' tab provides important visual information for our
   users to understand different types of color blindness through navigating and
@@ -206,7 +206,7 @@ types of color blindness, which makes the two plots similar (or even identical,
 in rare cases). This is why added a notice encouraging users to choose their
 colors randomly, instead of focusing on shades of one or two colors.</p>
 
-  <h4>Colorblind filter </h4>
+  <h4>Colorblind Filter </h4>
 
   <p>As the second part of our interactive panel, the third tab on our website,
 “Colorblind Filter” lets users understand what the world looks like through
@@ -296,7 +296,7 @@ cbplot <- waffle(of1000,
                  rows = 25,
                  size = 1,
                  colors = c("#66CCEE", "#4477AA", "#CCBB44", "#EE6677")) +
-  labs(title = "Colorblindness in 1000 people",
+  labs(title = "Colorblindness in 1000 People",
        caption = "Source: NIH National Library of Medicine") +
   theme(plot.title = element_text(hjust = 0.5, size = 27))
 
