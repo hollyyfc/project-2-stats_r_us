@@ -85,16 +85,16 @@ of1000 = c("Color Blind Males"=80,
 cbplot <- waffle(of1000,
                  rows = 25,
                  size=1,
-                 colors=c("darkblue", "dodgerblue2", "#CC0000", "lightcoral"))
+                 colors=c("#fe6100", "#648fff", "#ffb000", "#dc267f")) +
+  labs(title = "Colorblindness in 1000 people",
+       caption = "Source: NIH National Library of Medicine")
 
 cbplot2 <- waffle(of1000,
                  rows = 25,
                  size=1,
-                 colors=c("blue", "dodgerblue1", "red", "lightcoral"))
-
-
-
-
+                 colors=c("#fe6100", "#648fff", "#ffb000", "#dc267f")) +
+  labs(title = "Colorblindness in 1000 people",
+       caption = "Source: NIH National Library of Medicine")
 
 
 ## Tab 2) Color blindness test ----
