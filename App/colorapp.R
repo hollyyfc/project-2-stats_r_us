@@ -33,8 +33,8 @@ but men are more likely to inherit the condition. However, it can also
 develop as a result of other diseases like diabetes or multiple sclerosis, or can be
 established over time as a result of aging or medication. <h5> </br>
 <h4>  ✨TYPES ✨  </h4>
-<h5> While there are seven kinds of colorblindness, we will be focusing on the four most
-common: protanopia, deuteranopia, tritanopia, and monochromatism: </br>
+<h5> While there are seven kinds of colorblindness, we will be focusing on the
+four most common: protanopia, deuteranopia, tritanopia, and monochromatism: </br>
 <br><em><u>Protanopia</u></em> is a type of colorblindness where the L-cone (also
 known as the red cone or the long-wavelength cone) is completely missing.
 People with protanopia are unable to perceive red and green. </br>
@@ -54,40 +54,51 @@ text2 <-
 <h1> Math Behind Colorblindness Filters </h1>
 
 
-<h5> Any picture on a screen is made up of many tiny pixels coded to specific red, green, and blue values (RGB values).
+<h5> Any picture on a screen is made up of many tiny pixels coded to specific
+red, green, and blue values (RGB values).
 These pixels are stored as RGB values in 3 different ways:
 three integers from 0 to 255 coresponsing to RGB values,
 three decimals from 0 to 1 corresponding to a ratio of RGB values,
 or a hexidecimal string such as #FFFFFF.
-In order to maintain consistency, all of the filter functions convert these representations of RGB into the 0 to 1 syntax. </br></h5>
+In order to maintain consistency, all of the filter functions convert these
+representations of RGB into the 0 to 1 syntax. </br></h5>
 
 <h4>  Step 1  </h4>
 <h5> Although computers interpret color through RGB values,
-humans interpret color through three different cone receptors that detect long, medium, and short wavelengths of light.
+humans interpret color through three different cone receptors that detect long,
+medium, and short wavelengths of light.
 This is known as LMS space.
 Although RGB and LMS are similar based on corresponsing wavelengths of light,
-LMS space differs because the three cones have overlap in the light wavelengths they can perceive.
-Therefore, the matrix conversions on the righthand side are needed to account for the overlap.
-The first step shows converting RGB space to LMS space with transformation matrix T. <h5> </br>
+LMS space differs because the three cones have overlap in the light wavelengths
+they can perceive.
+Therefore, the matrix conversions on the righthand side are needed to account
+for the overlap.
+The first step shows converting RGB space to LMS space with transformation
+matrix T. <h5> </br>
 
 <h4>  Step 2  </h4>
 <h5> The next step is to convert the original LMS values to colorblind LMS values.
-The first row in this step shows simulation matrix S to show what protanopia colorblindess,
-or a long cone defiecncy, looks like.
+The first row in this step shows simulation matrix S to show what protanopia
+colorblindess, or a long cone defiecncy, looks like.
 The next row in this step is important to understand the math in the final row.
-This middle row shows how to use an identity matrix for simulation matrix S to create no change in LMS values.
-The final row relates the original protanopia matrix to the identity matrix with proporiton x in order to create
-a relationship between these two matrices.
-This allows us to represent protanomaly, a partial deficiency in long cones, with value x.
-Therefore, the filter defines a measurement of 75% protanopia to when x is equal to .75.
-Simulation matrices S for the other types of colorblindess are defined at the bottom.
+This middle row shows how to use an identity matrix for simulation matrix S to
+create no change in LMS values.
+The final row relates the original protanopia matrix to the identity matrix
+with proporiton x in order to create a relationship between these two matrices.
+This allows us to represent protanomaly, a partial deficiency in long cones,
+with value x.
+Therefore, the filter defines a measurement of 75% protanopia to when x is
+equal to .75.
+Simulation matrices S for the other types of colorblindess are defined at
+the bottom.
 <h5> </br>
 
 <h4>  Step 3  </h4>
 <h5> The final step uses the inverse of transformation matrix T from step one.
 This matrix converts from LMS space to back to RGB space.
-In conclusion, RGB values were converted to LMS, an LMS colorblindness filter is applied, then the LMS values
-are converted back into RGB values for the computer to display.
+In conclusion, RGB values were converted to LMS, an LMS colorblindness filter
+is applied, then the LMS values are converted back into RGB values for the
+computer to display.
 <h5> </br>
 "
 
@@ -258,7 +269,8 @@ tags$a(href="https://www.researchgate.net/figure/A-comparison-of-the-visible-col
 
 ournames <- "<em>This project was created by Parker Dingman, Holly Cui, Sophie
 Dalldorf, and Kate Neal under the instruction of Professor Mine Cetinkaya-Rundel
-for the Fall 2021 section of STA313: Advanced Data Visualization at Duke Univeristy.</em>"
+for the Fall 2021 section of STA313: Advanced Data Visualization at Duke
+Univeristy.</em>"
 
 space <-
   HTML(paste(" ", " ", " ", " ", " ", sep="<br/>"))
@@ -637,25 +649,31 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                             column(2, colourInput("col4", "Choose 4th color")),
                             column(2, colourInput("col5", "Choose 5th color")),
                             column(2, colourInput("col6", "Choose 6th color")),
-                            style = 'padding:0px; padding-top:0px; padding-bottom:10px'
+                            style = 'padding:0px; padding-top:0px;
+                            padding-bottom:10px'
                           ),
 
                           sidebarLayout(
                             sidebarPanel(
                               HTML("<h4> Step 2 </h4>"),
                               radioButtons("colorblind",
-                                           "Choose an unknown type of colorblindness:",
+                                           "Choose an unknown type of
+                                           colorblindness:",
                                            c("A", "B", "C", "D")),
-                              "-----------------------------------------------------------------------",
+                              "-----------------------------------------------
+                              ------------------------",
                               HTML("<h4> Step 3 </h4>"),
                               fluidRow(
                                 HTML("<b>After comparing the two plots, check
-                                your result by hitting one of the buttons below:</b>"),
-                                style='padding-top:5px; padding-bottom:10px; padding-left:20px; padding-right:20px'
+                                your result by hitting one of the buttons
+                                     below:</b>"),
+                                style='padding-top:5px; padding-bottom:10px;
+                                padding-left:20px; padding-right:20px'
                               ),
                               useShinyalert(),
                               actionButton("correct",
-                                           "I can see very different colors in both plots.",
+                                           "I can see very different colors
+                                           in both plots.",
                                            icon("laugh-wink"),
                                            class = "btn-success btn-block"),
                               actionButton("check",
@@ -665,18 +683,21 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                               fluidRow(
                                 HTML("<b>***Disclaimer: This test is not a
                                      professional diagnosis.***</b>"),
-                                style='padding-top:20px; padding-bottom:10px; padding-left:20px; padding-right:10px')
+                                style='padding-top:20px; padding-bottom:10px;
+                                padding-left:20px; padding-right:10px')
                             ),
 
                             mainPanel(
                               fluidRow(
                                 column(6,
                                        offset = 0,
-                                       style='padding:0px; padding-top:0px; padding-bottom:0px',
+                                       style='padding:0px; padding-top:0px;
+                                       padding-bottom:0px',
                                        plotOutput(outputId = "graph1")),
                                 column(6,
                                        offset = 0,
-                                       style='padding:0px; padding-top:0px; padding-bottom:0px',
+                                       style='padding:0px; padding-top:0px;
+                                       padding-bottom:0px',
                                        plotOutput(outputId = "graph2"))
                               )
                             )
@@ -692,9 +713,9 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                             understanding what the world looks like from
                           the eye of people suffering from colorblindness is
                            important.</br>
-                          Below is an interactive colorblindness filter that simulates
-                          the vision for different types and serverities of
-                          colorblindness.</br>
+                          Below is an interactive colorblindness filter that
+                          simulates the vision for different types and
+                          serverities of colorblindness.</br>
                           Choose from four colorblindness types and the severity
                           adjusting the sliding scale, we have two plots
                           generated for comparison. </br>
@@ -929,7 +950,8 @@ server <- function(input, output, session) {
 
     shinyalert(
       paste0("Oops! You may have symptoms of", " ", type_color, "."),
-      "Try doing the test again with different colors \nor seek a professional colorblindness test.",
+      "Try doing the test again with different colors \nor seek a professional
+      colorblindness test.",
       type = "error")
   })
 
