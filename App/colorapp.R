@@ -265,10 +265,10 @@ smallspace <-
 
 ### Data visualizations -----
 
-of1000 = c("Color Blind Males"=80,
-           "Normal Vision Males"=420,
-           "Color Blind Females"=4,
-           "Normal Vision Feales"=496)
+of1000 = c("Color Blind Males" = 80,
+           "Normal Vision Males" = 420,
+           "Color Blind Females" = 4,
+           "Normal Vision Feales" = 496)
 
 cbplot <- waffle(of1000,
                  rows = 25,
