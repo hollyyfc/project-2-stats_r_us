@@ -21,14 +21,15 @@ library(shinythemes)
 ## Tab 1) Why color blindness matters?----
 ### Stored text for  -----
 
-text1 <- "<h1> What is color blindness? </h1>
+text1 <- "<h1> What Is Color Blindness? </h1>
 <h5> Color blindness affects approximately 1 in every 12 men and 1 in every 200 women.
 Worldwide, that works out to about 300 million people - same as the population of
 the United States. Color blindness affects a significant portion of the population,
 yet it is not often talked about. Let's continue that conversation here!</br></br></h5>
 <h4>  ✨CAUSES ✨  </h4>
-<h5> Color blindness is almost always inherited genetically, from the mother's X
-chromosome, which is why it affects so many more men than women. However, it can also
+<h5> Color blindness is almost always inherited genetically from the mother's X
+chromosome. Women usually carry the chromosome responsible for colorblindness,
+but men are more likely to inherit the condition. However, it can also
 develop as a result of other diseases like diabetes or multiple sclerosis, or can be
 established over time as a result of aging or medication. <h5> </br>
 <h4>  ✨TYPES ✨  </h4>
@@ -58,7 +59,7 @@ These pixels are stored as RGB values in 3 different ways:
 three integers from 0 to 255 coresponsing to RGB values,
 three decimals from 0 to 1 corresponding to a ratio of RGB values,
 or a hexidecimal string such as #FFFFFF.
-To maintain consistent, all of the filter functions convert these representations of RGB into the 0 to 1 syntax. </br></h5>
+In order to maintain consistency, all of the filter functions convert these representations of RGB into the 0 to 1 syntax. </br></h5>
 
 <h4>  Step 1  </h4>
 <h5> Although computers interpret color through RGB values,
@@ -73,20 +74,20 @@ The first step shows converting RGB space to LMS space with transformation matri
 <h5> The next step is to convert the original LMS values to colorblind LMS values.
 The first row in this step shows simulation matrix S to show what protanopia colorblindess,
 or a long cone defiecncy, looks like.
-The next row in this step is important to understand the math final row.
+The next row in this step is important to understand the math in the final row.
 This middle row shows how to use an identity matrix for simulation matrix S to create no change in LMS values.
 The final row relates the original protanopia matrix to the identity matrix with proporiton x in order to create
 a relationship between these two matrices.
-This allows us to represent protanomaly, or a partial deficiency in long cones with value x.
+This allows us to represent protanomaly, a partial deficiency in long cones, with value x.
 Therefore, the filter defines a measurement of 75% protanopia to when x is equal to .75.
-Simulation matrices S for the other types of colorblindess are defined below.
+Simulation matrices S for the other types of colorblindess are defined at the bottom.
 <h5> </br>
 
 <h4>  Step 3  </h4>
-<h5> The final step uses the inverse of transformation matrix T from the step one.
+<h5> The final step uses the inverse of transformation matrix T from step one.
 This matrix converts from LMS space to back to RGB space.
-In conclusion, RGB values were converted to LMS, an LMS colorblindness filter is applied, then the LMS is converted back
-into RGB values for the computer to display.
+In conclusion, RGB values were converted to LMS, an LMS colorblindness filter is applied, then the LMS values
+are converted back into RGB values for the computer to display.
 <h5> </br>
 "
 
@@ -120,6 +121,34 @@ colorblind person and (3) identifying users who may potentially be affected by
 one of the four main types of colorblindness.</p>
 
   <h4>Math section</h4>
+
+	<p>Although the math section is not the first tab in our app,
+	it provides the basis for all the filters used in the previous tabs.
+	We wanted to create a clean layout to describe the linear algebra behind
+	our different filters. In order to achieve this goal, we simplified
+	the layout into three distinct steps: converting RGB to LMS,
+	applying the LMS filter, then converting from LMS back to RGB.
+	We achieved this by clearly labeling the written explanation of steps 1-3
+	on the left half, while the matrix math of steps 1-3 are shown on the right.
+	Keeping the layout as simple as possible was a top priority.</p>
+
+	<p>While the written explanations provide direct information on the math,
+	we also wanted to make sure that the readers could better understand the
+	physiology of colorblindness. This worked out well, as understanding how
+	long, medium, and short cones differ from RGB space is necessary for
+	understanding the mathematical explanation. Physiology of colorblindness is
+	also mentioned when we discuss the overlap between what light certain cones
+	can perceive. Although this tab appears as very math heavy, it provides a
+	deeper understanding of what causes the different types of colorblindness.</p>
+
+	<p>The math section also allows us to explain what we defined as a certain
+	percentage of colorblindness. This is not clearly defined in the previous
+	colorblind filter section, so an explanation in this tab is necessary.
+	Colorblindness severity is not quantified like this in the medical community,
+	but we had to develop a way to quantify severity so the sliding scale could
+	function. In other words, a doctor would never diagnose a patient by
+	saying they have __% protanopia, but a well-defined continuous variable
+	is needed to create this filter adjustment.</p>
 
 
   <h4>Colorblind test</h4>
@@ -591,7 +620,7 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                           HTML(
                             "Want to check if you have colorblindness or color
                           deficiency? Take this test! </br>
-                          First, randomly choose six colors.
+                          First, <b>randomly</b> choose six colors.
                           Then, navigate to the sidebar section where you choose
                           an unknown type of colorblindness. </br>
                           Next, compare the newly generated plots.
@@ -599,9 +628,8 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                           button below it to check your results."
                           ),
 
-                          HTML("<h4> Step 1 </h4>
-                               <u>**Note: please choose colors as <b>randomly</b>
-                               as possible.**</u>"),
+                          HTML("<h4> Step 1 </h4>"),
+
                           fluidRow(
                             column(2, colourInput("col1", "Choose 1st color")),
                             column(2, colourInput("col2", "Choose 2nd color")),
@@ -953,7 +981,7 @@ server <- function(input, output, session) {
   output$cbmathplot <- renderImage({
 
     cbmathJPG <- normalizePath(file.path('~/R/project-2-stats_r_us/Image/cb_math.jpg'))
-    list(src = cbmathJPG, width = "85%", height = "170%")}, deleteFile = FALSE)
+    list(src = cbmathJPG, width = "95%", height = "165%")}, deleteFile = FALSE)
 
 
 }
