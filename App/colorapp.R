@@ -25,13 +25,13 @@ text1 <- "<h1> What is color blindness? </h1>
 <h5> Color blindness affects approximately 1 in every 12 men and 1 in every 200 women.
 Worldwide, that works out to about 300 million people - same as the population of
 the United States. Color blindness affects a significant portion of the population,
-yet it is not often talked about. Let's continue that conversation here!</br></h5>
+yet it is not often talked about. Let's continue that conversation here!</br></br></h5>
 <h4>  ✨CAUSES ✨  </h4>
 <h5> Color blindness is almost always inherited genetically, from the mother's X
 chromosome, which is why it affects so many more men than women. However, it can also
 develop as a result of other diseases like diabetes or multiple sclerosis, or can be
 established over time as a result of aging or medication. <h5> </br>
-<h4>  ✨KINDS ✨  </h4>
+<h4>  ✨TYPES ✨  </h4>
 <h5> While there are seven kinds of colorblindness, we will be focusing on the four most
 common: protanopia, deuteranopia, tritanopia, and monochromatism: </br>
 <br><em><u>Protanopia</u></em> is a type of colorblindness where the L-cone (also
@@ -60,6 +60,10 @@ text2 <- "
 "
 space <-
   HTML(paste(" ", " ", " ", " ", " ", sep="<br/>"))
+
+smallspace <-
+  HTML(paste(" ", " ", sep="<br/>"))
+
 
 ### Data visualization for why colorblindness matters -----
 
@@ -411,10 +415,10 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                  # Tab 1 ----
                  tabPanel("Why Should You Care About Color Blindness?",
                           fluidRow(
-                            column(width=6,
+                            column(width = 6,
                                    HTML(text1)),
 
-                            column(width=6,
+                            column(width = 6,
                                    space,
                                    plotOutput("cbplot")))),
 
