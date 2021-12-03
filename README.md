@@ -6,7 +6,9 @@ Project 2 - Stats R Us
 ### A Shiny App Focusing on Color Blindness
 Navigate to our final website at ⬇️: 
 
-Write-up page can be found here ⬇️:  
+https://kateneal.shinyapps.io/exploring-colorblindness/ 
+
+Write-up page can be found in the last tab of the website. 
 
 All codes behind the scene are under `App` folder.
 
@@ -25,7 +27,7 @@ The major Shiny-building rmd can be found here. We will be working together to w
 Since we want to build a function that can let users choose different images to apply the filters, we need to pre-gather some images and upload to our app. All the qualified images, either for testing or building purpose, will be uploaded here. 
 
 ### Background Information
-<img src="Image/colorful-flowers.jpeg" width="100%" /> 
+<img src="App/Image/colorful-flowers.jpeg" width="100%" /> 
 
 What do you see from this image? 
 Flowers, crowded, and colorful... 
@@ -64,7 +66,7 @@ Moreover, we have ‘**blue-yellow color deficiency**’, where there are two ty
 
 -   **Tritanomaly**: blue-responsive cone cells work, but not as well as a full color-sighted person.
 
-<img src="Image/balloon.jpeg" width="100%" /> 
+<img src="App/Image/balloon.jpeg" width="100%" /> 
 
 A full colorblindness is called **monochromacy**, which states that their vision might be a lot like “watching a black and white television”. 
 
