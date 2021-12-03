@@ -22,16 +22,18 @@ library(shinythemes)
 ### Stored text for  -----
 
 text1 <- "<h1> What Is Color Blindness? </h1>
-<h5> Color blindness affects approximately 1 in every 12 men and 1 in every 200 women.
+<h5> Color blindness affects approximately 1 in every 12 men and 1 in every 200
+women.
 Worldwide, that works out to about 300 million people - same as the population of
-the United States. Color blindness affects a significant portion of the population,
-yet it is not often talked about. Let's continue that conversation here!</br></br></h5>
+the United States. Color blindness affects a significant portion of the
+population, yet it is not often talked about. Let's continue that conversation
+here!</br> </br></h5>
 <h4>  ✨CAUSES ✨  </h4>
 <h5> Color blindness is almost always inherited genetically from the mother's X
 chromosome. Women usually carry the chromosome responsible for colorblindness,
 but men are more likely to inherit the condition. However, it can also
-develop as a result of other diseases like diabetes or multiple sclerosis, or can be
-established over time as a result of aging or medication. <h5> </br>
+develop as a result of other diseases like diabetes or multiple sclerosis,
+or can be established over time as a result of aging or medication. <h5> </br>
 <h4>  ✨TYPES ✨  </h4>
 <h5> While there are seven kinds of colorblindness, we will be focusing on the
 four most common: protanopia, deuteranopia, tritanopia, and monochromatism: </br>
@@ -41,12 +43,12 @@ People with protanopia are unable to perceive red and green. </br>
 <br><em><u>Deuteranopia</u></em> is a type of colorblindness where those affected
 cannot perceive green; it is caused by the absence of the M-cone (also known as
 the green cone or the medium-wavelength cone). </br>
-<br><em><u>Tritanopia</u></em> affected people cannot distinguish between blue and
-yellow due to missing S-cones (blue cones, short-wavelength cones). </br>
-<br><em><u>Monochromatism</u></em> is a type of colorblindness in which one perceives
-all colors as varying shades of gray. In other words, people with monochromatism
-cannot perceive color at all. Monochromatism is characterized by a lack of all
-cones that perceive color. </h5> "
+<br><em><u>Tritanopia</u></em> affected people cannot distinguish between blue
+and yellow due to missing S-cones (blue cones, short-wavelength cones). </br>
+<br><em><u>Monochromatism</u></em> is a type of colorblindness in which one
+perceives all colors as varying shades of gray. In other words, people with
+monochromatism cannot perceive color at all. Monochromatism is characterized
+by a lack of all cones that perceive color. </h5> "
 
 
 text2 <-
@@ -121,15 +123,16 @@ colorblindness”), and monochromatism (no color perception). We do want to note
 here that the prevalence of colorblindness has been well documented in the
 western world, namely white, European and American women and men. There is some
 research that indicates heredity and prevalence of colorblindness differ in
-populations around the world, so we want to acknowledge this bias in our data.</p>
+populations around the world, so we want to acknowledge this bias in our data.
+</p>
 
-  <p>Having taken a class on data visualizations now, we have learned more than ever
-about the importance of color: in art and aesthetic, but also in education and
-research settings. This is why we chose our topic for the final project. Our
-project has three main parts in its overall goal. (1) Educating users about
-color blindness by (2) allowing them to put themselves in the shoes of a
-colorblind person and (3) identifying users who may potentially be affected by
-one of the four main types of colorblindness.</p>
+  <p>Having taken a class on data visualizations now, we have learned more than
+  ever about the importance of color: in art and aesthetic, but also in education
+  and research settings. This is why we chose our topic for the final project.
+  Our project has three main parts in its overall goal. (1) Educating users about
+  color blindness by (2) allowing them to put themselves in the shoes of a
+  colorblind person and (3) identifying users who may potentially be affected by
+  one of the four main types of colorblindness.</p>
 
   <h4>Math section</h4>
 
@@ -164,19 +167,20 @@ one of the four main types of colorblindness.</p>
 
   <h4>Colorblind test</h4>
 
-  <p>The “Color Blind Test'' tab provides important visual information for our users
-to understand different types of color blindness through navigating and
+  <p>The “Color Blind Test'' tab provides important visual information for our
+  users to understand different types of color blindness through navigating and
 participating in a simple colorblind test. By saying “simple”, we stress that our
 test is not a professional diagnosis, so users should only take the results as a
 reminder of potential color deficiency, not a medical diagnosis.</p>
 
-  <p>The logic of our design is to let users spot the color differences between an
-original plot and a treated colorblind plot. However, unlike the traditional
+  <p>The logic of our design is to let users spot the color differences between
+  an original plot and a treated colorblind plot. However, unlike the traditional
 Ishihara color test with some colorful dots and a number in the middle, our test
-adds interactivity, where color choice and type of color blindness are user-defined.
-With six color inputs, we generate an original plot that incorporates the original
-chosen colors. We also generate a colorblind plot in the same shape as the original
-one, but with our predefined color blindness filters being applied. Here, our
+adds interactivity, where color choice and type of color blindness are
+user-defined. With six color inputs, we generate an original plot that
+incorporates the original chosen colors.
+We also generate a colorblind plot in the same shape as the original one,
+but with our predefined color blindness filters being applied. Here, our
 filter algorithm is the same as the one used in the colorblind filter tab but
 it converts HEX color code instead of RGB. We chose to employ generative art
 as a strategy to carry the randomness of colors and color blindness choices
@@ -199,8 +203,8 @@ as to not overly diagnose users as colorblind and cause unnecessary worry.</p>
 choose all six colors that look the same in both colorblind and non-colorblind
 vision? Some combinations of six color inputs do not present problems for specific
 types of color blindness, which makes the two plots similar (or even identical,
-in rare cases). This is why added a notice encouraging users to choose their colors
-randomly, instead of focusing on shades of one or two colors.</p>
+in rare cases). This is why added a notice encouraging users to choose their
+colors randomly, instead of focusing on shades of one or two colors.</p>
 
   <h4>Colorblind filter </h4>
 
@@ -208,7 +212,8 @@ randomly, instead of focusing on shades of one or two colors.</p>
 “Colorblind Filter” lets users understand what the world looks like through
 the eyes of a colorblind person. It simulates what is seen for different types
 of colorblindness at different severities. Users can choose from several built-in
-images, selected for the wide range of colors they display, or upload their own.</p>
+images, selected for the wide range of colors they display, or upload their own.
+</p>
 
   <p>The filter works by taking the input image (either from built-in images, or
   user-uploaded) and applying the matrix transformations described above to the
@@ -218,28 +223,30 @@ the scale of the transformation taking place, allowing users to see what less
 intense versions of different types of colorblindness might look like. Less
 severe protanopia is called a “protanomaly” (which is actually the most common
 kind of colorblindness), less severe deuteranopia is deuteranomaly, less severe
-tritanopia is tritanomaly. Monochromatism is the most severe type of colorblindness.</p>
+tritanopia is tritanomaly. Monochromatism is the most severe type of
+colorblindness.</p>
 
   <h3>Impact</h3>
 
-  <p>The audience of our site is people who want to learn more about color blindness,
-people looking to be tested for color blindness, and people who want to make
-their visualizations more accessible. Beyond generally gaining perspective
-about color blindness, we hope that users are encouraged to stop and think
-about the colors in their day-to-day life they may take for granted. We hope
-that our app will enable users to consider accessibility concerns in their lives.
-For example, after viewing our app, we hope that users will utilize
-colorblind-friendly colors in their next data visualizations in school or at work.
-We want to portray how important it is that we keep colorblind people in mind
-when trying to create meaningful visualizations. Here at Duke and especially in
-the Statistics Department, students make several visualizations weekly. We hope
-that our app will emphasize how important it is to use accessibility-focused
-functions and color schemes, such as scale_viridis(), to ensure colorblind
-viewers can understand and appreciate your visualizations. For example, in our
-waffle chart on the first tab of our website, we utilized colors from Paul Tol’s
-Colorblind Safe Colour Schemes, which were specifically developed for accessibility
-purposes. We are excited to see users of our website follow our lead to create
-a more inclusive society here at Duke and beyond.</p>
+  <p>The audience of our site is people who want to learn more about color
+  blindness, people looking to be tested for color blindness, and people who
+  want to make their visualizations more accessible. Beyond generally gaining
+  perspective about color blindness, we hope that users are encouraged to stop
+  and think about the colors in their day-to-day life they may take for granted.
+  We hope that our app will enable users to consider accessibility concerns
+  in their lives.
+  For example, after viewing our app, we hope that users will utilize colorblind
+  -friendly colors in their next data visualizations in school or at work.
+  We want to portray how important it is that we keep colorblind people in mind
+  when trying to create meaningful visualizations. Here at Duke and especially in
+  the Statistics Department, students make several visualizations weekly. We hope
+  that our app will emphasize how important it is to use accessibility-focused
+  functions and color schemes, such as scale_viridis(), to ensure colorblind
+  viewers can understand and appreciate your visualizations. For example, in our
+  waffle chart on the first tab of our website, we utilized colors from Paul
+  Tol’s  Colorblind Safe Colour Schemes, which were specifically developed for
+  accessibility purposes. We are excited to see users of our website follow our
+  lead to create a more inclusive society here at Duke and beyond.</p>
 "
 
 
@@ -277,6 +284,22 @@ space <-
 
 smallspace <-
   HTML(paste(" ", " ", sep="<br/>"))
+
+### Data visualizations -----
+
+of1000 = c("Color Blind Males"=80,
+           "Normal Vision Males"=420,
+           "Color Blind Females"=4,
+           "Normal Vision Feales"=496)
+
+cbplot <- waffle(of1000,
+                 rows = 25,
+                 size = 1,
+                 colors = c("#66CCEE", "#4477AA", "#CCBB44", "#EE6677")) +
+  labs(title = "Colorblindness in 1000 people",
+       caption = "Source: NIH National Library of Medicine") +
+  theme(plot.title = element_text(hjust = 0.5, size = 27))
+
 
 ## Tab 2) Color blindness test ----
 ### Define constants for matrices -----
@@ -593,21 +616,6 @@ monochromatism <- function(r, g, b) {
 
   return(rgb(rNew, gNew, bNew))
 }
-
-### Data visualizations -----
-
-of1000 = c("Color Blind Males"=80,
-           "Normal Vision Males"=420,
-           "Color Blind Females"=4,
-           "Normal Vision Feales"=496)
-
-cbplot <- waffle(of1000,
-                 rows = 25,
-                 size = 1,
-                 colors = c("#66CCEE", "#4477AA", "#CCBB44", "#EE6677")) +
-  labs(title = "Colorblindness in 1000 people",
-       caption = "Source: NIH National Library of Medicine") +
-  theme(plot.title = element_text(hjust = 0.5, size = 27))
 
 
 # Define UI for app ------------------------------------------------------------
@@ -1002,7 +1010,8 @@ server <- function(input, output, session) {
   # Tab 4 ----
   output$cbmathplot <- renderImage({
 
-    cbmathJPG <- normalizePath(file.path('~/R/project-2-stats_r_us/Image/cb_math.jpg'))
+    cbmathJPG <-
+      normalizePath(file.path('~/R/project-2-stats_r_us/Image/cb_math.jpg'))
     list(src = cbmathJPG, width = "95%", height = "165%")}, deleteFile = FALSE)
 
 
