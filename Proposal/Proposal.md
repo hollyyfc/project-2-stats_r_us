@@ -37,11 +37,11 @@ GET("https://query.data.world/s/m334npjqtx64m4ztmznpfjbencph6k", write_disk(tf <
 ```
 
     ## Response [https://download.data.world/file_download/datacrunch/prevalence-of-vision-problems-in-the-u-s/Prevelance%20of%20Eye%20Diseases%20in%20US.xlsx?auth=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9kLXVzZXItY2xpZW50OnNvcGhpZWRhbGxkb3JmIiwiaXNzIjoiYWdlbnQ6c29waGllZGFsbGRvcmY6Ojg2OWFjYzY4LTYxZjYtNGE1Yy1iNzdiLTBlMTIwMzIzNzkyNCIsImlhdCI6MTYzNjY4MDcwMSwicm9sZSI6WyJ1c2VyIiwidXNlcl9hcGlfYWRtaW4iLCJ1c2VyX2FwaV9lbnRlcnByaXNlX2FkbWluIiwidXNlcl9hcGlfcmVhZCIsInVzZXJfYXBpX3dyaXRlIl0sImdlbmVyYWwtcHVycG9zZSI6ZmFsc2UsInVybCI6ImE5MjAxMGY3MzJjNzQyZWE2M2UwNWZmM2VhMjEzNGEwNzU4ZmI2ZDAifQ.YEB-l3lhe4tpjKfz_yr1dvP6LLMuDeICFHZqq0GAUrXwQPmDoiog2pFs7ddX_bO8-BF5PJATuZ7RoxOxar8vzA]
-    ##   Date: 2021-11-12 16:17
+    ##   Date: 2021-12-03 14:00
     ##   Status: 200
     ##   Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
     ##   Size: 2.37 MB
-    ## <ON DISK>  /tmp/RtmpDLWJWE/file2f2379dc323d.xlsx
+    ## <ON DISK>  /tmp/RtmpOKHAYu/filef2735b4b2cb.xlsx
 
 ``` r
 vision_data <- read_excel(tf)
@@ -203,12 +203,11 @@ Presentation (Due December 3):
 
 **4. The final organization of your project repository.**
 
-There will be five folders created in total. Two main folders are under
+There will be three folders created in total. Two main folders are under
 the project repository, one containing the major RMD file with the Shiny
 app design and the other including all images we will be using to work
-on the different types of filters. We will also upload datasets to Data
-folder if we need further analysis. A separate presentation folder will
-also be created using xaringan. Proposal file is under its own folder.
+on the different types of filters. A separate proposal file is under its
+own folder.
 
 Folder structure:
 
@@ -217,8 +216,4 @@ Folder structure:
 
 -   Image (images that will be used on website and in the app)
 
--   Data (including potential datasets used for basic plot analysis)
-
 -   Proposal (containing Proposal.rmd and .md)
-
--   Presentation (using xaringan)

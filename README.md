@@ -3,6 +3,14 @@ Project 2 - Stats R Us
 
 *Author: Holly Cui, Sophie Dalldorf, Kate Neal, Parker Dingman*
 
+#### A Shiny App Focusing on Color Blindness
+Navigate to our final website at ⬇️: 
+
+Write-up page can be found here ⬇️:  
+
+All codes behind the scene are under `App` folder.
+
+
 
 
 <img src="Image/colorful-flowers.jpeg" width="100%" /> 
@@ -68,14 +76,6 @@ The major Shiny-building rmd can be found here. We will be working together to w
 - **Images**
 
 Since we want to build a function that can let users choose different images to apply the filters, we need to pre-gather some images and upload to our app. All the qualified images, either for testing or building purpose, will be uploaded here. 
-
-- **Data**
-
-All useful datasets about colorblindness statistics will be put under this folder. These will be mostly used for basic ggplot visualizations making. 
-
-- **Presentation**
-
-This is the folder for presentation using xaringan.
 
 
 ### Citations

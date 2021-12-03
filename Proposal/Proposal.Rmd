@@ -160,7 +160,7 @@ Presentation (Due December 3):
 
 **4. The final organization of your project repository.** 
 
-There will be five folders created in total. Two main folders are under the project repository, one containing the major RMD file with the Shiny app design and the other including all images we will be using to work on the different types of filters. We will also upload datasets to Data folder if we need further analysis. A separate presentation folder will also be created using xaringan. Proposal file is under its own folder.
+There will be three folders created in total. Two main folders are under the project repository, one containing the major RMD file with the Shiny app design and the other including all images we will be using to work on the different types of filters. A separate proposal file is under its own folder.
 
 Folder structure: 
 
@@ -168,11 +168,8 @@ Folder structure:
 
 - Image (images that will be used on website and in the app)
 
-- Data (including potential datasets used for basic plot analysis)
-
 - Proposal (containing Proposal.rmd and .md)
 
-- Presentation (using xaringan) 
 
 
 
