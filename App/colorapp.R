@@ -426,7 +426,9 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                           button below it to check your results."
                           ),
 
-                          HTML("<h4> Step 1 </h4>"),
+                          HTML("<h4> Step 1 </h4>
+                               <u>**Note: please choose colors as <b>randomly</b>
+                               as possible.**</u>"),
                           fluidRow(
                             column(2, colourInput("col1", "Choose 1st color")),
                             column(2, colourInput("col2", "Choose 2nd color")),
