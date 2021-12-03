@@ -161,6 +161,30 @@ purposes. We are excited to see users of our website follow our lead to create
 a more inclusive society here at Duke and beyond.
 "
 
+citations <-
+c(tags$a(href="https://ixora.io/projects/colorblindness/color-blindness-simulation-research/",
+         "https://ixora.io/projects/colorblindness/color-blindness-simulation-research/"),
+tags$a(href="https://psychology.wikia.org/wiki/LMS_color_space",
+       "https://psychology.wikia.org/wiki/LMS_color_space"),
+tags$a(href="https://cran.r-project.org/web/packages/imager/vignettes/gettingstarted.html",
+       "https://cran.r-project.org/web/packages/imager/vignettes/gettingstarted.html"),
+tags$a(href="https://www.bardoptical.com/color-blindness-protanopia/",
+       "https://www.bardoptical.com/color-blindness-protanopia/"),
+tags$a(href="https://www.rdocumentation.org/packages/imager/versions/0.41.2",
+       "https://www.rdocumentation.org/packages/imager/versions/0.41.2"),
+tags$a(href="https://brew.sh/",
+       "https://brew.sh/"),
+tags$a(href="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh",
+       "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"),
+tags$a(href="https://stackoverflow.com/questions/25726276/visualize-a-list-of-colors-palette-in-r",
+       "https://stackoverflow.com/questions/25726276/visualize-a-list-of-colors-palette-in-r"),
+tags$a(href="https://www.rapidtables.com/web/color/RGB_Color.html",
+       "https://www.rapidtables.com/web/color/RGB_Color.html"),
+tags$a(href="https://data.world/dilumr/color-names/workspace/file?filename=wikipedia_x11_colors.csv",
+       "https://data.world/dilumr/color-names/workspace/file?filename=wikipedia_x11_colors.csv"),
+tags$a(href="https://www.researchgate.net/figure/A-comparison-of-the-visible-color-spectrum-in-common-types-of-color-blindness_fig2_316448379",
+       "https://www.researchgate.net/figure/A-comparison-of-the-visible-color-spectrum-in-common-types-of-color-blindness_fig2_316448379"))
+
 space <-
   HTML(paste(" ", " ", " ", " ", " ", sep="<br/>"))
 
@@ -649,10 +673,45 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                  # Tab 5 ----
                  tabPanel("Writeup & Acknowledgements",
                           fluidRow(
-                            column(width = 6,
-                                   HTML(tab5text)),
+                            column(width = 8,
+                                   HTML(tab5text),
+                                   space,
+                                   tags$a(href="https://ixora.io/projects/colorblindness/color-blindness-simulation-research/",
+                                          "https://ixora.io/projects/colorblindness/color-blindness-simulation-research/"),
+                                   smallspace,
+                                   tags$a(href="https://psychology.wikia.org/wiki/LMS_color_space",
+                                          "https://psychology.wikia.org/wiki/LMS_color_space"),
+                                   smallspace,
+                                   tags$a(href="https://cran.r-project.org/web/packages/imager/vignettes/gettingstarted.html",
+                                          "https://cran.r-project.org/web/packages/imager/vignettes/gettingstarted.html"),
+                                   smallspace,
+                                   tags$a(href="https://www.bardoptical.com/color-blindness-protanopia/",
+                                          "https://www.bardoptical.com/color-blindness-protanopia/"),
+                                   smallspace,
+                                   tags$a(href="https://www.rdocumentation.org/packages/imager/versions/0.41.2",
+                                          "https://www.rdocumentation.org/packages/imager/versions/0.41.2"),
+                                   smallspace,
+                                   tags$a(href="https://brew.sh/",
+                                          "https://brew.sh/"),
+                                   smallspace,
+                                   tags$a(href="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh",
+                                          "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"),
+                                   smallspace,
+                                   tags$a(href="https://stackoverflow.com/questions/25726276/visualize-a-list-of-colors-palette-in-r",
+                                          "https://stackoverflow.com/questions/25726276/visualize-a-list-of-colors-palette-in-r"),
+                                   smallspace,
+                                   tags$a(href="https://www.rapidtables.com/web/color/RGB_Color.html",
+                                          "https://www.rapidtables.com/web/color/RGB_Color.html"),
+                                   smallspace,
+                                   tags$a(href="https://data.world/dilumr/color-names/workspace/file?filename=wikipedia_x11_colors.csv",
+                                          "https://data.world/dilumr/color-names/workspace/file?filename=wikipedia_x11_colors.csv"),
+                                   smallspace,
+                                   tags$a(href="https://www.researchgate.net/figure/A-comparison-of-the-visible-color-spectrum-in-common-types-of-color-blindness_fig2_316448379",
+                                          "https://www.researchgate.net/figure/A-comparison-of-the-visible-color-spectrum-in-common-types-of-color-blindness_fig2_316448379"),
+                                   smallspace),
 
-                            column(width = 6)))
+
+                            column(width = 4)))
 
 )
 
