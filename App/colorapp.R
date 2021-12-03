@@ -497,10 +497,10 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                           titlePanel("Color Blindness Filter"),
 
                           HTML(
-                            "Hopefully, the test did not suggest that you have colorblindness.
-                          However, understanding what the world looks like from
+                            "Whether or not you show symptoms of color deficiency,
+                            understanding what the world looks like from
                           the eye of people suffering from colorblindness is
-                          also important.</br>
+                           important.</br>
                           Below is an interactive colorblindness filter that simulates
                           the vision for different types and serverities of
                           colorblindness.</br>
