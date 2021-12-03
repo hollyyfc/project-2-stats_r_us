@@ -647,7 +647,12 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                                    plotOutput("cbmathplot")))),
 
                  # Tab 5 ----
-                 tabPanel("Writeup & Acknowledgements")
+                 tabPanel("Writeup & Acknowledgements",
+                          fluidRow(
+                            column(width = 6,
+                                   HTML(tab5text)),
+
+                            column(width = 6)))
 
 )
 
