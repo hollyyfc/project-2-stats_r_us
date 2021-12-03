@@ -198,7 +198,7 @@ tags$a(href="https://www.researchgate.net/figure/A-comparison-of-the-visible-col
 
 ournames <- "<em>This project was created by Parker Dingman, Holly Cui, Sophie
 Dalldorf, and Kate Neal under the instruction of Professor Mine Cetinkaya-Rundel
-for the fall 2021 section of STA313: Advanced Data Visualization at Duke Univeristy.</em>"
+for the Fall 2021 section of STA313: Advanced Data Visualization at Duke Univeristy.</em>"
 
 space <-
   HTML(paste(" ", " ", " ", " ", " ", sep="<br/>"))
@@ -690,7 +690,8 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                           fluidRow(
                             column(width = 8,
                                    HTML(ournames, tab5text),
-                                   space,
+                                   smallspace,
+                                   h4("References"),
                                    tags$a(href="https://ixora.io/projects/colorblindness/color-blindness-simulation-research/",
                                           "https://ixora.io/projects/colorblindness/color-blindness-simulation-research/"),
                                    smallspace,
