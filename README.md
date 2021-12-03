@@ -3,16 +3,28 @@ Project 2 - Stats R Us
 
 *Author: Holly Cui, Sophie Dalldorf, Kate Neal, Parker Dingman*
 
-#### A Shiny App Focusing on Color Blindness
+### A Shiny App Focusing on Color Blindness
 Navigate to our final website at ⬇️: 
 
 Write-up page can be found here ⬇️:  
 
 All codes behind the scene are under `App` folder.
 
+### Table of contents
 
+- **Proposal**
 
+Please find the real `Proposal.rmd` under this folder along with the `Proposal.md` for reading conveniency. We have most of the project details listed here. 
 
+- **App**
+
+The major Shiny-building rmd can be found here. We will be working together to write the codes. Individual rmds may also be added here later if we need basic ggplots for our website in terms of analyzing colorblindness statistics. 
+
+- **Images**
+
+Since we want to build a function that can let users choose different images to apply the filters, we need to pre-gather some images and upload to our app. All the qualified images, either for testing or building purpose, will be uploaded here. 
+
+### Background Information
 <img src="Image/colorful-flowers.jpeg" width="100%" /> 
 
 What do you see from this image? 
@@ -58,24 +70,6 @@ A full colorblindness is called **monochromacy**, which states that their vision
 
 For more information, please refer to this website regarding details about what colors people with colorblindness will actually see: https://my.clevelandclinic.org/health/diseases/11604-color-blindness 
 
-
-
-
-
-
-### Table of contents
-
-- **Proposal**
-
-Please find the real `Proposal.rmd` under this folder along with the `Proposal.md` for reading conveniency. We have most of the project details listed here. 
-
-- **App**
-
-The major Shiny-building rmd can be found here. We will be working together to write the codes. Individual rmds may also be added here later if we need basic ggplots for our website in terms of analyzing colorblindness statistics. 
-
-- **Images**
-
-Since we want to build a function that can let users choose different images to apply the filters, we need to pre-gather some images and upload to our app. All the qualified images, either for testing or building purpose, will be uploaded here. 
 
 
 ### Citations
