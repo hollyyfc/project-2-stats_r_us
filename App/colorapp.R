@@ -60,13 +60,15 @@ text2 <- "
 "
 
 tab5text <- "
-Introduction
-The goal we decided to tackle for our final project was to design an R-shiny
+<h3>Introduction</h3>
+
+  <p>The goal we decided to tackle for our final project was to design an R-shiny
 based web app to increase awareness and understanding of colorblindness. In this
 writeup, we will give some background on colorblindness and the relevance of our
 project, discuss the functionality of the application itself, and discuss the
-audience and overall impact of the site.
-1 in 12 men, and 1 in 200 women are color blind, which accounts for 300 million
+audience and overall impact of the site.</p>
+
+  <p>1 in 12 men, and 1 in 200 women are color blind, which accounts for 300 million
 people around the world. Color blindness is widespread, and is usually caused by
 genetics, though it can also be caused by diabetes, multiple sclerosis, or aging.
 There are 7 types of colorblindness, and we chose to focus on the four most
@@ -76,41 +78,28 @@ colorblindness”), and monochromatism (no color perception). We do want to note
 here that the prevalence of colorblindness has been well documented in the
 western world, namely white, European and American women and men. There is some
 research that indicates heredity and prevalence of colorblindness differ in
-populations around the world, so we want to acknowledge this bias in our data.
-Having taken a class on data visualizations now, we have learned more than ever
+populations around the world, so we want to acknowledge this bias in our data.</p>
+
+  <p>Having taken a class on data visualizations now, we have learned more than ever
 about the importance of color: in art and aesthetic, but also in education and
 research settings. This is why we chose our topic for the final project. Our
 project has three main parts in its overall goal. (1) Educating users about
 color blindness by (2) allowing them to put themselves in the shoes of a
 colorblind person and (3) identifying users who may potentially be affected by
-one of the four main types of colorblindness.
+one of the four main types of colorblindness.</p>
 
-Math section
+  <h4>Math section</h4>
 
 
-Colorblind filter section
-As the second part of our interactive panel, the third tab on our website,
-“Colorblind Filter” lets users understand what the world looks like through
-the eyes of a colorblind person. It simulates what is seen for different types
-of colorblindness at different severities. Users can choose from several built-in
-images, selected for the wide range of colors they display, or upload their own.
-The filter works by taking the input image (either from built-in images, or
-user-uploaded) and applying the matrix transformations described above to the
-RGB values in the image. Each different type of colorblindness takes a different
-transformation. Moving the sliding scale for severity of colorblindness changes
-the scale of the transformation taking place, allowing users to see what less
-intense versions of different types of colorblindness might look like. Less
-severe protanopia is called a “protanomaly” (which is actually the most common
-kind of colorblindness), less severe deuteranopia is deuteranomaly, less severe
-tritanopia is tritanomaly. Monochromatism is the most severe type of colorblindness.
+  <h4>Colorblind test</h4>
 
-Colorblind test section
-The “Color Blind Test'' tab provides important visual information for our users
+  <p>The “Color Blind Test'' tab provides important visual information for our users
 to understand different types of color blindness through navigating and
 participating in a simple colorblind test. By saying “simple”, we stress that our
 test is not a professional diagnosis, so users should only take the results as a
-reminder of potential color deficiency, not a medical diagnosis.
-The logic of our design is to let users spot the color differences between an
+reminder of potential color deficiency, not a medical diagnosis.</p>
+
+  <p>The logic of our design is to let users spot the color differences between an
 original plot and a treated colorblind plot. However, unlike the traditional
 Ishihara color test with some colorful dots and a number in the middle, our test
 adds interactivity, where color choice and type of color blindness are user-defined.
@@ -124,24 +113,45 @@ while having a consistent aesthetic. We also have two mutated stacked bar
 charts at the top of the art plots indicating the color choices that users
 make along with the titles. We keep the filtered plot named “Colorblind” instead
 of “Protanopia” or “Tritanopia” because we don’t want to tell the users on which
-type of colorblindness they are testing.
-After the two plots are generated, users report if they see distinct color
+type of colorblindness they are testing.</p>
+
+  <p> After the two plots are generated, users report if they see distinct color
 differences between the plots by clicking on either the green (meaning they can
 see “very different colors”) or red (meaning they see “similar colors”) button.
 When they hit the button, a corresponding result message will pop up with the
 information of what type of color blindness is represented and a general
 suggestion. One note about the buttons is that we specifically phrased our
 language as “very different” and “similar.” We made this distinction very clear
-as to not overly diagnose users as colorblind and cause unnecessary worry.
-One limitation of this test is the freedom of color choices: what if users
+as to not overly diagnose users as colorblind and cause unnecessary worry.</p>
+
+  <p>One limitation of this test is the freedom of color choices: what if users
 choose all six colors that look the same in both colorblind and non-colorblind
 vision? Some combinations of six color inputs do not present problems for specific
-types of color blindness, which makes the two plots similar (or even identical, in
-rare cases). This is why added a notice encouraging users to choose their colors
-randomly, instead of focusing on shades of one or two colors.
+types of color blindness, which makes the two plots similar (or even identical,
+in rare cases). This is why added a notice encouraging users to choose their colors
+randomly, instead of focusing on shades of one or two colors.</p>
 
-Conclusion/impact section?
-The audience of our site is people who want to learn more about color blindness,
+  <h4>Colorblind filter </h4>
+
+  <p>As the second part of our interactive panel, the third tab on our website,
+“Colorblind Filter” lets users understand what the world looks like through
+the eyes of a colorblind person. It simulates what is seen for different types
+of colorblindness at different severities. Users can choose from several built-in
+images, selected for the wide range of colors they display, or upload their own.</p>
+
+  <p>The filter works by taking the input image (either from built-in images, or
+  user-uploaded) and applying the matrix transformations described above to the
+RGB values in the image. Each different type of colorblindness takes a different
+transformation. Moving the sliding scale for severity of colorblindness changes
+the scale of the transformation taking place, allowing users to see what less
+intense versions of different types of colorblindness might look like. Less
+severe protanopia is called a “protanomaly” (which is actually the most common
+kind of colorblindness), less severe deuteranopia is deuteranomaly, less severe
+tritanopia is tritanomaly. Monochromatism is the most severe type of colorblindness.</p>
+
+  <h3>Impact</h3>
+
+  <p>The audience of our site is people who want to learn more about color blindness,
 people looking to be tested for color blindness, and people who want to make
 their visualizations more accessible. Beyond generally gaining perspective
 about color blindness, we hope that users are encouraged to stop and think
@@ -158,8 +168,9 @@ viewers can understand and appreciate your visualizations. For example, in our
 waffle chart on the first tab of our website, we utilized colors from Paul Tol’s
 Colorblind Safe Colour Schemes, which were specifically developed for accessibility
 purposes. We are excited to see users of our website follow our lead to create
-a more inclusive society here at Duke and beyond.
+a more inclusive society here at Duke and beyond.</p>
 "
+
 
 citations <-
 c(tags$a(href="https://ixora.io/projects/colorblindness/color-blindness-simulation-research/",
@@ -184,6 +195,10 @@ tags$a(href="https://data.world/dilumr/color-names/workspace/file?filename=wikip
        "https://data.world/dilumr/color-names/workspace/file?filename=wikipedia_x11_colors.csv"),
 tags$a(href="https://www.researchgate.net/figure/A-comparison-of-the-visible-color-spectrum-in-common-types-of-color-blindness_fig2_316448379",
        "https://www.researchgate.net/figure/A-comparison-of-the-visible-color-spectrum-in-common-types-of-color-blindness_fig2_316448379"))
+
+ournames <- "<em>This project was created by Parker Dingman, Holly Cui, Sophie
+Dalldorf, and Kate Neal under the instruction of Professor Mine Cetinkaya-Rundel
+for the fall 2021 section of STA313: Advanced Data Visualization at Duke Univeristy.</em>"
 
 space <-
   HTML(paste(" ", " ", " ", " ", " ", sep="<br/>"))
@@ -517,7 +532,7 @@ of1000 = c("Color Blind Males"=80,
 cbplot <- waffle(of1000,
                  rows = 25,
                  size = 1,
-                 colors = c("#EE6677", "#4477AA", "#CCBB44", "#66CCEE")) +
+                 colors = c("#66CCEE", "#4477AA", "#CCBB44", "#EE6677")) +
   labs(title = "Colorblindness in 1000 people",
        caption = "Source: NIH National Library of Medicine") +
   theme(plot.title = element_text(hjust = 0.5, size = 27))
@@ -674,7 +689,7 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                  tabPanel("Writeup & Acknowledgements",
                           fluidRow(
                             column(width = 8,
-                                   HTML(tab5text),
+                                   HTML(ournames, tab5text),
                                    space,
                                    tags$a(href="https://ixora.io/projects/colorblindness/color-blindness-simulation-research/",
                                           "https://ixora.io/projects/colorblindness/color-blindness-simulation-research/"),
@@ -711,7 +726,8 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                                    smallspace),
 
 
-                            column(width = 4)))
+                            column(width = 4,
+                                   )))
 
 )
 
