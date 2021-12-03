@@ -14,7 +14,6 @@ library(waffle)
 library(colourpicker)
 library(ggtern)
 library(shinythemes)
-library(rsconnect)
 
 
 
