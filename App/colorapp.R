@@ -731,7 +731,7 @@ output$graph2 <- renderPlot({
     else if (filterUpdated() == 2) {colorblindness <<- deuteranopia}
     else if (filterUpdated() == 3) {colorblindness <<- tritanopia}
     else                           {colorblindness <<- monochromatism}
-    #good news x was easy
+    #good news x works
     x <<- xUpdated()
 
     old <- as.ggplot(expression(plot(pic,
