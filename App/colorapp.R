@@ -48,15 +48,46 @@ cannot perceive color at all. Monochromatism is characterized by a lack of all
 cones that perceive color. </h5> "
 
 
-text2 <- "
+text2 <-
+"
 <h1> Math Behind Colorblindness Filters </h1>
-<h5> This is an over view of math woohoo </br></h5>
-<h4>  Step 1  /h4>
-<h5> This is a tab to talk about rgb to lms <h5> </br>
-<h4>  Step 2  /h4>
-<h5> This is a tab to talk about the lms stuff filter big part. <h5> </br>
-<h4>  Step 3  /h4>
-<h5> This is a tab to to talk about simply going back to rgb. <h5> </br>
+
+
+<h5> Any picture on a screen is made up of many tiny pixels coded to specific red, green, and blue values (RGB values).
+These pixels are stored as RGB values in 3 different ways:
+three integers from 0 to 255 coresponsing to RGB values,
+three decimals from 0 to 1 corresponding to a ratio of RGB values,
+or a hexidecimal string such as #FFFFFF.
+To maintain consistent, all of the filter functions convert these representations of RGB into the 0 to 1 syntax. </br></h5>
+
+<h4>  Step 1  </h4>
+<h5> Although computers interpret color through RGB values,
+humans interpret color through three different cone receptors that detect long, medium, and short wavelengths of light.
+This is known as LMS space.
+Although RGB and LMS are similar based on corresponsing wavelengths of light,
+LMS space differs because the three cones have overlap in the light wavelengths they can perceive.
+Therefore, the matrix conversions on the righthand side are needed to account for the overlap.
+The first step shows converting RGB space to LMS space with transformation matrix T. <h5> </br>
+
+<h4>  Step 2  </h4>
+<h5> The next step is to convert the original LMS values to colorblind LMS values.
+The first row in this step shows simulation matrix S to show what protanopia colorblindess,
+or a long cone defiecncy, looks like.
+The next row in this step is important to understand the math final row.
+This middle row shows how to use an identity matrix for simulation matrix S to create no change in LMS values.
+The final row relates the original protanopia matrix to the identity matrix with proporiton x in order to create
+a relationship between these two matrices.
+This allows us to represent protanomaly, or a partial deficiency in long cones with value x.
+Therefore, the filter defines a measurement of 75% protanopia to when x is equal to .75.
+Simulation matrices S for the other types of colorblindess are defined below.
+<h5> </br>
+
+<h4>  Step 3  </h4>
+<h5> The final step uses the inverse of transformation matrix T from the step one.
+This matrix converts from LMS space to back to RGB space.
+In conclusion, RGB values were converted to LMS, an LMS colorblindness filter is applied, then the LMS is converted back
+into RGB values for the computer to display.
+<h5> </br>
 "
 
 tab5text <- "
@@ -922,7 +953,7 @@ server <- function(input, output, session) {
   output$cbmathplot <- renderImage({
 
     cbmathJPG <- normalizePath(file.path('~/R/project-2-stats_r_us/Image/cb_math.jpg'))
-    list(src = cbmathJPG, width = "90%", height = "190%")}, deleteFile = FALSE)
+    list(src = cbmathJPG, width = "85%", height = "170%")}, deleteFile = FALSE)
 
 
 }
