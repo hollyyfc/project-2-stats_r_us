@@ -491,11 +491,11 @@ art <-
 
 ## Tab 3) Color blindness Filter ----
 ### Load data and images -----
-balls <- load.image('~/R/project-2-stats_r_us/Image/ball.jpeg')
-flowers <- load.image('~/R/project-2-stats_r_us/Image/flower.jpeg')
-mario <- load.image('~/R/project-2-stats_r_us/Image/super-mario.jpeg')
+balls <- load.image('~/R/project-2-stats_r_us/App/Image/ball.jpeg')
+flowers <- load.image('~/R/project-2-stats_r_us/App/Image/flower.jpeg')
+mario <- load.image('~/R/project-2-stats_r_us/App/Image/super-mario.jpeg')
 parrots <- load.image(system.file("extdata/parrots.png", package = "imager"))
-starry <- load.image('~/R/project-2-stats_r_us/Image/starry-night.jpeg')
+starry <- load.image('~/R/project-2-stats_r_us/App/Image/starry-night.jpeg')
 
 ### Slider functions for RGB converting(with constants) -----
 protanopia <- function(r, g, b) {
