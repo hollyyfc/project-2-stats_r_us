@@ -13,6 +13,7 @@ library(shinybusy)
 library(waffle)
 library(colourpicker)
 library(ggtern)
+library(shinythemes)
 
 
 
@@ -47,10 +48,32 @@ cannot perceive green; it is caused by the absence of the M-cone (also known as
 the green cone or the medium-wavelength cone). </br>
 <br><em><u>Tritanopia</u></em> affected people cannot distinguish between blue and
 yellow due to missing S-cones (blue cones, short-wavelength cones). </br>
-<br><em><u>monochromatism</u></em> is a type of colorblindness in which one perceives
+<br><em><u>Monochromatism</u></em> is a type of colorblindness in which one perceives
 all colors as varying shades of gray. In other words, people with monochromatism
 cannot perceive color at all. Monochromatism is characterized by a lack of all
 cones that perceive color. </h5> "
+
+
+text2 <- "
+
+<h1> Math Behind Colorblindness Filters </h1>
+
+<h5> This is an over view of math woohoo </br></h5>
+
+<h4>  Step 1  /h4>
+
+<h5> This is a tab to talk about rgb to lms <h5> </br>
+
+<h4>  Step 2  /h4>
+
+<h5> This is a tab to talk about the lms stuff filter big part. <h5> </br>
+
+<h4>  Step 3  /h4>
+
+<h5> This is a tab to to talk about simply going back to rgb. <h5> </br>
+
+"
+
 
 ### Data visualization for why colorblindness matters -----
 
@@ -64,6 +87,10 @@ cbplot <- waffle(of1000,
                  size=1,
                  colors=c("darkblue", "dodgerblue2", "#CC0000", "lightcoral"))
 
+cbplot2 <- waffle(of1000,
+                 rows = 25,
+                 size=1,
+                 colors=c("blue", "dodgerblue1", "red", "lightcoral"))
 
 
 
@@ -412,7 +439,7 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                           First, randomly choose six colors.
                           Then, navigate to the sidebar section where you choose
                           an unknown type of colorblindness. </br>
-                          Next, compare the newly generated plots.</br>
+                          Next, compare the newly generated plots.
                           Finally, choose the green button on top or red
                           button below it to check your results."
                           ),
@@ -476,14 +503,14 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                           titlePanel("Color Blindness Filter"),
 
                           HTML(
-                          "Hopefully, you have tested normal for your color vision.
-                          However, understanding what the world looks like in
+                          "Hopefully, the test did not suggest that you have colorblindness.
+                          However, understanding what the world looks like from
                           the eye of people suffering from colorblindness is
                           also important.</br>
-                          Here, we build a colorblindness filter that simulate
-                          the color vision of different types and degrees of
+                          Below is an interactive colorblindness filter that simulates
+                          the vision for different types and serverities of
                           colorblindness.</br>
-                          By choosing from four colorblindness types and
+                          Choose from four colorblindness types and the severity
                           adjusting the sliding scale, we have two plots
                           generated for comparison. </br>
                           Besides built-in images, you can also <u>upload
@@ -524,7 +551,13 @@ ui <- navbarPage(theme = shinytheme("united"), em("Exploring Color Blindness"),
                           )),
 
                  # Tab 4 ----
-                 tabPanel("The Math: Explained"),
+                 tabPanel("The Math: Explained",
+                          fluidRow(
+                            column(width=6,
+                                   HTML(text2)),
+
+                            column(width=6,
+                                   plotOutput("cbplot2")))),
 
                  # Tab 5 ----
                  tabPanel("Writeup & Acknowledgements")
@@ -715,6 +748,12 @@ output$graph2 <- renderPlot({
 
     old + new
   })
+
+  # Tab 4 ----
+  output$cbplot2 <- renderPlot({
+    cbplot2
+  })
+
 }
 
 
