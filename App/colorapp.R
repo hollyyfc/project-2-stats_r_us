@@ -735,7 +735,7 @@ server <- function(input, output, session) {
   output$cbmathplot <- renderImage({
 
     cbmathJPG <- normalizePath(file.path('~/R/project-2-stats_r_us/Image/cb_math.jpg'))
-    list(src = cbmathJPG, width = width, height = height)}, deleteFile = FALSE)
+    list(src = cbmathJPG, width = "90%", height = "190%")}, deleteFile = FALSE)
 
 
 }
