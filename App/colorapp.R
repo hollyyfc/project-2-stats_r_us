@@ -58,6 +58,109 @@ text2 <- "
 <h4>  Step 3  /h4>
 <h5> This is a tab to to talk about simply going back to rgb. <h5> </br>
 "
+
+tab5text <- "
+Introduction
+The goal we decided to tackle for our final project was to design an R-shiny
+based web app to increase awareness and understanding of colorblindness. In this
+writeup, we will give some background on colorblindness and the relevance of our
+project, discuss the functionality of the application itself, and discuss the
+audience and overall impact of the site.
+1 in 12 men, and 1 in 200 women are color blind, which accounts for 300 million
+people around the world. Color blindness is widespread, and is usually caused by
+genetics, though it can also be caused by diabetes, multiple sclerosis, or aging.
+There are 7 types of colorblindness, and we chose to focus on the four most
+common ones (following in order). Protanopia (commonly known as “red-green
+colorblindness”), Deuteranopia (cannot perceive green), Tritanopia (“blue-yellow
+colorblindness”), and monochromatism (no color perception). We do want to note
+here that the prevalence of colorblindness has been well documented in the
+western world, namely white, European and American women and men. There is some
+research that indicates heredity and prevalence of colorblindness differ in
+populations around the world, so we want to acknowledge this bias in our data.
+Having taken a class on data visualizations now, we have learned more than ever
+about the importance of color: in art and aesthetic, but also in education and
+research settings. This is why we chose our topic for the final project. Our
+project has three main parts in its overall goal. (1) Educating users about
+color blindness by (2) allowing them to put themselves in the shoes of a
+colorblind person and (3) identifying users who may potentially be affected by
+one of the four main types of colorblindness.
+
+Math section
+
+
+Colorblind filter section
+As the second part of our interactive panel, the third tab on our website,
+“Colorblind Filter” lets users understand what the world looks like through
+the eyes of a colorblind person. It simulates what is seen for different types
+of colorblindness at different severities. Users can choose from several built-in
+images, selected for the wide range of colors they display, or upload their own.
+The filter works by taking the input image (either from built-in images, or
+user-uploaded) and applying the matrix transformations described above to the
+RGB values in the image. Each different type of colorblindness takes a different
+transformation. Moving the sliding scale for severity of colorblindness changes
+the scale of the transformation taking place, allowing users to see what less
+intense versions of different types of colorblindness might look like. Less
+severe protanopia is called a “protanomaly” (which is actually the most common
+kind of colorblindness), less severe deuteranopia is deuteranomaly, less severe
+tritanopia is tritanomaly. Monochromatism is the most severe type of colorblindness.
+
+Colorblind test section
+The “Color Blind Test'' tab provides important visual information for our users
+to understand different types of color blindness through navigating and
+participating in a simple colorblind test. By saying “simple”, we stress that our
+test is not a professional diagnosis, so users should only take the results as a
+reminder of potential color deficiency, not a medical diagnosis.
+The logic of our design is to let users spot the color differences between an
+original plot and a treated colorblind plot. However, unlike the traditional
+Ishihara color test with some colorful dots and a number in the middle, our test
+adds interactivity, where color choice and type of color blindness are user-defined.
+With six color inputs, we generate an original plot that incorporates the original
+chosen colors. We also generate a colorblind plot in the same shape as the original
+one, but with our predefined color blindness filters being applied. Here, our
+filter algorithm is the same as the one used in the colorblind filter tab but
+it converts HEX color code instead of RGB. We chose to employ generative art
+as a strategy to carry the randomness of colors and color blindness choices
+while having a consistent aesthetic. We also have two mutated stacked bar
+charts at the top of the art plots indicating the color choices that users
+make along with the titles. We keep the filtered plot named “Colorblind” instead
+of “Protanopia” or “Tritanopia” because we don’t want to tell the users on which
+type of colorblindness they are testing.
+After the two plots are generated, users report if they see distinct color
+differences between the plots by clicking on either the green (meaning they can
+see “very different colors”) or red (meaning they see “similar colors”) button.
+When they hit the button, a corresponding result message will pop up with the
+information of what type of color blindness is represented and a general
+suggestion. One note about the buttons is that we specifically phrased our
+language as “very different” and “similar.” We made this distinction very clear
+as to not overly diagnose users as colorblind and cause unnecessary worry.
+One limitation of this test is the freedom of color choices: what if users
+choose all six colors that look the same in both colorblind and non-colorblind
+vision? Some combinations of six color inputs do not present problems for specific
+types of color blindness, which makes the two plots similar (or even identical, in
+rare cases). This is why added a notice encouraging users to choose their colors
+randomly, instead of focusing on shades of one or two colors.
+
+Conclusion/impact section?
+The audience of our site is people who want to learn more about color blindness,
+people looking to be tested for color blindness, and people who want to make
+their visualizations more accessible. Beyond generally gaining perspective
+about color blindness, we hope that users are encouraged to stop and think
+about the colors in their day-to-day life they may take for granted. We hope
+that our app will enable users to consider accessibility concerns in their lives.
+For example, after viewing our app, we hope that users will utilize
+colorblind-friendly colors in their next data visualizations in school or at work.
+We want to portray how important it is that we keep colorblind people in mind
+when trying to create meaningful visualizations. Here at Duke and especially in
+the Statistics Department, students make several visualizations weekly. We hope
+that our app will emphasize how important it is to use accessibility-focused
+functions and color schemes, such as scale_viridis(), to ensure colorblind
+viewers can understand and appreciate your visualizations. For example, in our
+waffle chart on the first tab of our website, we utilized colors from Paul Tol’s
+Colorblind Safe Colour Schemes, which were specifically developed for accessibility
+purposes. We are excited to see users of our website follow our lead to create
+a more inclusive society here at Duke and beyond.
+"
+
 space <-
   HTML(paste(" ", " ", " ", " ", " ", sep="<br/>"))
 
