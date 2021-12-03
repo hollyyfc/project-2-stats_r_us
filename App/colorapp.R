@@ -22,6 +22,8 @@ library(shinythemes)
 ### Stored text for  -----
 
 text1 <- "<h1> What Is Color Blindness? </h1>
+<p> </p>
+<h4>  ✨PREVALENCE ✨  </h4>
 <h5> Color blindness affects approximately 1 in every 12 men and 1 in every 200
 women.
 Worldwide, that works out to about 300 million people - same as the population of
